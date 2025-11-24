@@ -10,7 +10,7 @@ const HeadmasterMessage = () => {
           {/* Image Section */}
           <div className="w-full md:w-1/3 flex justify-center">
             <div className="relative">
-              <div className="absolute inset-0 bg-blue-600 rounded-lg transform translate-x-3 translate-y-3"></div>
+              <div className="absolute inset-0 rounded-lg transform translate-x-3 translate-y-3"></div>
               <img 
                 src="/headmaster.png" 
                 alt="Headmaster" 
@@ -23,7 +23,7 @@ const HeadmasterMessage = () => {
           <div className="w-full md:w-2/3">
             <div className="flex items-center mb-4">
               <div className="h-1 w-12 bg-blue-600 mr-3"></div>
-              <h2 className="text-blue-600 font-bold uppercase tracking-wide text-sm">Headmaster's Message</h2>
+              <h2 className="text-blue-600 font-bold uppercase tracking-wide text-sm">Head Teacher's Message</h2>
             </div>
             
             <h3 className="text-3xl md:text-4xl font-bold text-gray-800 mb-6">
@@ -45,8 +45,7 @@ const HeadmasterMessage = () => {
 
             <div className="mt-8">
               <h4 className="text-xl font-bold text-gray-800">Md. Abdul Karim</h4>
-              <p className="text-blue-600 font-medium">Headmaster</p>
-              <p className="text-gray-500 text-sm">M.Ed, University of Dhaka</p>
+              <p className="text-blue-600 font-medium">Head Teacher</p>
             </div>
           </div>
 

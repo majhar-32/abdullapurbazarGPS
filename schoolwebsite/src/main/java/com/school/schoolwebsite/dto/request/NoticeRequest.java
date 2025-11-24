@@ -22,16 +22,21 @@ public class NoticeRequest {
 
   private Boolean isUrgent;
 
+  private String attachmentUrl;
+
+  private Boolean showInTicker;
+
   public NoticeRequest() {
   }
 
   public NoticeRequest(String title, String description, NoticeCategory category, LocalDate publishDate,
-      Boolean isUrgent) {
+      Boolean isUrgent, String attachmentUrl) {
     this.title = title;
     this.description = description;
     this.category = category;
     this.publishDate = publishDate;
     this.isUrgent = isUrgent;
+    this.attachmentUrl = attachmentUrl;
   }
 
   public String getTitle() {
@@ -72,5 +77,21 @@ public class NoticeRequest {
 
   public void setIsUrgent(Boolean isUrgent) {
     this.isUrgent = isUrgent;
+  }
+
+  public String getAttachmentUrl() {
+    return attachmentUrl;
+  }
+
+  public void setAttachmentUrl(String attachmentUrl) {
+    this.attachmentUrl = attachmentUrl;
+  }
+
+  public Boolean getShowInTicker() {
+    return showInTicker;
+  }
+
+  public void setShowInTicker(Boolean showInTicker) {
+    this.showInTicker = showInTicker;
   }
 }

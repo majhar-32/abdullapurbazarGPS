@@ -49,13 +49,14 @@ const Gallery = () => {
                   {/* Thumbnail */}
                   <div className="h-48 bg-gray-200 relative overflow-hidden group">
                     <img 
-                      src={event.thumbnail} 
+                      src={event.thumbnailUrl ? (event.thumbnailUrl.startsWith('http') ? event.thumbnailUrl : `http://localhost:8080/uploads/${event.thumbnailUrl}`) : "https://via.placeholder.com/300?text=No+Image"} 
                       alt={event.title} 
                       className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                      onError={(e) => {
+                        console.error("Gallery Image Load Error:", e.target.src);
+                        e.target.src = "https://via.placeholder.com/300?text=Image+Not+Found";
+                      }}
                     />
-                    <div className="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-30 transition-all duration-300 flex items-center justify-center">
-                      <ImageIcon className="text-white opacity-0 group-hover:opacity-100 transform scale-50 group-hover:scale-100 transition-all duration-300" size={32} />
-                    </div>
                   </div>
 
                   {/* Content */}
@@ -65,7 +66,9 @@ const Gallery = () => {
                       {event.eventDate}
                     </div>
                     <h3 className="text-xl font-bold text-gray-800 mb-3 line-clamp-2">{event.title}</h3>
-                    <p className="text-gray-600 text-sm mb-4 line-clamp-3 flex-grow">{event.description}</p>
+                    <p className="text-gray-600 text-sm mb-4 line-clamp-3 flex-grow">
+                      {event.description?.replace(/<[^>]+>/g, '')}
+                    </p>
                     
                     <Link 
                       to={`/gallery/${event.id}`} 

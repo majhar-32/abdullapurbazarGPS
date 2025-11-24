@@ -1,7 +1,9 @@
 package com.school.schoolwebsite.controller;
 
 import com.school.schoolwebsite.dto.request.NoticeRequest;
+import com.school.schoolwebsite.dto.request.TickerSettingsRequest;
 import com.school.schoolwebsite.dto.response.NoticeResponse;
+import com.school.schoolwebsite.dto.response.TickerSettingsResponse;
 import com.school.schoolwebsite.enums.NoticeCategory;
 import com.school.schoolwebsite.service.NoticeService;
 import jakarta.validation.Valid;
@@ -42,6 +44,17 @@ public class NoticeController {
     return ResponseEntity.ok(noticeService.getUrgentNotices());
   }
 
+  // Ticker endpoints (public)
+  @GetMapping("/ticker")
+  public ResponseEntity<List<NoticeResponse>> getTickerNotices() {
+    return ResponseEntity.ok(noticeService.getTickerNotices());
+  }
+
+  @GetMapping("/ticker/settings")
+  public ResponseEntity<TickerSettingsResponse> getTickerSettings() {
+    return ResponseEntity.ok(noticeService.getTickerSettings());
+  }
+
   @PostMapping
   public ResponseEntity<NoticeResponse> createNotice(
       @Valid @RequestBody NoticeRequest request,
@@ -62,5 +75,12 @@ public class NoticeController {
   public ResponseEntity<Void> deleteNotice(@PathVariable Long id) {
     noticeService.deleteNotice(id);
     return ResponseEntity.noContent().build();
+  }
+
+  // Admin ticker settings endpoint
+  @PutMapping("/ticker/settings")
+  public ResponseEntity<TickerSettingsResponse> updateTickerSettings(
+      @Valid @RequestBody TickerSettingsRequest request) {
+    return ResponseEntity.ok(noticeService.updateTickerSettings(request));
   }
 }

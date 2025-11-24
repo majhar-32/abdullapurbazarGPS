@@ -75,9 +75,12 @@ const EventList = () => {
             {/* Thumbnail */}
             <div className="h-48 bg-gray-200 relative">
               <img
-                src={event.thumbnailUrl}
+                src={event.thumbnailUrl?.startsWith('http') ? event.thumbnailUrl : `http://localhost:8080/uploads/${event.thumbnailUrl}`}
                 alt={event.title}
                 className="w-full h-full object-cover"
+                onError={(e) => {
+                  e.target.src = "https://via.placeholder.com/150?text=No+Image";
+                }}
               />
             </div>
 

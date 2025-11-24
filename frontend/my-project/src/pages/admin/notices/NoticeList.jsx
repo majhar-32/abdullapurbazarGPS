@@ -104,6 +104,9 @@ const NoticeList = () => {
               <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                 Status
               </th>
+              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                Attachment
+              </th>
               <th className="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">
                 Actions
               </th>
@@ -134,6 +137,17 @@ const NoticeList = () => {
                   <span className="px-2 py-1 text-xs bg-green-100 text-green-600 rounded-full">
                     Published
                   </span>
+                </td>
+                <td className="px-6 py-4">
+                  {notice.attachmentUrl ? (
+                    <span className="px-2 py-1 text-xs bg-gray-100 text-gray-600 rounded-full">
+                      Yes
+                    </span>
+                  ) : (
+                    <span className="px-2 py-1 text-xs bg-gray-50 text-gray-400 rounded-full">
+                      No
+                    </span>
+                  )}
                 </td>
                 <td className="px-6 py-4 text-right">
                   <div className="flex justify-end space-x-2">

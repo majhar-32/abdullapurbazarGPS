@@ -13,20 +13,54 @@ const EventCreate = () => {
   const [thumbnail, setThumbnail] = useState([]);
   const [galleryImages, setGalleryImages] = useState([]);
 
+  const uploadFile = async (file) => {
+    const formData = new FormData();
+    formData.append('file', file);
+    try {
+      // Use the api instance from services/api.js if possible, or fetch directly
+      const token = localStorage.getItem('token');
+      const response = await fetch('http://localhost:8080/api/upload', {
+        method: 'POST',
+        headers: {
+          'Authorization': `Bearer ${token}`
+        },
+        body: formData
+      });
+      
+      if (!response.ok) {
+        throw new Error('File upload failed');
+      }
+      
+      const data = await response.json();
+      return data.fileName;
+    } catch (error) {
+      console.error('Error uploading file:', error);
+      throw error;
+    }
+  };
+
   const onSubmit = async (data) => {
     try {
-      // For now, we'll just use the file name as the URL since we don't have a file upload endpoint yet
-      const thumbnailFile = thumbnail[0]?.file;
-      const galleryFiles = galleryImages.map(img => img.file);
+      let uploadedThumbnailUrl = '';
+      if (thumbnail.length > 0 && thumbnail[0].file) {
+        uploadedThumbnailUrl = await uploadFile(thumbnail[0].file);
+      }
+
+      const uploadedGalleryUrls = [];
+      if (galleryImages.length > 0) {
+        for (const img of galleryImages) {
+          if (img.file) {
+            const url = await uploadFile(img.file);
+            uploadedGalleryUrls.push(url);
+          }
+        }
+      }
 
       const eventData = {
         ...data,
         description,
-        thumbnailUrl: thumbnailFile ? URL.createObjectURL(thumbnailFile) : '', // Temporary: use object URL for local preview or file name
-        // In a real app, you would upload the file first, get the URL, and send that.
-        // For this demo, we'll send a placeholder or the object URL if it's short enough (it's not).
-        // Let's just send a dummy URL for now to satisfy the backend.
-        thumbnailUrl: 'https://placehold.co/600x400', 
+        thumbnailUrl: uploadedThumbnailUrl,
+        imageUrls: uploadedGalleryUrls,
         videoUrl: data.videoUrl || '',
       };
       

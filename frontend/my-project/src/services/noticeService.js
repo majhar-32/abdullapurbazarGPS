@@ -41,4 +41,20 @@ export const noticeService = {
   delete: async (id) => {
     await api.delete(`/notices/${id}`);
   },
+
+  // Ticker-related methods
+  getTickerNotices: async () => {
+    const response = await api.get('/notices/ticker');
+    return response.data;
+  },
+
+  getTickerSettings: async () => {
+    const response = await api.get('/notices/ticker/settings');
+    return response.data;
+  },
+
+  updateTickerSettings: async (settings) => {
+    const response = await api.put('/notices/ticker/settings', settings);
+    return response.data;
+  },
 };

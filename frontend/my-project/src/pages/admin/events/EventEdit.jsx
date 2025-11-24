@@ -29,9 +29,15 @@ const EventEdit = () => {
       setDescription(data.description);
       
       if (data.thumbnailUrl) {
-        setThumbnail([{ preview: data.thumbnailUrl, name: 'Thumbnail' }]);
+        const url = data.thumbnailUrl.startsWith('http') ? data.thumbnailUrl : `http://localhost:8080/uploads/${data.thumbnailUrl}`;
+        setThumbnail([{ preview: url, name: 'Thumbnail' }]);
       }
-      // Note: Gallery images handling would go here
+      if (data.imageUrls && data.imageUrls.length > 0) {
+        setGalleryImages(data.imageUrls.map(url => ({ 
+          preview: url.startsWith('http') ? url : `http://localhost:8080/uploads/${url}`, 
+          name: 'Image' 
+        })));
+      }
     } catch (error) {
       console.error('Error fetching event:', error);
       alert('Failed to fetch event details');
@@ -41,12 +47,55 @@ const EventEdit = () => {
     }
   };
 
+  const uploadFile = async (file) => {
+    const formData = new FormData();
+    formData.append('file', file);
+    try {
+      const token = localStorage.getItem('token');
+      const response = await fetch('http://localhost:8080/api/upload', {
+        method: 'POST',
+        headers: {
+          'Authorization': `Bearer ${token}`
+        },
+        body: formData
+      });
+      
+      if (!response.ok) {
+        throw new Error('File upload failed');
+      }
+      
+      const data = await response.json();
+      return data.fileName;
+    } catch (error) {
+      console.error('Error uploading file:', error);
+      throw error;
+    }
+  };
+
   const onSubmit = async (data) => {
     try {
+      let uploadedThumbnailUrl = thumbnail[0]?.preview || '';
+      if (thumbnail.length > 0 && thumbnail[0].file) {
+        uploadedThumbnailUrl = await uploadFile(thumbnail[0].file);
+      }
+
+      const uploadedGalleryUrls = [];
+      if (galleryImages.length > 0) {
+        for (const img of galleryImages) {
+          if (img.file) {
+            const url = await uploadFile(img.file);
+            uploadedGalleryUrls.push(url);
+          } else if (img.preview) {
+            uploadedGalleryUrls.push(img.preview);
+          }
+        }
+      }
+
       const eventData = {
         ...data,
         description,
-        thumbnailUrl: 'https://placehold.co/600x400', // Keep dummy for now
+        thumbnailUrl: uploadedThumbnailUrl,
+        imageUrls: uploadedGalleryUrls,
         videoUrl: data.videoUrl || '',
       };
       

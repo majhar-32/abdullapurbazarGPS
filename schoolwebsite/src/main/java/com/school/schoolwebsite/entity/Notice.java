@@ -42,11 +42,17 @@ public class Notice {
   @Column(name = "updated_at")
   private LocalDateTime updatedAt;
 
+  @Column(name = "attachment_url")
+  private String attachmentUrl;
+
+  @Column(name = "show_in_ticker", nullable = false)
+  private Boolean showInTicker = false;
+
   public Notice() {
   }
 
   public Notice(Long id, String title, String description, NoticeCategory category, LocalDate publishDate,
-      Boolean isUrgent, User createdBy, LocalDateTime createdAt, LocalDateTime updatedAt) {
+      Boolean isUrgent, User createdBy, LocalDateTime createdAt, LocalDateTime updatedAt, String attachmentUrl) {
     this.id = id;
     this.title = title;
     this.description = description;
@@ -56,6 +62,7 @@ public class Notice {
     this.createdBy = createdBy;
     this.createdAt = createdAt;
     this.updatedAt = updatedAt;
+    this.attachmentUrl = attachmentUrl;
   }
 
   @PrePersist
@@ -139,5 +146,21 @@ public class Notice {
 
   public void setUpdatedAt(LocalDateTime updatedAt) {
     this.updatedAt = updatedAt;
+  }
+
+  public String getAttachmentUrl() {
+    return attachmentUrl;
+  }
+
+  public void setAttachmentUrl(String attachmentUrl) {
+    this.attachmentUrl = attachmentUrl;
+  }
+
+  public Boolean getShowInTicker() {
+    return showInTicker;
+  }
+
+  public void setShowInTicker(Boolean showInTicker) {
+    this.showInTicker = showInTicker;
   }
 }

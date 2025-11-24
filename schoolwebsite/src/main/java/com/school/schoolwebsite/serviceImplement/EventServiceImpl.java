@@ -31,6 +31,19 @@ public class EventServiceImpl implements EventService {
     event.setThumbnailUrl(request.getThumbnailUrl());
     event.setVideoUrl(request.getVideoUrl());
 
+    if (request.getImageUrls() != null && !request.getImageUrls().isEmpty()) {
+      List<EventMedia> mediaList = request.getImageUrls().stream()
+          .map(url -> {
+            EventMedia media = new EventMedia();
+            media.setMediaUrl(url);
+            media.setMediaType(com.school.schoolwebsite.enums.MediaType.IMAGE);
+            media.setEvent(event);
+            return media;
+          })
+          .collect(Collectors.toList());
+      event.setMediaList(mediaList);
+    }
+
     Event savedEvent = eventRepository.save(event);
     return mapToResponse(savedEvent);
   }
@@ -46,6 +59,21 @@ public class EventServiceImpl implements EventService {
     event.setEventDate(request.getEventDate());
     event.setThumbnailUrl(request.getThumbnailUrl());
     event.setVideoUrl(request.getVideoUrl());
+
+    // Clear existing media and add new ones
+    event.getMediaList().clear();
+    if (request.getImageUrls() != null && !request.getImageUrls().isEmpty()) {
+      List<EventMedia> mediaList = request.getImageUrls().stream()
+          .map(url -> {
+            EventMedia media = new EventMedia();
+            media.setMediaUrl(url);
+            media.setMediaType(com.school.schoolwebsite.enums.MediaType.IMAGE);
+            media.setEvent(event);
+            return media;
+          })
+          .collect(Collectors.toList());
+      event.getMediaList().addAll(mediaList);
+    }
 
     Event updatedEvent = eventRepository.save(event);
     return mapToResponse(updatedEvent);

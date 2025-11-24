@@ -15,12 +15,15 @@ public class NoticeResponse {
   private String createdBy;
   private LocalDateTime createdAt;
   private LocalDateTime updatedAt;
+  private String attachmentUrl;
+  private Boolean showInTicker;
 
   public NoticeResponse() {
   }
 
   public NoticeResponse(Long id, String title, String description, NoticeCategory category, LocalDate publishDate,
-      Boolean isUrgent, String createdBy, LocalDateTime createdAt, LocalDateTime updatedAt) {
+      Boolean isUrgent, String createdBy, LocalDateTime createdAt, LocalDateTime updatedAt, String attachmentUrl,
+      Boolean showInTicker) {
     this.id = id;
     this.title = title;
     this.description = description;
@@ -30,6 +33,8 @@ public class NoticeResponse {
     this.createdBy = createdBy;
     this.createdAt = createdAt;
     this.updatedAt = updatedAt;
+    this.attachmentUrl = attachmentUrl;
+    this.showInTicker = showInTicker;
   }
 
   public Long getId() {
@@ -102,5 +107,21 @@ public class NoticeResponse {
 
   public void setUpdatedAt(LocalDateTime updatedAt) {
     this.updatedAt = updatedAt;
+  }
+
+  public String getAttachmentUrl() {
+    return attachmentUrl;
+  }
+
+  public void setAttachmentUrl(String attachmentUrl) {
+    this.attachmentUrl = attachmentUrl;
+  }
+
+  public Boolean getShowInTicker() {
+    return showInTicker;
+  }
+
+  public void setShowInTicker(Boolean showInTicker) {
+    this.showInTicker = showInTicker;
   }
 }

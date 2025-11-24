@@ -1,13 +1,50 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { Bell } from 'lucide-react';
+import { noticeService } from '../../services/noticeService';
 
 const NoticeTicker = () => {
-  const notices = [
-    "School will remain closed tomorrow due to public holiday.",
-    "Annual sports day registration is open.",
-    "Class 5 scholarship exam results will be published next week."
-  ];
+  const [notices, setNotices] = useState([]);
+  const [settings, setSettings] = useState({
+    scrollSpeed: 'MEDIUM',
+    maxItems: 10,
+    enabled: true
+  });
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const [noticesData, settingsData] = await Promise.all([
+          noticeService.getTickerNotices(),
+          noticeService.getTickerSettings()
+        ]);
+        
+        setNotices(noticesData);
+        setSettings(settingsData);
+      } catch (error) {
+        console.error('Failed to fetch ticker data:', error);
+      } finally {
+        setLoading(false);
+      }
+    };
+    
+    fetchData();
+  }, []);
+
+  // Don't show ticker if disabled or no notices
+  if (!settings.enabled || notices.length === 0 || loading) {
+    return null;
+  }
+
+  // Map scroll speed to duration
+  const getDuration = () => {
+    switch (settings.scrollSpeed) {
+      case 'SLOW': return 30;
+      case 'FAST': return 15;
+      default: return 20; // MEDIUM
+    }
+  };
 
   return (
     <div className="bg-blue-900 text-white py-2 overflow-hidden flex items-center">
@@ -21,11 +58,11 @@ const NoticeTicker = () => {
           <motion.div 
             className="whitespace-nowrap absolute"
             animate={{ x: ["100%", "-100%"] }}
-            transition={{ repeat: Infinity, duration: 20, ease: "linear" }}
+            transition={{ repeat: Infinity, duration: getDuration(), ease: "linear" }}
           >
             {notices.map((notice, index) => (
-              <span key={index} className="mr-12 text-sm md:text-base">
-                {notice} •
+              <span key={notice.id || index} className="mr-12 text-sm md:text-base">
+                {notice.title} •
               </span>
             ))}
           </motion.div>

@@ -1,23 +1,43 @@
 import React from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { Calendar, ArrowLeft, PlayCircle, Image as ImageIcon } from 'lucide-react';
+import { eventService } from '../services/eventService';
 
 const EventDetails = () => {
   const { id } = useParams();
 
-  // In a real app, fetch data based on ID. Here we mock it.
-  const event = {
-    id: id,
-    title: "Annual Sports Day 2024",
-    date: "February 15, 2024",
-    description: "The Annual Sports Day 2024 was a grand success. Students from all classes participated in various events including 100m race, relay race, long jump, and high jump. The event started with a march past by the students, followed by the oath-taking ceremony. The Headmaster inaugurated the event by releasing balloons. Parents and guardians were also present to encourage the young athletes.",
-    images: [
-      "/slider1.png", "/slider2.png", "/slider3.png", "/slider1.png", "/slider2.png", "/slider3.png"
-    ],
-    videos: [
-      "https://www.youtube.com/embed/dQw4w9WgXcQ" // Dummy video link
-    ]
-  };
+  const [event, setEvent] = React.useState(null);
+  const [loading, setLoading] = React.useState(true);
+
+  React.useEffect(() => {
+    const fetchEvent = async () => {
+      try {
+        const data = await eventService.getById(id);
+        setEvent(data);
+      } catch (err) {
+        console.error('Failed to load event details', err);
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchEvent();
+  }, [id]);
+
+  if (loading) {
+    return (
+      <div className="flex items-center justify-center min-h-screen">
+        <p className="text-gray-600">Loading details...</p>
+      </div>
+    );
+  }
+
+  if (!event) {
+    return (
+      <div className="flex items-center justify-center min-h-screen">
+        <p className="text-red-500">Event not found</p>
+      </div>
+    );
+  }
 
   return (
     <div className="bg-gray-50 min-h-screen py-12">
@@ -32,65 +52,60 @@ const EventDetails = () => {
         <div className="bg-white rounded-xl shadow-sm p-8 mb-8 border border-gray-100">
           <div className="flex items-center text-blue-600 mb-3">
             <Calendar size={18} className="mr-2" />
-            <span className="font-medium">{event.date}</span>
+            <span className="font-medium">{event.eventDate}</span>
           </div>
           <h1 className="text-3xl md:text-4xl font-bold text-gray-800 mb-6">{event.title}</h1>
-          <p className="text-gray-600 leading-relaxed text-lg">
-            {event.description}
-          </p>
+          <div 
+            className="text-gray-600 leading-relaxed text-lg prose max-w-none"
+            dangerouslySetInnerHTML={{ __html: event.description }}
+          />
         </div>
 
+        {/* Image Gallery Section */}
+        {event.imageUrls && event.imageUrls.length > 0 && (
+          <div className="mb-12">
+            <h2 className="text-2xl font-bold text-gray-800 mb-6 flex items-center">
+              <ImageIcon className="mr-3 text-blue-600" /> Event Photos
+            </h2>
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+              {event.imageUrls.map((img, index) => (
+                <div key={index} className="aspect-square bg-gray-200 rounded-lg overflow-hidden shadow-sm hover:shadow-md transition-all cursor-pointer group relative">
+                  <img 
+                    src={img ? (img.startsWith('http') ? img : `http://localhost:8080/uploads/${img}`) : "https://via.placeholder.com/150?text=No+Image"} 
+                    alt={`Event ${index + 1}`} 
+                    className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" 
+                    onError={(e) => {
+                      console.error("Failed to load image:", e.target.src);
+                      e.target.src = "https://via.placeholder.com/150?text=Image+Not+Found";
+                    }}
+                  />
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
+
         {/* Video Section */}
-        <div className="mb-12">
-          <h2 className="text-2xl font-bold text-gray-800 mb-6 flex items-center">
-            <PlayCircle className="mr-3 text-red-600" /> Event Videos
-          </h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            {event.videos.map((video, index) => (
-              <div key={index} className="aspect-video bg-black rounded-xl overflow-hidden shadow-md">
+        {event.videoUrl && (
+          <div className="mb-12">
+            <h2 className="text-2xl font-bold text-gray-800 mb-6 flex items-center">
+              <PlayCircle className="mr-3 text-red-600" /> Event Videos
+            </h2>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <div className="aspect-video bg-black rounded-xl overflow-hidden shadow-md">
                 <iframe 
                   width="100%" 
                   height="100%" 
-                  src={video} 
+                  src={event.videoUrl} 
                   title="Event Video" 
                   frameBorder="0" 
                   allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
                   allowFullScreen
                 ></iframe>
               </div>
-            ))}
-            {/* Placeholder for adding more videos */}
-            <div className="aspect-video bg-gray-200 rounded-xl border-2 border-dashed border-gray-400 flex flex-col items-center justify-center text-gray-500">
-              <PlayCircle size={48} className="mb-2 opacity-50" />
-              <p>Video Placeholder</p>
-              <span className="text-xs">(Add more video embeds here)</span>
             </div>
           </div>
-        </div>
-
-        {/* Image Gallery Section */}
-        <div>
-          <h2 className="text-2xl font-bold text-gray-800 mb-6 flex items-center">
-            <ImageIcon className="mr-3 text-blue-600" /> Event Photos
-          </h2>
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-            {event.images.map((img, index) => (
-              <div key={index} className="aspect-square bg-gray-200 rounded-lg overflow-hidden shadow-sm hover:shadow-md transition-all cursor-pointer group relative">
-                <img 
-                  src={img} 
-                  alt={`Event ${index + 1}`} 
-                  className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" 
-                />
-                <div className="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-20 transition-all duration-300"></div>
-              </div>
-            ))}
-            {/* Placeholder for adding more images */}
-            <div className="aspect-square bg-gray-100 rounded-lg border-2 border-dashed border-gray-300 flex flex-col items-center justify-center text-gray-400 hover:bg-gray-200 transition-colors cursor-pointer">
-              <ImageIcon size={32} className="mb-2 opacity-50" />
-              <p>Add Photos</p>
-            </div>
-          </div>
-        </div>
+        )}
 
       </div>
     </div>

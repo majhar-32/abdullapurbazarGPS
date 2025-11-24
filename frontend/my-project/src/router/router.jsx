@@ -25,6 +25,7 @@ import NoticeEdit from '../pages/admin/notices/NoticeEdit';
 import EventList from '../pages/admin/events/EventList';
 import EventCreate from '../pages/admin/events/EventCreate';
 import EventEdit from '../pages/admin/events/EventEdit';
+import TickerSettings from '../pages/admin/settings/TickerSettings';
 
 export const router = createBrowserRouter([
   {
@@ -125,6 +126,10 @@ export const router = createBrowserRouter([
       {
         path: 'events/edit/:id',
         element: <EventEdit />,
+      },
+      {
+        path: 'settings/ticker',
+        element: <TickerSettings />,
       },
     ],
   },

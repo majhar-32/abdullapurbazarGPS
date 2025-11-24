@@ -18,7 +18,7 @@ const Sidebar = ({ isCollapsed, setIsCollapsed }) => {
     { name: 'Notices', path: '/admin/notices', icon: Bell },
     { name: 'Events', path: '/admin/events', icon: Calendar },
     { name: 'Teachers', path: '/admin/teachers', icon: Users },
-    { name: 'Settings', path: '/admin/settings', icon: Settings },
+    { name: 'Ticker Settings', path: '/admin/settings/ticker', icon: Settings },
   ];
 
   const isActive = (path) => location.pathname === path;

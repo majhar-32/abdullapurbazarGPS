@@ -17,7 +17,7 @@ const Contact = () => {
           {/* Left Column: Map */}
           <div className="w-full lg:w-2/3 bg-white rounded-xl shadow-sm p-2 border border-gray-100 h-[400px] lg:h-auto min-h-[400px]">
             <iframe 
-              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3651.832981759508!2d90.37562557605774!3d23.7533311786711!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3755b8a5a7a7a7a7%3A0x1234567890abcdef!2sDhaka%2C%20Bangladesh!5e0!3m2!1sen!2sbd!4v1680000000000!5m2!1sen!2sbd" 
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3539.1175993764627!2d91.16263037524321!3d24.39012357823937!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3756b3a54240c88b%3A0xc6693233ad90ea79!2sAbdullahpur%20Bazar%20Government%20Primary%20School!5e1!3m2!1sen!2sbd!4v1764010844688!5m2!1sen!2sbd" 
               width="100%" 
               height="100%" 
               style={{ border: 0, borderRadius: '0.75rem' }} 
@@ -26,6 +26,7 @@ const Contact = () => {
               referrerPolicy="no-referrer-when-downgrade"
               title="School Location"
             ></iframe>
+            
           </div>
 
           {/* Right Column: Contact Info */}
@@ -45,8 +46,8 @@ const Contact = () => {
                   <div>
                     <h3 className="font-bold text-blue-800 mb-1">Address</h3>
                     <p className="text-gray-600 text-sm leading-relaxed">
-                      Village Name, Post Office,<br />
-                      Upazila Name, District - 1234
+                      Abdullapur<br />
+                      Austagram, Kishoreganj - 2371
                     </p>
                   </div>
                 </div>
@@ -68,7 +69,7 @@ const Contact = () => {
                   </div>
                   <div>
                     <h3 className="font-bold text-blue-800 mb-1">Email</h3>
-                    <p className="text-gray-600 text-sm">info@villagegps.edu.bd</p>
+                    <p className="text-gray-600 text-sm">info@abgps.edu.bd</p>
                   </div>
                 </div>
               </div>
@@ -78,7 +79,7 @@ const Contact = () => {
             <div className="bg-white rounded-xl shadow-sm p-8 text-center border border-gray-100">
               <h3 className="text-xl font-bold text-gray-800 mb-6">Follow Us</h3>
               <div className="flex justify-center space-x-4">
-                <a href="#" className="bg-blue-50 p-3 rounded-full text-blue-600 hover:bg-blue-600 hover:text-white transition-all duration-300">
+                <a href="https://www.facebook.com/profile.php?id=100015057793581" className="bg-blue-50 p-3 rounded-full text-blue-600 hover:bg-blue-600 hover:text-white transition-all duration-300">
                   <Facebook size={20} />
                 </a>
                 <a href="#" className="bg-blue-50 p-3 rounded-full text-blue-600 hover:bg-blue-600 hover:text-white transition-all duration-300">

@@ -22,7 +22,7 @@ const Navbar = () => {
       dropdown: [
         { name: 'History', path: '/history' },
         { name: 'Committee', path: '/committee' },
-        { name: 'Headmaster', path: '/headmaster' },
+        { name: 'Head Teacher', path: '/headmaster' },
         { name: 'Teachers', path: '/teachers' }
       ]
     },
@@ -47,10 +47,10 @@ const Navbar = () => {
         <div className="flex justify-between items-center h-16">
           {/* Logo and School Name */}
           <Link to="/" className="flex items-center space-x-3">
-            <img src="/logo.png" alt="Logo" className="h-10 w-10 rounded-full bg-white p-1" />
+            <img src="/logo.png" alt="Logo" className="h-13 w-13 rounded-full p-1" />
             <div className="hidden md:block">
-              <h1 className="text-lg font-bold leading-tight">Village Government Primary School</h1>
-              <p className="text-xs text-blue-200">Est. 1990 | Building the Future</p>
+              <h1 className="text-lg font-bold leading-tight">Abdullaput Bazar GPS</h1>
+              <p className="text-xs text-blue-200">Est. 1977</p>
             </div>
           </Link>
 
