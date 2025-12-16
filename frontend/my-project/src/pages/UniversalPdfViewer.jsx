@@ -11,6 +11,13 @@ pdfjs.GlobalWorkerOptions.workerSrc = new URL(
   import.meta.url,
 ).toString();
 
+// Suppress PDF warnings
+const originalConsoleWarn = console.warn;
+console.warn = (...args) => {
+  if (args[0] && typeof args[0] === 'string' && args[0].includes('getHexString')) return;
+  originalConsoleWarn.apply(console, args);
+};
+
 const SkeletonLoader = () => (
   <div className="container mx-auto px-4 py-8 animate-pulse">
     <div className="max-w-4xl mx-auto bg-white rounded-lg shadow-lg overflow-hidden">
@@ -38,7 +45,9 @@ const UniversalPdfViewer = ({ pageKey }) => {
     const fetchPageContent = async () => {
       try {
         setLoading(true);
-        const response = await fetch(`http://localhost:8080/api/pages/${pageKey}`);
+        setError(null); // Reset error state
+        setPageContent(null); // Reset content state
+        const response = await fetch(`http://localhost:5002/api/pages/${pageKey}`);
         if (!response.ok) {
           if (response.status === 404) {
             setError('Page not found');
@@ -47,8 +56,16 @@ const UniversalPdfViewer = ({ pageKey }) => {
           }
         } else {
           const data = await response.json();
-          if (data.visible) {
-            setPageContent(data);
+          // Map backend snake_case to frontend camelCase
+          const mappedData = {
+            ...data,
+            pdfUrl: data.pdf_url || data.pdfUrl,
+            updatedAt: data.updated_at || data.updatedAt,
+            visible: data.is_visible !== undefined ? data.is_visible : data.visible,
+          };
+
+          if (mappedData.visible) {
+            setPageContent(mappedData);
           } else {
             setError('Content not available');
           }
@@ -124,10 +141,23 @@ const UniversalPdfViewer = ({ pageKey }) => {
         <div id="pdf-container" className="p-6 flex flex-col items-center bg-gray-100 min-h-[600px]">
           {pageContent.pdfUrl ? (
             <Document
-              file={pageContent.pdfUrl}
+              file={pageContent.pdfUrl ? (pageContent.pdfUrl.startsWith('http') ? pageContent.pdfUrl : `http://localhost:5002${pageContent.pdfUrl}`) : null}
               onLoadSuccess={onDocumentLoadSuccess}
               loading={<div className="h-[600px] w-full max-w-[800px] bg-gray-200 animate-pulse rounded"></div>}
-              error={<div className="text-red-500">Failed to load PDF file.</div>}
+              error={
+                <div className="flex flex-col items-center gap-3 mt-20 text-red-500">
+                  <FileX size={40} />
+                  <p className="font-medium">Failed to load PDF file.</p>
+                  <a 
+                    href={pageContent.pdfUrl ? (pageContent.pdfUrl.startsWith('http') ? pageContent.pdfUrl : `http://localhost:5002${pageContent.pdfUrl}`) : '#'} 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    className="mt-2 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors text-sm font-medium"
+                  >
+                    Open in New Tab
+                  </a>
+                </div>
+              }
             >
               {Array.from(new Array(numPages), (el, index) => (
                 <Page 

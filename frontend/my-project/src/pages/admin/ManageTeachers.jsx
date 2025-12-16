@@ -28,7 +28,7 @@ const ManageTeachers = () => {
 
   const fetchTeachers = async () => {
     try {
-      const response = await fetch('http://localhost:8080/api/teachers');
+      const response = await fetch('http://localhost:5002/api/teachers');
       if (response.ok) {
         const data = await response.json();
         setTeachers(data);
@@ -59,7 +59,7 @@ const ManageTeachers = () => {
     setUploading(true);
     try {
       const token = localStorage.getItem('token');
-      const response = await fetch('http://localhost:8080/api/upload', {
+      const response = await fetch('http://localhost:5002/api/upload', {
         method: 'POST',
         headers: {
           'Authorization': `Bearer ${token}`
@@ -86,8 +86,8 @@ const ManageTeachers = () => {
     e.preventDefault();
     const token = localStorage.getItem('token');
     const url = editingTeacher 
-      ? `http://localhost:8080/api/teachers/${editingTeacher.id}`
-      : 'http://localhost:8080/api/teachers';
+      ? `http://localhost:5002/api/teachers/${editingTeacher.id}`
+      : 'http://localhost:5002/api/teachers';
     
     const method = editingTeacher ? 'PUT' : 'POST';
 
@@ -119,7 +119,7 @@ const ManageTeachers = () => {
 
     try {
       const token = localStorage.getItem('token');
-      const response = await fetch(`http://localhost:8080/api/teachers/${id}`, {
+      const response = await fetch(`http://localhost:5002/api/teachers/${id}`, {
         method: 'DELETE',
         headers: {
           'Authorization': `Bearer ${token}`

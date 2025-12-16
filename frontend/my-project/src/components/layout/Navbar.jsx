@@ -34,66 +34,27 @@ const Navbar = () => {
       path: '#',
       icon: <Users size={18} />,
       dropdown: [
-        { name: t('admissionRegister'), path: '/admission-register' },
-        { name: t('findStudent'), path: '/find-student' },
+        { name: t('admissionInfo'), path: '/admission-info' },
         { name: t('bookDistribution'), path: '/book-distribution' },
         { name: t('childSurveyInfo'), path: '/child-survey' },
         { name: t('dropoutInfo'), path: '/dropout-info' },
         { name: t('specialNeedsStudent'), path: '/special-needs' },
-        { 
-          name: t('stipend'), 
-          path: '#',
-          dropdown: [
-            { name: t('studentList'), path: '/stipend/list' },
-            { name: t('classUpdateReport'), path: '/stipend/class-update' },
-            { 
-              name: t('demandReport'), 
-              path: '#',
-              dropdown: [
-                { name: 'Jan-Jun/2023', path: '/stipend/demand/jan-jun-2023' },
-                { name: 'Jul-Dec/2023', path: '/stipend/demand/jul-dec-2023' },
-                { name: 'Jan-Jun/2024', path: '/stipend/demand/jan-jun-2024' },
-              ]
-            },
-            { 
-              name: t('payroll'), 
-              path: '#',
-              dropdown: [
-                { name: 'Jul-Dec/2021', path: '/stipend/payroll/jul-dec-2021' },
-                { name: 'Jan-Jun/2022', path: '/stipend/payroll/jan-jun-2022' },
-                { name: 'Jul-Dec/2022', path: '/stipend/payroll/jul-dec-2022' },
-                { name: 'Jan-Jun/2023', path: '/stipend/payroll/jan-jun-2023' },
-                { name: 'Jul-Dec/2023', path: '/stipend/payroll/jul-dec-2023' },
-                { name: 'Jan-Jun/2024', path: '/stipend/payroll/jan-jun-2024' },
-              ]
-            },
-          ]
-        },
+        { name: t('stipendInfo'), path: '/stipend-info' },
+        { name: t('schoolFeeding'), path: '/school-feeding' },
       ]
+
     },
     {
       name: t('teacherAffairs'),
       path: '#',
       icon: <GraduationCap size={18} />,
       dropdown: [
-        { name: t('teacherInfo'), path: '/teacher-info' },
+        { name: t('teacherInfo'), path: '/teachers' },
         { name: t('homeVisit'), path: '/home-visit' },
         { name: t('casualLeave'), path: '/casual-leave' },
-        { name: t('classObservationChecklist'), path: '/class-observation' },
-        { name: t('movement'), path: '/movement' },
+        { name: t('classObservation'), path: '/class-observation' },
         { name: t('trainingInfo'), path: '/training-info' },
         { name: t('dutyDistribution'), path: '/duty-distribution' },
-        { name: t('dailyLesson'), path: '/daily-lesson' },
-        { name: t('lessonStudy'), path: '/lesson-study' },
-        { name: t('academicSupervision'), path: '/academic-supervision' },
-        {
-          name: t('teachersACR'),
-          path: '#',
-          dropdown: [
-            { name: '10-12th Grade Proposed Form', path: '/teachers-acr/grade-10-12' },
-            { name: '13-16th Grade Proposed Form', path: '/teachers-acr/grade-13-16' },
-          ]
-        },
       ]
     },
     {
@@ -102,22 +63,33 @@ const Navbar = () => {
       icon: <GraduationCap size={18} />,
       dropdown: [
         { name: t('examSchedule'), path: '/exam-schedule' },
-        { name: t('terminalEvaluation1_3'), path: '/terminal-evaluation-1-3' },
-        { name: t('practicalEvaluation4_5'), path: '/practical-evaluation-4-5' },
-        { name: t('mayGradePromotion'), path: '/may-grade-promotion' },
-        { name: t('completionInfo'), path: '/completion-info' },
-        { name: t('certificate'), path: '/certificate' },
-        { name: t('studentLetter'), path: '/student-letter' },
-        { name: t('readingSkills'), path: '/reading-skills' },
+        { name: t('pakkhikPorikkha'), path: '/pakkhik-porikkha' },
         {
-          name: t('piList'),
+
+          name: t('terminalEvaluationInfo'),
           path: '#',
           dropdown: [
-            { name: t('first'), path: '/pi-list/first-grade' },
-            { name: t('second'), path: '/pi-list/second-grade' },
-            { name: t('third'), path: '/pi-list/third-grade' },
+            { name: t('first'), path: '/terminal-evaluation/first' },
+            { name: t('second'), path: '/terminal-evaluation/second' },
+            { name: t('third'), path: '/terminal-evaluation/third' },
+            { name: t('fourth'), path: '/terminal-evaluation/fourth' },
+            { name: t('fifth'), path: '/terminal-evaluation/fifth' },
           ]
         },
+        {
+          name: t('continuousEvaluationInfo'),
+          path: '#',
+          dropdown: [
+            { name: t('first'), path: '/continuous-evaluation/first' },
+            { name: t('second'), path: '/continuous-evaluation/second' },
+            { name: t('third'), path: '/continuous-evaluation/third' },
+            { name: t('fourth'), path: '/continuous-evaluation/fourth' },
+            { name: t('fifth'), path: '/continuous-evaluation/fifth' },
+          ]
+        },
+        { name: t('completionExamInfo'), path: '/completion-exam-info' },
+        { name: t('scholarshipExamInfo'), path: '/scholarship-exam-info' },
+
       ]
     },
     { 
@@ -126,10 +98,31 @@ const Navbar = () => {
       icon: <Info size={18} />,
       dropdown: [
         { name: t('history'), path: '/history' },
-        { name: t('committee'), path: '/committee' },
-        { name: t('headTeacher'), path: '/headmaster' },
-        { name: t('teachers'), path: '/teachers' }
+        {
+          name: t('achievements'),
+          path: '#',
+          dropdown: [
+
+            { name: t('national'), path: '/achievements/national' },
+            { name: t('international'), path: '/achievements/international' },
+            { name: t('local'), path: '/achievements/local' },
+          ]
+        },
+        { name: t('monitoringBoard'), path: '/monitoring-board' },
+        { name: t('libraryInfo'), path: '/library-info' },
+        { name: t('ictEquipment'), path: '/ict-equipment' },
+        {
+          name: t('inspection'),
+          path: '#',
+          dropdown: [
+            { name: t('offlineInspection'), path: '/inspection/offline' },
+            { name: t('onlineInspection'), path: '/inspection/online' },
+            { name: t('websiteInspection'), path: '/inspection/website' },
+          ]
+        },
+        { name: t('landInfo'), path: '/land-info' },
       ]
+
     },
     { 
       name: t('academic'), 
@@ -137,8 +130,7 @@ const Navbar = () => {
       icon: <GraduationCap size={18} />,
       dropdown: [
         { name: t('schoolInfo'), path: '/school-info' },
-        { name: t('schoolGazette'), path: '/school-gazette' },
-        { name: t('teacherGazette'), path: '/teacher-gazette' },
+
         { name: t('headTeachersList'), path: '/head-teachers-list' },
         {
           name: t('register'),
@@ -175,19 +167,21 @@ const Navbar = () => {
           name: t('apa'),
           path: '#',
           dropdown: [
-            { name: 'APA 2023', path: '/apa/2023' },
-            { name: 'APA 2024', path: '/apa/2024' },
+
+            { name: t('apa2025'), path: '/apa/2025' },
+            { name: t('apa2026'), path: '/apa/2026' },
           ]
+
         },
         { name: t('annualWorkPlan'), path: '/annual-work-plan' },
         { name: t('classRoutine'), path: '/routine' },
         { name: t('interSports'), path: '/inter-sports' },
-        { name: t('holidayList'), path: '/holiday-list-2024' },
+        { name: t('holidayList'), path: '/holiday-list-2026' },
         { name: t('miscForms'), path: '/misc-forms' },
-        { name: t('scholarshipExam'), path: '/scholarship-exam' },
+        { name: t('innovationActivity'), path: '/innovation-activity' },
         { name: t('electricityBill'), path: '/electricity-bill' },
-        { name: t('vouchers'), path: '/vouchers' },
         { name: t('urcRelated'), path: '/urc-related' },
+
       ]
     },
     {
@@ -195,14 +189,16 @@ const Navbar = () => {
       path: '#',
       icon: <Users size={18} />,
       dropdown: [
-        { name: t('managingCommittee'), path: '/managing-committee' },
-        { name: t('pta'), path: '/pta' },
+        { name: t('managingCommittee'), path: '/committee' },
+        { name: t('adhokCommittee'), path: '/adhok-committee' },
+        { name: t('ptaCommittee'), path: '/pta' },
         { name: t('slipCommittee'), path: '/slip-committee' },
         { name: t('sacCommittee'), path: '/sac-committee' },
         { name: t('studentCouncil'), path: '/student-council' },
         { name: t('minorDoctorTeam'), path: '/minor-doctor-team' },
         { name: t('kabdol'), path: '/kabdol' },
       ]
+
     },
     {
       name: t('registration'),
@@ -217,7 +213,7 @@ const Navbar = () => {
         { name: t('guardiansAssembly'), path: '/guardians-assembly' },
         { name: t('courtyardMeeting'), path: '/courtyard-meeting' },
         { name: t('staffMeeting'), path: '/staff-meeting' },
-        { name: t('studentCouncilResolution'), path: '/student-council-resolution' },
+
         { name: t('minorDoctorResolution'), path: '/minor-doctor-resolution' },
       ]
     },
@@ -226,8 +222,25 @@ const Navbar = () => {
       path: '#',
       icon: <GraduationCap size={18} />,
       dropdown: [
-        { name: t('textbook'), path: '/textbook' },
+        {
+          name: t('textbook'),
+          path: '#',
+          dropdown: [
+            { name: t('prePrimary4Plus'), path: '/textbook/pre-primary-4plus' },
+            { name: t('prePrimary5Plus'), path: '/textbook/pre-primary-5plus' },
+            { name: t('class1'), path: '/textbook/class-1' },
+            { name: t('class2'), path: '/textbook/class-2' },
+            { name: t('class3'), path: '/textbook/class-3' },
+            { name: t('class4'), path: '/textbook/class-4' },
+            { name: t('class5'), path: '/textbook/class-5' },
+          ]
+        },
+
+        { name: t('teachersEdition'), path: '/teachers-edition' },
         { name: t('teachersGuide'), path: '/teachers-guide' },
+        { name: t('teachersAid'), path: '/teachers-aid' },
+
+
       ]
     },
     {
@@ -235,13 +248,28 @@ const Navbar = () => {
       path: '#',
       icon: <GraduationCap size={18} />,
       dropdown: [
-        { name: t('annualCurriculumPlan'), path: '/pre-primary/annual-plan' },
-        { name: t('weeklyClassRoutine'), path: '/pre-primary/weekly-routine' },
-        { name: t('evaluationChart5Plus'), path: '/pre-primary/evaluation-5plus' },
-        { name: t('certificate'), path: '/pre-primary/certificate' },
-        { name: t('inspectionForm'), path: '/pre-primary/inspection-form' },
-        { name: t('teachersGuide4Plus'), path: '/pre-primary/guide-4plus' },
-        { name: t('teachersGuide5Plus'), path: '/pre-primary/guide-5plus' },
+        {
+          name: t('prePrimary4Plus'),
+          path: '#',
+          dropdown: [
+            { name: t('annualLessonPlan'), path: '/pre-primary/4plus/annual-plan' },
+            { name: t('classRoutine'), path: '/pre-primary/4plus/routine' },
+            { name: t('annualEvaluationForm'), path: '/pre-primary/4plus/evaluation' },
+            { name: t('teachersGuide'), path: '/pre-primary/4plus/guide' },
+            { name: t('inspectionInfo'), path: '/pre-primary/4plus/inspection' },
+          ]
+        },
+        {
+          name: t('prePrimary5Plus'),
+          path: '#',
+          dropdown: [
+            { name: t('annualLessonPlan'), path: '/pre-primary/5plus/annual-plan' },
+            { name: t('classRoutine'), path: '/pre-primary/5plus/routine' },
+            { name: t('annualEvaluationForm'), path: '/pre-primary/5plus/evaluation' },
+            { name: t('teachersGuide'), path: '/pre-primary/5plus/guide' },
+            { name: t('inspectionInfo'), path: '/pre-primary/5plus/inspection' },
+          ]
+        },
       ]
     },
     {
@@ -254,65 +282,15 @@ const Navbar = () => {
         { name: t('third'), path: '/curriculum/third' },
         { name: t('fourth'), path: '/curriculum/fourth' },
         { name: t('fifth'), path: '/curriculum/fifth' },
-        {
-          name: t('science'),
-          path: '#',
-          dropdown: [
-            { name: t('third'), path: '/curriculum/science/third' },
-            { name: t('fourth'), path: '/curriculum/science/fourth' },
-            { name: t('fifth'), path: '/curriculum/science/fifth' },
-          ]
-        },
+        { name: t('primaryScience'), path: '/curriculum/primary-science' },
+
+
       ]
     },
     { name: t('noticeBoard'), path: '/notices', icon: <Megaphone size={18} /> },
-    {
-      name: t('gallery'),
-      path: '#',
-      icon: <Image size={18} />,
-      dropdown: [
-        {
-          name: t('wallMagazine'),
-          path: '#',
-          dropdown: [
-            { name: '21 February', path: '/gallery/wall-magazine/21-february' },
-            { name: '26 March', path: '/gallery/wall-magazine/26-march' },
-          ]
-        },
-        { name: t('institutional'), path: '/gallery/institutional' },
-        { name: t('primaryEducation'), path: '/gallery/primary-education' },
-        { name: t('dayCelebrations'), path: '/gallery/day-celebrations' },
-        { name: t('teachers'), path: '/gallery/teachers' },
-        { name: t('others'), path: '/gallery/others' },
-        {
-          name: t('miscellaneous'),
-          path: '#',
-          dropdown: [
-            { name: t('slide'), path: '/gallery/miscellaneous/slide' },
-          ]
-        },
-      ]
-    },
+    { name: t('gallery'), path: '/gallery', icon: <Image size={18} /> },
     { name: t('contact'), path: '/contact', icon: <Phone size={18} /> },
-    {
-      name: t('tools'),
-      path: '#',
-      icon: <GraduationCap size={18} />,
-      dropdown: [
-        { name: t('matriolaDrawing'), path: '/tools/matriola-drawing' },
-        { name: t('calculator'), path: '/tools/calculator' },
-        { name: t('bmiCalculator'), path: '/tools/bmi-calculator' },
-        { name: t('dictionary'), path: '/tools/dictionary' },
-        { name: t('countdown'), path: '/tools/countdown' },
-        { name: t('stopwatch'), path: '/tools/stopwatch' },
-        { name: t('todoList'), path: '/tools/todo-list' },
-        { name: t('qrCode'), path: '/tools/qr-code' },
-        { name: t('quiz'), path: '/tools/quiz' },
-        { name: t('scientificCalculator'), path: '/tools/scientific-calculator' },
-        { name: t('drawingTools'), path: '/tools/drawing' },
-        { name: t('flipText'), path: '/tools/flip-text' },
-      ]
-    },
+
   ];
 
   // Split nav items: first 6 in main navbar, rest in sidebar
@@ -611,17 +589,56 @@ const Navbar = () => {
                     {dropdownOpen === item.name && (
                       <div className="ml-4 mt-1 space-y-1">
                         {item.dropdown.map((subItem, subIndex) => (
-                          <Link
-                            key={subIndex}
-                            to={subItem.path}
-                            className="block p-2.5 text-xl font-medium text-gray-700 hover:bg-blue-100 hover:text-blue-800 rounded-md transition-colors"
-                            onClick={() => {
-                              setSidebarOpen(false);
-                              setDropdownOpen(null);
-                            }}
-                          >
-                            {subItem.name}
-                          </Link>
+                          <div key={subIndex}>
+                            {subItem.dropdown ? (
+                              <div>
+                                <div
+                                  className="flex items-center justify-between p-2.5 text-xl font-medium text-gray-700 hover:bg-blue-100 hover:text-blue-800 rounded-md transition-colors cursor-pointer"
+                                  onClick={(e) => {
+                                    e.stopPropagation();
+                                    toggleNestedDropdown(subItem.name);
+                                  }}
+                                >
+                                  <span>{subItem.name}</span>
+                                  <ChevronDown
+                                    size={16}
+                                    className={`transform transition-transform ${
+                                      nestedDropdownOpen === subItem.name ? 'rotate-180' : ''
+                                    }`}
+                                  />
+                                </div>
+                                {nestedDropdownOpen === subItem.name && (
+                                  <div className="ml-4 mt-1 space-y-1 border-l-2 border-blue-200 pl-2">
+                                    {subItem.dropdown.map((nestedItem, nestedIndex) => (
+                                      <Link
+                                        key={nestedIndex}
+                                        to={nestedItem.path}
+                                        className="block p-2 text-lg text-gray-600 hover:text-blue-800 transition-colors"
+                                        onClick={() => {
+                                          setSidebarOpen(false);
+                                          setDropdownOpen(null);
+                                          setNestedDropdownOpen(null);
+                                        }}
+                                      >
+                                        {nestedItem.name}
+                                      </Link>
+                                    ))}
+                                  </div>
+                                )}
+                              </div>
+                            ) : (
+                              <Link
+                                to={subItem.path}
+                                className="block p-2.5 text-xl font-medium text-gray-700 hover:bg-blue-100 hover:text-blue-800 rounded-md transition-colors"
+                                onClick={() => {
+                                  setSidebarOpen(false);
+                                  setDropdownOpen(null);
+                                }}
+                              >
+                                {subItem.name}
+                              </Link>
+                            )}
+                          </div>
                         ))}
                       </div>
                     )}

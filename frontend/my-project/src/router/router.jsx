@@ -1,4 +1,5 @@
 import { createBrowserRouter } from 'react-router-dom';
+import ProtectedRoute from '../components/auth/ProtectedRoute';
 import MainLayout from '../components/layout/MainLayout';
 import Home from '../pages/Home';
 import Contact from '../pages/Contact';
@@ -27,6 +28,8 @@ import ManageTeachers from '../pages/admin/ManageTeachers';
 import ManageCommittee from '../pages/admin/ManageCommittee';
 
 const dynamicRoutes = [
+  { path: '/admission-info', pageKey: 'admission_info' },
+  { path: '/stipend-info', pageKey: 'stipend_info' },
   { path: '/admission-register', pageKey: 'admission_register' },
   { path: '/find-student', pageKey: 'find_student' },
   { path: '/book-distribution', pageKey: 'book_distribution' },
@@ -96,6 +99,21 @@ const dynamicRoutes = [
   { path: '/mr/dec-jan', pageKey: 'mr_dec_jan' },
   { path: '/apa/2023', pageKey: 'apa_2023' },
   { path: '/apa/2024', pageKey: 'apa_2024' },
+  { path: '/terminal-evaluation/first', pageKey: 'terminal_evaluation_first' },
+  { path: '/terminal-evaluation/second', pageKey: 'terminal_evaluation_second' },
+  { path: '/terminal-evaluation/third', pageKey: 'terminal_evaluation_third' },
+  { path: '/terminal-evaluation/fourth', pageKey: 'terminal_evaluation_fourth' },
+  { path: '/terminal-evaluation/fifth', pageKey: 'terminal_evaluation_fifth' },
+  { path: '/continuous-evaluation/first', pageKey: 'continuous_evaluation_first' },
+  { path: '/continuous-evaluation/second', pageKey: 'continuous_evaluation_second' },
+  { path: '/continuous-evaluation/third', pageKey: 'continuous_evaluation_third' },
+  { path: '/continuous-evaluation/fourth', pageKey: 'continuous_evaluation_fourth' },
+  { path: '/continuous-evaluation/fifth', pageKey: 'continuous_evaluation_fifth' },
+  { path: '/completion-exam-info', pageKey: 'completion_exam_info' },
+  { path: '/scholarship-exam-info', pageKey: 'scholarship_exam_info' },
+  { path: '/achievements/national', pageKey: 'achievements_national' },
+  { path: '/achievements/international', pageKey: 'achievements_international' },
+  { path: '/land-info', pageKey: 'land_info' },
   { path: '/annual-work-plan', pageKey: 'annual_work_plan' },
   { path: '/routine', pageKey: 'routine' },
   { path: '/inter-sports', pageKey: 'inter_sports' },
@@ -131,6 +149,16 @@ const dynamicRoutes = [
   { path: '/pre-primary/inspection-form', pageKey: 'pre_primary_inspection_form' },
   { path: '/pre-primary/guide-4plus', pageKey: 'pre_primary_guide_4plus' },
   { path: '/pre-primary/guide-5plus', pageKey: 'pre_primary_guide_5plus' },
+  { path: '/pre-primary/4plus/annual-plan', pageKey: 'pre_primary_4plus_annual_plan' },
+  { path: '/pre-primary/4plus/routine', pageKey: 'pre_primary_4plus_routine' },
+  { path: '/pre-primary/4plus/evaluation', pageKey: 'pre_primary_4plus_evaluation' },
+  { path: '/pre-primary/4plus/guide', pageKey: 'pre_primary_4plus_guide' },
+  { path: '/pre-primary/4plus/inspection', pageKey: 'pre_primary_4plus_inspection' },
+  { path: '/pre-primary/5plus/annual-plan', pageKey: 'pre_primary_5plus_annual_plan' },
+  { path: '/pre-primary/5plus/routine', pageKey: 'pre_primary_5plus_routine' },
+  { path: '/pre-primary/5plus/evaluation', pageKey: 'pre_primary_5plus_evaluation' },
+  { path: '/pre-primary/5plus/guide', pageKey: 'pre_primary_5plus_guide' },
+  { path: '/pre-primary/5plus/inspection', pageKey: 'pre_primary_5plus_inspection' },
   { path: '/curriculum/first', pageKey: 'curriculum_first' },
   { path: '/curriculum/second', pageKey: 'curriculum_second' },
   { path: '/curriculum/third', pageKey: 'curriculum_third' },
@@ -206,12 +234,16 @@ export const router = createBrowserRouter([
   },
   // Admin Routes
   {
-    path: '/admin/login',
+    path: '/secure-panel/login',
     element: <Login />,
   },
   {
-    path: '/admin',
-    element: <AdminLayout />,
+    path: '/secure-panel',
+    element: (
+      <ProtectedRoute>
+        <AdminLayout />
+      </ProtectedRoute>
+    ),
     children: [
       {
         path: 'dashboard',

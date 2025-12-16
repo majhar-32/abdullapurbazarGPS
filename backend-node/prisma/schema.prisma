@@ -1,0 +1,198 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model academic_documents {
+  id           BigInt                  @id @default(autoincrement())
+  class_name   String?                 @db.VarChar(255)
+  created_at   DateTime?               @db.DateTime(6)
+  file_url     String                  @db.VarChar(255)
+  publish_date DateTime?               @db.Date
+  title        String                  @db.VarChar(255)
+  type         academic_documents_type
+}
+
+model committee_members {
+  id         BigInt    @id @default(autoincrement())
+  created_at DateTime? @db.DateTime(6)
+  email      String?   @db.VarChar(255)
+  image_url  String?   @db.VarChar(255)
+  is_visible Boolean   @db.Bit(1)
+  name       String    @db.VarChar(255)
+  phone      String?   @db.VarChar(255)
+  role       String    @db.VarChar(255)
+  sort_order Int?
+  updated_at DateTime? @db.DateTime(6)
+}
+
+model event_media {
+  id         BigInt                 @id @default(autoincrement())
+  media_type event_media_media_type
+  media_url  String                 @db.VarChar(255)
+  event_id   BigInt
+  events     events                 @relation(fields: [event_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "FKh1op3uneorrw24lyv4eya6mg3")
+
+  @@index([event_id], map: "FKh1op3uneorrw24lyv4eya6mg3")
+}
+
+model events {
+  id            BigInt        @id @default(autoincrement())
+  created_at    DateTime?     @db.DateTime(6)
+  description   String?       @db.Text
+  event_date    DateTime      @db.Date
+  thumbnail_url String?       @db.VarChar(255)
+  title         String        @db.VarChar(255)
+  updated_at    DateTime?     @db.DateTime(6)
+  video_url     String?       @db.VarChar(255)
+  event_media   event_media[]
+}
+
+model notices {
+  id             BigInt           @id @default(autoincrement())
+  category       notices_category
+  created_at     DateTime?        @db.DateTime(6)
+  description    String?          @db.Text
+  is_urgent      Boolean?         @db.Bit(1)
+  publish_date   DateTime         @db.Date
+  title          String           @db.VarChar(255)
+  updated_at     DateTime?        @db.DateTime(6)
+  created_by     BigInt?
+  attachment_url String?          @db.VarChar(255)
+  show_in_ticker Boolean          @db.Bit(1)
+  users          users?           @relation(fields: [created_by], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "FKdcx7eafm2avpoafgx6otyvd79")
+
+  @@index([created_by], map: "FKdcx7eafm2avpoafgx6otyvd79")
+}
+
+model page_contents {
+  id         BigInt    @id @default(autoincrement())
+  created_at DateTime? @db.DateTime(6)
+  is_visible Boolean   @db.Bit(1)
+  page_key   String    @unique(map: "UKpuyufwxojd2d92or4x86oswsm") @db.VarChar(255)
+  pdf_url    String?   @db.VarChar(255)
+  title      String?   @db.VarChar(255)
+  updated_at DateTime? @db.DateTime(6)
+}
+
+model slider_settings {
+  id                  BigInt  @id @default(autoincrement())
+  auto_play           Boolean @db.Bit(1)
+  auto_play_interval  Int
+  transition_duration Int
+}
+
+model sliders {
+  id            BigInt   @id @default(autoincrement())
+  created_at    DateTime @db.DateTime(6)
+  display_order Int
+  image_url     String   @db.VarChar(255)
+  is_active     Boolean  @db.Bit(1)
+  show_text     Boolean  @db.Bit(1)
+  subtitle      String?  @db.VarChar(255)
+  title         String?  @db.VarChar(255)
+  updated_at    DateTime @db.DateTime(6)
+}
+
+model students {
+  id                        BigInt           @id @default(autoincrement())
+  admission_date            DateTime         @db.Date
+  birth_registration_number String           @unique(map: "UKc2gbkkvs7001lnq5ryu188l7y") @db.VarChar(255)
+  blood_group               String?          @db.VarChar(255)
+  class_name                String           @db.VarChar(255)
+  created_at                DateTime?        @db.Date
+  date_of_birth             DateTime         @db.Date
+  father_name               String           @db.VarChar(255)
+  father_nid                String?          @db.VarChar(255)
+  gender                    String           @db.VarChar(255)
+  guardian_mobile           String           @db.VarChar(255)
+  mother_name               String           @db.VarChar(255)
+  mother_nid                String?          @db.VarChar(255)
+  name_bangla               String           @db.VarChar(255)
+  name_english              String           @db.VarChar(255)
+  permanent_address         String?          @db.Text
+  photo_url                 String?          @db.VarChar(255)
+  present_address           String?          @db.Text
+  religion                  String           @db.VarChar(255)
+  roll_number               String?          @db.VarChar(255)
+  section                   String?          @db.VarChar(255)
+  session                   String           @db.VarChar(255)
+  status                    students_status?
+  updated_at                DateTime?        @db.DateTime(6)
+  admission_year            Int?
+  mobile_number             String?          @db.VarChar(255)
+  name_bn                   String?          @db.VarChar(255)
+  name_en                   String?          @db.VarChar(255)
+  previous_school           String?          @db.VarChar(255)
+  student_class             String?          @db.VarChar(255)
+  contact_number            String?          @db.VarChar(255)
+  guardian_name             String?          @db.VarChar(255)
+  name                      String           @db.VarChar(255)
+  roll_no                   String           @db.VarChar(255)
+}
+
+model teachers {
+  id          BigInt    @id @default(autoincrement())
+  created_at  DateTime? @db.DateTime(6)
+  designation String    @db.VarChar(255)
+  email       String?   @db.VarChar(255)
+  image_url   String?   @db.VarChar(255)
+  is_visible  Boolean   @db.Bit(1)
+  name        String    @db.VarChar(255)
+  phone       String?   @db.VarChar(255)
+  sort_order  Int?
+  updated_at  DateTime? @db.DateTime(6)
+}
+
+model ticker_settings {
+  id           BigInt  @id @default(autoincrement())
+  enabled      Boolean @db.Bit(1)
+  max_items    Int
+  scroll_speed String  @db.VarChar(255)
+}
+
+model users {
+  id         BigInt     @id @default(autoincrement())
+  created_at DateTime?  @db.DateTime(6)
+  email      String     @db.VarChar(255)
+  password   String     @db.VarChar(255)
+  role       users_role
+  username   String     @unique(map: "UKr43af9ap4edm43mmtq01oddj6") @db.VarChar(255)
+  notices    notices[]
+}
+
+enum event_media_media_type {
+  IMAGE
+  VIDEO
+}
+
+enum notices_category {
+  ADMISSION
+  EVENT
+  EXAM
+  GENERAL
+  HOLIDAY
+  MEETING
+}
+
+enum users_role {
+  ADMIN
+  OFFICER
+  TEACHER
+}
+
+enum academic_documents_type {
+  RESULT
+  ROUTINE
+  SYLLABUS
+}
+
+enum students_status {
+  APPROVED
+  PENDING
+  REJECTED
+}

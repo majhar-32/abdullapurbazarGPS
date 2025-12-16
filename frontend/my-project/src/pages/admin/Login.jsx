@@ -2,28 +2,27 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import { Lock, Mail, Eye, EyeOff } from 'lucide-react';
-import { authService } from '../../services/authService';
+import { useAuth } from '../../context/AuthContext';
 import toast, { Toaster } from 'react-hot-toast';
 
 const Login = () => {
   const navigate = useNavigate();
+  const { login } = useAuth();
   const [showPassword, setShowPassword] = useState(false);
   const [loading, setLoading] = useState(false);
   const { register, handleSubmit, formState: { errors } } = useForm();
 
   const onSubmit = async (data) => {
     setLoading(true);
-    try {
-      // Real API authentication
-      await authService.login(data.username, data.password);
+    const result = await login(data.username, data.password);
+    
+    if (result.success) {
       toast.success('Login successful!');
-      navigate('/admin/dashboard');
-    } catch (error) {
-      const errorMessage = error.response?.data?.error || 'Invalid credentials';
-      toast.error(errorMessage);
-    } finally {
-      setLoading(false);
+      navigate('/secure-panel/dashboard');
+    } else {
+      toast.error(result.error);
     }
+    setLoading(false);
   };
 
   return (

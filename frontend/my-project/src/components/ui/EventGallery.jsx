@@ -62,11 +62,15 @@ const EventGallery = () => {
               <div className="relative h-56 overflow-hidden">
                 <div className="absolute inset-0 bg-gray-100" />
                 <img 
-                  src={event.thumbnailUrl?.startsWith('http') ? event.thumbnailUrl : `http://localhost:8080/uploads/${event.thumbnailUrl}`}
+                  src={event.thumbnailUrl?.startsWith('http') ? event.thumbnailUrl : `http://localhost:5002/uploads/${event.thumbnailUrl}`}
                   alt={event.title}
                   className="relative z-10 w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-700"
                   onError={(e) => {
-                    e.target.src = "https://images.unsplash.com/photo-1523050854058-8df90110c9f1?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80";
+                    const fallback = "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiPjxyZWN0IHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiIGZpbGw9IiNlNWU3ZWIiLz48L3N2Zz4=";
+                    if (e.target.src !== fallback) {
+                      e.target.onerror = null;
+                      e.target.src = fallback;
+                    }
                   }}
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-20" />
@@ -74,10 +78,10 @@ const EventGallery = () => {
                 {/* Date Badge */}
                 <div className="absolute top-4 right-4 bg-white/95 backdrop-blur-sm px-3 py-1 rounded-lg shadow-md flex flex-col items-center text-gray-800">
                   <span className="text-xs font-bold uppercase text-blue-600">
-                    {new Date(event.eventDate).toLocaleString('default', { month: 'short' })}
+                    {event.eventDate ? new Date(event.eventDate).toLocaleString('default', { month: 'short' }) : ''}
                   </span>
                   <span className="text-xl font-bold leading-none">
-                    {new Date(event.eventDate).getDate()}
+                    {event.eventDate ? new Date(event.eventDate).getDate() : '--'}
                   </span>
                 </div>
               </div>
@@ -90,7 +94,7 @@ const EventGallery = () => {
                 
                 <div className="flex items-center text-gray-500 text-sm mb-4">
                   <Calendar size={14} className="mr-2" />
-                  <span>{new Date(event.eventDate).toLocaleDateString()}</span>
+                  <span>{event.eventDate ? new Date(event.eventDate).toLocaleDateString() : 'Date TBD'}</span>
                 </div>
 
                 <p className="text-gray-600 text-sm line-clamp-3 mb-4 flex-grow">

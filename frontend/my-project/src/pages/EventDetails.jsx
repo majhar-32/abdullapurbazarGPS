@@ -52,7 +52,7 @@ const EventDetails = () => {
         <div className="bg-white rounded-xl shadow-sm p-8 mb-8 border border-gray-100">
           <div className="flex items-center text-blue-600 mb-3">
             <Calendar size={18} className="mr-2" />
-            <span className="font-medium">{event.eventDate}</span>
+            <span className="font-medium">{event.eventDate ? new Date(event.eventDate).toLocaleDateString() : ''}</span>
           </div>
           <h1 className="text-3xl md:text-4xl font-bold text-gray-800 mb-6">{event.title}</h1>
           <div 
@@ -71,12 +71,13 @@ const EventDetails = () => {
               {event.imageUrls.map((img, index) => (
                 <div key={index} className="aspect-square bg-gray-200 rounded-lg overflow-hidden shadow-sm hover:shadow-md transition-all cursor-pointer group relative">
                   <img 
-                    src={img ? (img.startsWith('http') ? img : `http://localhost:8080/uploads/${img}`) : "https://via.placeholder.com/150?text=No+Image"} 
+                    src={img ? (img.startsWith('http') ? img : (img.startsWith('/') ? `http://localhost:5002${img}` : `http://localhost:5002/uploads/${img}`)) : "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxNTAiIGhlaWdodD0iMTUwIiB2aWV3Qm94PSIwIDAgMTUwIDE1MCI+PHJlY3Qgd2lkdGg9IjE1MCIgaGVpZ2h0PSIxNTAiIGZpbGw9IiNmM2Y0ZjYiLz48dGV4dCB4PSI1MCUiIHk9IjUwJSIgZm9udC1mYW1pbHk9InNhbnMtc2VyaWYiIGZvbnQtc2l6ZT0iMTQiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGR5PSIuM2VtIiBmaWxsPSIjOWNhM2FmIj5JbWFnZSBOb3QgRm91bmQ8L3RleHQ+PC9zdmc+"} 
                     alt={`Event ${index + 1}`} 
                     className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" 
                     onError={(e) => {
                       console.error("Failed to load image:", e.target.src);
-                      e.target.src = "https://via.placeholder.com/150?text=Image+Not+Found";
+                      e.target.onerror = null;
+                      e.target.src = "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxNTAiIGhlaWdodD0iMTUwIiB2aWV3Qm94PSIwIDAgMTUwIDE1MCI+PHJlY3Qgd2lkdGg9IjE1MCIgaGVpZ2h0PSIxNTAiIGZpbGw9IiNmM2Y0ZjYiLz48dGV4dCB4PSI1MCUiIHk9IjUwJSIgZm9udC1mYW1pbHk9InNhbnMtc2VyaWYiIGZvbnQtc2l6ZT0iMTQiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGR5PSIuM2VtIiBmaWxsPSIjOWNhM2FmIj5JbWFnZSBOb3QgRm91bmQ8L3RleHQ+PC9zdmc+";
                     }}
                   />
                 </div>

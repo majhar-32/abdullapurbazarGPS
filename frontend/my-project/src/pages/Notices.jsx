@@ -42,7 +42,17 @@ const Notices = () => {
   ];
 
   const openPreview = (attachmentUrl, title) => {
-    const fullUrl = attachmentUrl.startsWith('http') ? attachmentUrl : `http://localhost:8080/uploads/${attachmentUrl}`;
+    // Fix: Check if URL already contains /uploads or starts with http
+    let fullUrl = attachmentUrl;
+    if (!attachmentUrl.startsWith('http')) {
+        // If it starts with /, just prepend base URL, otherwise prepend /uploads/
+        if (attachmentUrl.startsWith('/')) {
+            fullUrl = `http://localhost:5002${attachmentUrl}`;
+        } else {
+            fullUrl = `http://localhost:5002/uploads/${attachmentUrl}`;
+        }
+    }
+
     setPreviewTitle(title);
     
     if (isPDF(attachmentUrl)) {

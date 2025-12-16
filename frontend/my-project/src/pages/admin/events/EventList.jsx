@@ -46,7 +46,7 @@ const EventList = () => {
       <div className="flex justify-between items-center mb-6">
         <h1 className="text-3xl font-bold text-gray-800">Events</h1>
         <Link
-          to="/admin/events/create"
+          to="/secure-panel/events/create"
           className="flex items-center space-x-2 bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors"
         >
           <Plus size={20} />
@@ -75,11 +75,12 @@ const EventList = () => {
             {/* Thumbnail */}
             <div className="h-48 bg-gray-200 relative">
               <img
-                src={event.thumbnailUrl?.startsWith('http') ? event.thumbnailUrl : `http://localhost:8080/uploads/${event.thumbnailUrl}`}
+                src={event.thumbnailUrl ? (event.thumbnailUrl.startsWith('http') ? event.thumbnailUrl : (event.thumbnailUrl.startsWith('/') ? `http://localhost:5002${event.thumbnailUrl}` : `http://localhost:5002/uploads/${event.thumbnailUrl}`)) : "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxNTAiIGhlaWdodD0iMTUwIiB2aWV3Qm94PSIwIDAgMTUwIDE1MCI+PHJlY3Qgd2lkdGg9IjE1MCIgaGVpZ2h0PSIxNTAiIGZpbGw9IiNmM2Y0ZjYiLz48dGV4dCB4PSI1MCUiIHk9IjUwJSIgZm9udC1mYW1pbHk9InNhbnMtc2VyaWYiIGZvbnQtc2l6ZT0iMTQiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGR5PSIuM2VtIiBmaWxsPSIjOWNhM2FmIj5JbWFnZSBOb3QgRm91bmQ8L3RleHQ+PC9zdmc+"}
                 alt={event.title}
                 className="w-full h-full object-cover"
                 onError={(e) => {
-                  e.target.src = "https://via.placeholder.com/150?text=No+Image";
+                  e.target.onerror = null; 
+                  e.target.src = "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxNTAiIGhlaWdodD0iMTUwIiB2aWV3Qm94PSIwIDAgMTUwIDE1MCI+PHJlY3Qgd2lkdGg9IjE1MCIgaGVpZ2h0PSIxNTAiIGZpbGw9IiNmM2Y0ZjYiLz48dGV4dCB4PSI1MCUiIHk9IjUwJSIgZm9udC1mYW1pbHk9InNhbnMtc2VyaWYiIGZvbnQtc2l6ZT0iMTQiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGR5PSIuM2VtIiBmaWxsPSIjOWNhM2FmIj5JbWFnZSBOb3QgRm91bmQ8L3RleHQ+PC9zdmc+";
                 }}
               />
             </div>
@@ -91,7 +92,7 @@ const EventList = () => {
               </h3>
               <div className="flex items-center text-sm text-gray-500 mb-4">
                 <Calendar size={16} className="mr-2" />
-                {event.eventDate}
+                {event.eventDate ? new Date(event.eventDate).toLocaleDateString() : ''}
               </div>
 
               {/* Actions */}

@@ -1,35 +1,16 @@
-import React, { useState, useEffect } from 'react';
-import { User, Phone, Mail, Loader2 } from 'lucide-react';
+import React from 'react';
+import { User, Phone, Mail } from 'lucide-react';
 
 const Teachers = () => {
-  const [teachers, setTeachers] = useState([]);
-  const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    const fetchTeachers = async () => {
-      try {
-        const response = await fetch('http://localhost:8080/api/teachers?activeOnly=true');
-        if (response.ok) {
-          const data = await response.json();
-          setTeachers(data);
-        }
-      } catch (error) {
-        console.error('Error fetching teachers:', error);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchTeachers();
-  }, []);
-
-  if (loading) {
-    return (
-      <div className="min-h-screen flex justify-center items-center bg-gray-50">
-        <Loader2 className="animate-spin text-blue-600" size={48} />
-      </div>
-    );
-  }
+  // Hardcoded teacher data as requested
+  const teachers = [
+    { id: 1, name: "Teacher 1", designation: "Head Teacher", phone: "01700000001", email: "teacher1@school.com", imageUrl: null },
+    { id: 2, name: "Teacher 2", designation: "Assistant Teacher", phone: "01700000002", email: "teacher2@school.com", imageUrl: null },
+    { id: 3, name: "Teacher 3", designation: "Assistant Teacher", phone: "01700000003", email: "teacher3@school.com", imageUrl: null },
+    { id: 4, name: "Teacher 4", designation: "Assistant Teacher", phone: "01700000004", email: "teacher4@school.com", imageUrl: null },
+    { id: 5, name: "Teacher 5", designation: "Assistant Teacher", phone: "01700000005", email: "teacher5@school.com", imageUrl: null },
+    { id: 6, name: "Teacher 6", designation: "Assistant Teacher", phone: "01700000006", email: "teacher6@school.com", imageUrl: null },
+  ];
 
   return (
     <div className="bg-gray-50 min-h-screen py-12">
@@ -41,52 +22,44 @@ const Teachers = () => {
           </p>
         </div>
 
-        {teachers.length === 0 ? (
-          <div className="text-center py-20">
-            <p className="text-gray-500 text-lg">No teacher information available at the moment.</p>
-          </div>
-        ) : (
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-            {teachers.map((teacher) => (
-              <div key={teacher.id} className="bg-white rounded-xl shadow-sm hover:shadow-md transition-shadow overflow-hidden border border-gray-100 group">
-                {/* Image Section */}
-                <div className="bg-blue-50 h-64 flex items-center justify-center relative overflow-hidden">
-                  {teacher.imageUrl ? (
-                    <img 
-                      src={teacher.imageUrl} 
-                      alt={teacher.name} 
-                      className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" 
-                    />
-                  ) : (
-                    <User size={64} className="text-blue-300 group-hover:scale-110 transition-transform duration-300" />
-                  )}
-                  
-                  {/* Overlay removed to fix black image issue */}
-                </div>
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+          {teachers.map((teacher) => (
+            <div key={teacher.id} className="bg-white rounded-xl shadow-sm hover:shadow-md transition-shadow overflow-hidden border border-gray-100 group">
+              {/* Image Section */}
+              <div className="bg-blue-50 h-64 flex items-center justify-center relative overflow-hidden">
+                {teacher.imageUrl ? (
+                  <img 
+                    src={teacher.imageUrl} 
+                    alt={teacher.name} 
+                    className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" 
+                  />
+                ) : (
+                  <User size={64} className="text-blue-300 group-hover:scale-110 transition-transform duration-300" />
+                )}
+              </div>
 
-                <div className="p-6 text-center">
-                  <h3 className="text-lg font-bold text-gray-800 mb-1">{teacher.name}</h3>
-                  <p className="text-blue-600 font-medium text-sm mb-4">{teacher.designation}</p>
-                  
-                  <div className="flex flex-col items-center gap-2 text-gray-500 text-sm">
-                    {teacher.phone && (
-                      <a href={`tel:${teacher.phone}`} className="flex items-center gap-2 hover:text-blue-600 transition-colors">
-                        <Phone size={16} />
-                        <span>{teacher.phone}</span>
-                      </a>
-                    )}
-                    {teacher.email && (
-                      <a href={`mailto:${teacher.email}`} className="flex items-center gap-2 hover:text-blue-600 transition-colors">
-                        <Mail size={16} />
-                        <span>{teacher.email}</span>
-                      </a>
-                    )}
-                  </div>
+              <div className="p-6 text-center">
+                <h3 className="text-lg font-bold text-gray-800 mb-1">{teacher.name}</h3>
+                <p className="text-blue-600 font-medium text-sm mb-4">{teacher.designation}</p>
+                
+                <div className="flex flex-col items-center gap-2 text-gray-500 text-sm">
+                  {teacher.phone && (
+                    <a href={`tel:${teacher.phone}`} className="flex items-center gap-2 hover:text-blue-600 transition-colors">
+                      <Phone size={16} />
+                      <span>{teacher.phone}</span>
+                    </a>
+                  )}
+                  {teacher.email && (
+                    <a href={`mailto:${teacher.email}`} className="flex items-center gap-2 hover:text-blue-600 transition-colors">
+                      <Mail size={16} />
+                      <span>{teacher.email}</span>
+                    </a>
+                  )}
                 </div>
               </div>
-            ))}
-          </div>
-        )}
+            </div>
+          ))}
+        </div>
       </div>
     </div>
   );

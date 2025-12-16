@@ -30,14 +30,14 @@ const NoticeEdit = () => {
       
       if (data.attachmentUrl) {
         setAttachment({ 
-          preview: data.attachmentUrl.startsWith('http') ? data.attachmentUrl : `http://localhost:8080/uploads/${data.attachmentUrl}`, 
+          preview: data.attachmentUrl.startsWith('http') ? data.attachmentUrl : `http://localhost:5002/uploads/${data.attachmentUrl}`, 
           name: data.attachmentUrl 
         });
       }
     } catch (error) {
       console.error('Error fetching notice:', error);
       alert('Failed to fetch notice details');
-      navigate('/admin/notices');
+      navigate('/secure-panel/notices');
     } finally {
       setLoading(false);
     }
@@ -48,7 +48,7 @@ const NoticeEdit = () => {
     formData.append('file', file);
     try {
       const token = localStorage.getItem('token');
-      const response = await fetch('http://localhost:8080/api/upload', {
+      const response = await fetch('http://localhost:5002/api/upload', {
         method: 'POST',
         headers: {
           'Authorization': `Bearer ${token}`
@@ -61,7 +61,7 @@ const NoticeEdit = () => {
       }
       
       const data = await response.json();
-      return data.fileName;
+      return data.fileUrl;
     } catch (error) {
       console.error('Error uploading file:', error);
       throw error;
@@ -82,7 +82,7 @@ const NoticeEdit = () => {
       };
       await noticeService.update(id, noticeData);
       alert('Notice updated successfully!');
-      navigate('/admin/notices');
+      navigate('/secure-panel/notices');
     } catch (error) {
       console.error('Error updating notice:', error);
       alert('Failed to update notice');

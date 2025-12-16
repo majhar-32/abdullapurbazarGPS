@@ -2,15 +2,16 @@ import React from 'react';
 import { LogOut, User, Menu, Languages } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import { useTranslation } from '../../hooks/useTranslation';
+import { useAuth } from '../../context/AuthContext';
 
 const AdminNavbar = ({ toggleSidebar }) => {
   const navigate = useNavigate();
   const { t, language, toggleLanguage } = useTranslation();
+  const { logout, user } = useAuth();
 
   const handleLogout = () => {
-    // Clear auth token (dummy for now)
-    localStorage.removeItem('adminToken');
-    navigate('/admin/login');
+    logout();
+    navigate('/secure-panel/login');
   };
 
   return (
@@ -41,8 +42,8 @@ const AdminNavbar = ({ toggleSidebar }) => {
             <User size={20} className="text-white" />
           </div>
           <div className="hidden md:block">
-            <p className="text-sm font-semibold text-gray-800">Admin User</p>
-            <p className="text-xs text-gray-500">admin@school.com</p>
+            <p className="text-sm font-semibold text-gray-800">{user?.username || 'Admin User'}</p>
+            <p className="text-xs text-gray-500">{user?.email || 'admin@school.com'}</p>
           </div>
         </div>
 

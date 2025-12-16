@@ -3,11 +3,14 @@ import { router } from './router/router';
 import './App.css';
 
 import { LanguageProvider } from './context/LanguageContext';
+import { AuthProvider } from './context/AuthContext';
 
 function App() {
   return (
     <LanguageProvider>
-      <RouterProvider router={router} />
+      <AuthProvider>
+        <RouterProvider router={router} />
+      </AuthProvider>
     </LanguageProvider>
   );
 }

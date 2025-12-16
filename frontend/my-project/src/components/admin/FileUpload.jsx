@@ -57,10 +57,13 @@ const FileUpload = ({ file, onChange, accept = { 'image/*': [], 'application/pdf
           <div className="mr-4">
             {file.type?.startsWith('image/') || file.name?.match(/\.(jpg|jpeg|png|gif)$/i) ? (
               <img
-                src={file.preview || (file.name.startsWith('http') ? file.name : `http://localhost:8080/uploads/${file.name}`)}
+                src={file.preview || (file.name.startsWith('http') ? file.name : `http://localhost:5002/uploads/${file.name}`)}
                 alt={file.name}
                 className="w-16 h-16 object-cover rounded-lg"
-                onError={(e) => { e.target.src = "https://via.placeholder.com/150?text=File"; }}
+                onError={(e) => { 
+                  e.target.onerror = null;
+                  e.target.src = "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxNTAiIGhlaWdodD0iMTUwIiB2aWV3Qm94PSIwIDAgMTUwIDE1MCI+PHJlY3Qgd2lkdGg9IjE1MCIgaGVpZ2h0PSIxNTAiIGZpbGw9IiNmM2Y0ZjYiLz48dGV4dCB4PSI1MCUiIHk9IjUwJSIgZm9udC1mYW1pbHk9InNhbnMtc2VyaWYiIGZvbnQtc2l6ZT0iMTQiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGR5PSIuM2VtIiBmaWxsPSIjOWNhM2FmIj5GaWxlPC90ZXh0Pjwvc3ZnPg=="; 
+                }}
               />
             ) : (
               <div className="w-16 h-16 bg-red-100 text-red-600 rounded-lg flex items-center justify-center">

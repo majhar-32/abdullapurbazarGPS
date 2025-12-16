@@ -49,12 +49,13 @@ const Gallery = () => {
                   {/* Thumbnail */}
                   <div className="h-48 bg-gray-200 relative overflow-hidden group">
                     <img 
-                      src={event.thumbnailUrl ? (event.thumbnailUrl.startsWith('http') ? event.thumbnailUrl : `http://localhost:8080/uploads/${event.thumbnailUrl}`) : "https://via.placeholder.com/300?text=No+Image"} 
+                      src={event.thumbnailUrl ? (event.thumbnailUrl.startsWith('http') ? event.thumbnailUrl : (event.thumbnailUrl.startsWith('/') ? `http://localhost:5002${event.thumbnailUrl}` : `http://localhost:5002/uploads/${event.thumbnailUrl}`)) : "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIzMDAiIGhlaWdodD0iMjAwIiB2aWV3Qm94PSIwIDAgMzAwIDIwMCI+PHJlY3Qgd2lkdGg9IjMwMCIgaGVpZ2h0PSIyMDAiIGZpbGw9IiNmM2Y0ZjYiLz48dGV4dCB4PSI1MCUiIHk9IjUwJSIgZm9udC1mYW1pbHk9InNhbnMtc2VyaWYiIGZvbnQtc2l6ZT0iMjAiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGR5PSIuM2VtIiBmaWxsPSIjOWNhM2FmIj5JbWFnZSBOb3QgRm91bmQ8L3RleHQ+PC9zdmc+"} 
                       alt={event.title} 
                       className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
                       onError={(e) => {
                         console.error("Gallery Image Load Error:", e.target.src);
-                        e.target.src = "https://via.placeholder.com/300?text=Image+Not+Found";
+                        e.target.onerror = null;
+                        e.target.src = "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIzMDAiIGhlaWdodD0iMjAwIiB2aWV3Qm94PSIwIDAgMzAwIDIwMCI+PHJlY3Qgd2lkdGg9IjMwMCIgaGVpZ2h0PSIyMDAiIGZpbGw9IiNmM2Y0ZjYiLz48dGV4dCB4PSI1MCUiIHk9IjUwJSIgZm9udC1mYW1pbHk9InNhbnMtc2VyaWYiIGZvbnQtc2l6ZT0iMjAiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGR5PSIuM2VtIiBmaWxsPSIjOWNhM2FmIj5JbWFnZSBOb3QgRm91bmQ8L3RleHQ+PC9zdmc+";
                       }}
                     />
                   </div>
@@ -63,7 +64,7 @@ const Gallery = () => {
                   <div className="p-6 flex-grow flex flex-col">
                     <div className="flex items-center text-sm text-blue-600 mb-2">
                       <Calendar size={14} className="mr-2" />
-                      {event.eventDate}
+                      {event.eventDate ? new Date(event.eventDate).toLocaleDateString() : ''}
                     </div>
                     <h3 className="text-xl font-bold text-gray-800 mb-3 line-clamp-2">{event.title}</h3>
                     <p className="text-gray-600 text-sm mb-4 line-clamp-3 flex-grow">

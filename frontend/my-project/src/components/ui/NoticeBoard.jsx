@@ -42,7 +42,17 @@ const NoticeBoard = () => {
     
     const attachmentUrl = notice.attachmentUrl;
     if (attachmentUrl) {
-        const fullUrl = attachmentUrl.startsWith('http') ? attachmentUrl : `http://localhost:8080/uploads/${attachmentUrl}`;
+        // Fix: Check if URL already contains /uploads or starts with http
+        let fullUrl = attachmentUrl;
+        if (!attachmentUrl.startsWith('http')) {
+            // If it starts with /, just prepend base URL, otherwise prepend /uploads/
+            if (attachmentUrl.startsWith('/')) {
+                fullUrl = `http://localhost:5002${attachmentUrl}`;
+            } else {
+                fullUrl = `http://localhost:5002/uploads/${attachmentUrl}`;
+            }
+        }
+        
         setPreviewTitle(notice.title);
         
         if (isPDF(attachmentUrl)) {
@@ -141,16 +151,14 @@ const NoticeBoard = () => {
                                         </td>
                                         <td className="py-4 px-6 text-center">
                                             {notice.attachmentUrl ? (
-                                                <a 
-                                                    href={notice.attachmentUrl.startsWith('http') ? notice.attachmentUrl : `http://localhost:8080/uploads/${notice.attachmentUrl}`}
-                                                    target="_blank"
-                                                    rel="noopener noreferrer"
+                                                <button 
+                                                    onClick={() => openPreview(notice)}
                                                     className="text-green-500 hover:text-green-700 font-medium flex items-center justify-center gap-1 transform hover:scale-105 transition-transform"
-                                                    download
+                                                    title="View Attachment"
                                                 >
-                                                    <span className="hidden sm:inline">Download</span>
-                                                    <Download size={16} />
-                                                </a>
+                                                    <span className="hidden sm:inline">View</span>
+                                                    <Eye size={16} />
+                                                </button>
                                             ) : (
                                                 <span className="text-gray-400 text-xs italic">No File</span>
                                             )}

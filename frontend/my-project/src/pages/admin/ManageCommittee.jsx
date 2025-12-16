@@ -28,7 +28,7 @@ const ManageCommittee = () => {
 
   const fetchMembers = async () => {
     try {
-      const response = await fetch('http://localhost:8080/api/committee-members');
+      const response = await fetch('http://localhost:5002/api/committee-members');
       if (response.ok) {
         const data = await response.json();
         setMembers(data);
@@ -59,7 +59,7 @@ const ManageCommittee = () => {
     setUploading(true);
     try {
       const token = localStorage.getItem('token');
-      const response = await fetch('http://localhost:8080/api/upload', {
+      const response = await fetch('http://localhost:5002/api/upload', {
         method: 'POST',
         headers: {
           'Authorization': `Bearer ${token}`
@@ -86,8 +86,8 @@ const ManageCommittee = () => {
     e.preventDefault();
     const token = localStorage.getItem('token');
     const url = editingMember 
-      ? `http://localhost:8080/api/committee-members/${editingMember.id}`
-      : 'http://localhost:8080/api/committee-members';
+      ? `http://localhost:5002/api/committee-members/${editingMember.id}`
+      : 'http://localhost:5002/api/committee-members';
     
     const method = editingMember ? 'PUT' : 'POST';
 
@@ -119,7 +119,7 @@ const ManageCommittee = () => {
 
     try {
       const token = localStorage.getItem('token');
-      const response = await fetch(`http://localhost:8080/api/committee-members/${id}`, {
+      const response = await fetch(`http://localhost:5002/api/committee-members/${id}`, {
         method: 'DELETE',
         headers: {
           'Authorization': `Bearer ${token}`

@@ -17,7 +17,7 @@ const NoticeCreate = () => {
     formData.append('file', file);
     try {
       const token = localStorage.getItem('token');
-      const response = await fetch('http://localhost:8080/api/upload', {
+      const response = await fetch('http://localhost:5002/api/upload', {
         method: 'POST',
         headers: {
           'Authorization': `Bearer ${token}`
@@ -30,7 +30,7 @@ const NoticeCreate = () => {
       }
       
       const data = await response.json();
-      return data.fileName;
+      return data.fileUrl;
     } catch (error) {
       console.error('Error uploading file:', error);
       throw error;
@@ -51,7 +51,7 @@ const NoticeCreate = () => {
       };
       await noticeService.create(noticeData);
       alert('Notice created successfully!');
-      navigate('/admin/notices');
+      navigate('/secure-panel/notices');
     } catch (error) {
       console.error('Error creating notice:', error);
       alert('Failed to create notice');

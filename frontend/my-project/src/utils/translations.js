@@ -14,6 +14,10 @@ export const translations = {
     classUpdateReport: 'Class Update Report',
     demandReport: 'Demand Report',
     payroll: 'Payroll',
+    admissionInfo: 'Admission Information',
+    stipendInfo: 'Stipend Info',
+    schoolFeeding: 'School Feeding Program',
+
 
     teacherAffairs: 'Teacher Affairs',
     teacherInfo: 'Teacher Info',
@@ -26,10 +30,17 @@ export const translations = {
     dailyLesson: 'Daily Lesson',
     lessonStudy: 'Lesson Study',
     academicSupervision: 'Academic Supervision',
+    classObservation: 'Class Observation',
     teachersACR: 'Teachers ACR',
 
     evaluation: 'Evaluation',
     examSchedule: 'Exam Schedule',
+    pakkhikPorikkha: 'Fortnightly Exam',
+    terminalEvaluationInfo: 'Terminal Evaluation Info',
+
+    continuousEvaluationInfo: 'Continuous Evaluation Info',
+    completionExamInfo: 'Completion Exam Info',
+    scholarshipExamInfo: 'Scholarship Exam Info',
     terminalEvaluation1_3: '1st-3rd Grade Terminal Evaluation',
     practicalEvaluation4_5: '4th-5th Grade Practical Evaluation',
     mayGradePromotion: 'May Grade Promotion',
@@ -41,6 +52,18 @@ export const translations = {
 
     aboutUs: 'About Us',
     history: 'History',
+    achievements: 'Achievements',
+    national: 'National',
+    international: 'International',
+    local: 'Local',
+    monitoringBoard: 'Monitoring Board',
+    libraryInfo: 'Library Info',
+    ictEquipment: 'ICT Equipment',
+    offlineInspection: 'Offline Inspection',
+    onlineInspection: 'Online Inspection',
+    websiteInspection: 'Website Inspection',
+    landInfo: 'Land Info',
+
     committee: 'Committee',
     headTeacher: 'Head Teacher',
     teachers: 'Teachers',
@@ -60,18 +83,26 @@ export const translations = {
     eventRegister: 'Event Register',
     mr: 'MR',
     apa: 'APA',
+    apa2025: 'APA 2025',
+    apa2026: 'APA 2026',
     annualWorkPlan: 'Annual Work Plan',
+
     classRoutine: 'Class Routine',
     interSports: 'Inter-Sports',
-    holidayList: 'Holiday List 2024',
+    holidayList: 'Holiday List 2026',
+    innovationActivity: 'Innovation Activity',
     miscForms: 'Miscellaneous Forms',
+
     scholarshipExam: 'Scholarship Exam',
     electricityBill: 'Electricity Bill',
-    vouchers: 'Vouchers',
+    // vouchers: 'Vouchers', // Removed
     urcRelated: 'URC Related',
 
+
     managingCommittee: 'Managing Committee',
-    pta: 'PTA',
+    adhokCommittee: 'Adhok Committee',
+    ptaCommittee: 'PTA Committee',
+
     slipCommittee: 'SLIP Committee',
     sacCommittee: 'SAC Committee',
     studentCouncil: 'Student Council',
@@ -92,7 +123,17 @@ export const translations = {
 
     libraryAssistance: 'Library/Assistance',
     textbook: 'Textbook',
+    class1: 'Class 1',
+    class2: 'Class 2',
+    class3: 'Class 3',
+    class4: 'Class 4',
+    class5: 'Class 5',
+
     teachersGuide: "Teacher's Guide",
+    teachersEdition: "Teacher's Edition",
+    teachersAid: "Teacher's Aid",
+
+
 
     prePrimary: 'Pre-Primary',
     annualCurriculumPlan: 'Annual Curriculum Plan',
@@ -101,14 +142,21 @@ export const translations = {
     inspectionForm: 'Inspection Form',
     teachersGuide4Plus: "Teacher's Guide 4+",
     teachersGuide5Plus: "Teacher's Guide 5+",
+    prePrimary4Plus: 'Pre-Primary (4+)',
+    prePrimary5Plus: 'Pre-Primary (5+)',
+    annualLessonPlan: 'Annual Lesson Plan',
+    annualEvaluationForm: 'Annual Evaluation Form',
+    inspectionInfo: 'Inspection Info',
 
-    curriculumLesson: 'Curriculum/Lesson',
+    curriculumLesson: 'Annual Lesson Plan',
     first: 'First',
     second: 'Second',
     third: 'Third',
     fourth: 'Fourth',
     fifth: 'Fifth',
+    primaryScience: 'Primary Science',
     science: 'Science',
+
 
     noticeBoard: 'Notice Board',
 
@@ -257,6 +305,10 @@ export const translations = {
     classUpdateReport: 'ক্লাস আপডেট রিপোর্ট',
     demandReport: 'চাহিদা রিপোর্ট',
     payroll: 'পেরোল',
+    admissionInfo: 'ভর্তি তথ্য',
+    stipendInfo: 'উপবৃত্তি তথ্য',
+    schoolFeeding: 'স্কুল ফিডিং কার্যক্রম',
+
 
     teacherAffairs: 'শিক্ষক বিষয়ক',
     teacherInfo: 'শিক্ষকের তথ্য',
@@ -268,11 +320,18 @@ export const translations = {
     dutyDistribution: 'দায়িত্ব বন্টন',
     dailyLesson: 'দৈনিক পাঠ',
     lessonStudy: 'পাঠ সমীক্ষা',
+    classObservation: 'শ্রেণী পর্যবেক্ষণ',
     academicSupervision: 'একাডেমিক সুপারভিশন',
     teachersACR: 'শিক্ষকদের এসিআর',
 
     evaluation: 'মূল্যায়ন',
     examSchedule: 'পরীক্ষার সময়সূচী',
+    pakkhikPorikkha: 'পাক্ষিক পরীক্ষা',
+    terminalEvaluationInfo: 'প্রান্তিক মূল্যায়ন তথ্য',
+
+    continuousEvaluationInfo: 'ধারাবাহিক মূল্যায়ন তথ্য',
+    completionExamInfo: 'সমাপনী পরীক্ষার তথ্য',
+    scholarshipExamInfo: 'বৃত্তি পরীক্ষার তথ্য',
     terminalEvaluation1_3: '১ম-৩য় শ্রেণীর প্রান্তিক মূল্যায়ন',
     practicalEvaluation4_5: '৪র্থ-৫ম শ্রেণীর ব্যবহারিক মূল্যায়ন',
     mayGradePromotion: 'মে গ্রেড প্রমোশন',
@@ -284,6 +343,18 @@ export const translations = {
 
     aboutUs: 'আমাদের সম্পর্কে',
     history: 'ইতিহাস',
+    achievements: 'অর্জন',
+    national: 'জাতীয়',
+    international: 'আন্তর্জাতিক',
+    local: 'স্থানীয়',
+    monitoringBoard: 'মনিটরিং বোর্ড',
+    libraryInfo: 'লাইব্রেরি তথ্য',
+    ictEquipment: 'আইসিটি সরঞ্জাম',
+    offlineInspection: 'অফলাইন পরিদর্শন',
+    onlineInspection: 'অনলাইন পরিদর্শন',
+    websiteInspection: 'ওয়েবসাইট পরিদর্শন',
+    landInfo: 'জমির তথ্য',
+
     committee: 'কমিটি',
     headTeacher: 'প্রধান শিক্ষক',
     teachers: 'শিক্ষকবৃন্দ',
@@ -303,29 +374,36 @@ export const translations = {
     eventRegister: 'ইভেন্ট রেজিস্টার',
     mr: 'এমআর',
     apa: 'এপিএ',
+    apa2025: 'এপিএ ২০২৫',
+    apa2026: 'এপিএ ২০২৬',
     annualWorkPlan: 'বার্ষিক কর্মপরিকল্পনা',
+
     classRoutine: 'ক্লাস রুটিন',
     interSports: 'আন্তঃক্রীড়া',
-    holidayList: 'ছুটির তালিকা ২০২৪',
+    holidayList: 'ছুটির তালিকা ২০২৬',
+    innovationActivity: 'ইনোভেশন কার্যক্রম',
     miscForms: 'বিবিধ ফর্ম',
+
     scholarshipExam: 'বৃত্তি পরীক্ষা',
     electricityBill: 'বিদ্যুৎ বিল',
-    vouchers: 'ভাউচার',
+    // vouchers: 'ভাউচার', // Removed
     urcRelated: 'ইউআরসি সম্পর্কিত',
 
+
     managingCommittee: 'ম্যানেজিং কমিটি',
-    pta: 'পিটিএ',
-    slipCommittee: 'স্লিপ কমিটি',
-    sacCommittee: 'এসএসি কমিটি',
+    adhokCommittee: 'এডহক কমিটি',
+    ptaCommittee: 'PTA কমিটি',
+    slipCommittee: 'Slip কমিটি',
+    sacCommittee: 'SAC কমিটি',
     studentCouncil: 'স্টুডেন্ট কাউন্সিল',
     minorDoctorTeam: 'খুদে ডাক্তার দল',
     kabdol: 'কাবদল',
 
     registration: 'রেজ্যুলেশন',
-    smcResolution: 'এসএমসি রেজ্যুলেশন',
-    ptaResolution: 'পিটিএ রেজ্যুলেশন',
-    slipResolution: 'স্লিপ রেজ্যুলেশন',
-    sacResolution: 'এসএসি রেজ্যুলেশন',
+    smcResolution: 'SMC রেজুলেশন',
+    ptaResolution: 'PTA রেজুলেশন',
+    slipResolution: 'Slip রেজুলেশন',
+    sacResolution: 'SAC রেজুলেশন',
     mothersAssembly: 'মা সমাবেশ',
     guardiansAssembly: 'অভিভাবক সমাবেশ',
     courtyardMeeting: 'উঠান বৈঠক',
@@ -333,9 +411,19 @@ export const translations = {
     studentCouncilResolution: 'স্টুডেন্ট কাউন্সিল',
     minorDoctorResolution: 'খুদে ডাক্তার রেজ্যুলেশন',
 
-    libraryAssistance: 'পাঠ্যবহ/সহায়িকা',
+    libraryAssistance: 'পাঠ্যবই/সহায়িকা',
     textbook: 'পাঠ্যবই',
-    teachersGuide: 'শিক্ষক সহায়িকা',
+    class1: '১ম শ্রেণী',
+    class2: '২য় শ্রেণী',
+    class3: '৩য় শ্রেণী',
+    class4: '৪র্থ শ্রেণী',
+    class5: '৫ম শ্রেণী',
+
+    teachersGuide: 'শিক্ষক নির্দেশিকা',
+    teachersEdition: 'শিক্ষক সংস্করণ',
+    teachersAid: 'শিক্ষক সহায়িকা',
+
+
 
     prePrimary: 'প্রাক-প্রাথমিক',
     annualCurriculumPlan: 'বার্ষিক পাঠ্যক্রম পরিকল্পনা',
@@ -344,14 +432,21 @@ export const translations = {
     inspectionForm: 'পরিদর্শন ফর্ম',
     teachersGuide4Plus: 'শিক্ষক সহায়িকা ৪+',
     teachersGuide5Plus: 'শিক্ষক সহায়িকা ৫+',
+    prePrimary4Plus: 'প্রাক-প্রাথমিক (৪+)',
+    prePrimary5Plus: 'প্রাক-প্রাথমিক (৫+)',
+    annualLessonPlan: 'বার্ষিক পাঠ পরিকল্পনা',
+    annualEvaluationForm: 'বার্ষিক মূল্যায়ন ফরম',
+    inspectionInfo: 'পরিদর্শন তথ্য',
 
-    curriculumLesson: 'পাঠ্যপরিকল্পনা',
+    curriculumLesson: 'বার্ষিক পাঠপরিকল্পনা',
     first: 'প্রথম',
     second: 'দ্বিতীয়',
     third: 'তৃতীয়',
     fourth: 'চতুর্থ',
     fifth: 'পঞ্চম',
+    primaryScience: 'প্রাথমিক বিজ্ঞান',
     science: 'বিজ্ঞান',
+
 
     noticeBoard: 'নোটিশ বোর্ড',
 

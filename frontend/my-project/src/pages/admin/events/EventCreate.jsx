@@ -5,6 +5,7 @@ import { ArrowLeft, Save } from 'lucide-react';
 import RichTextEditor from '../../../components/admin/RichTextEditor';
 import ImageUpload from '../../../components/admin/ImageUpload';
 import { eventService } from '../../../services/eventService';
+import api from '../../../services/api';
 
 const EventCreate = () => {
   const navigate = useNavigate();
@@ -17,22 +18,12 @@ const EventCreate = () => {
     const formData = new FormData();
     formData.append('file', file);
     try {
-      // Use the api instance from services/api.js if possible, or fetch directly
-      const token = localStorage.getItem('token');
-      const response = await fetch('http://localhost:8080/api/upload', {
-        method: 'POST',
+      const response = await api.post('/upload', formData, {
         headers: {
-          'Authorization': `Bearer ${token}`
+          'Content-Type': 'multipart/form-data',
         },
-        body: formData
       });
-      
-      if (!response.ok) {
-        throw new Error('File upload failed');
-      }
-      
-      const data = await response.json();
-      return data.fileName;
+      return response.data.fileUrl;
     } catch (error) {
       console.error('Error uploading file:', error);
       throw error;
@@ -56,17 +47,22 @@ const EventCreate = () => {
         }
       }
 
+      const mediaList = uploadedGalleryUrls.map(url => ({
+        mediaUrl: url,
+        mediaType: 'IMAGE'
+      }));
+
       const eventData = {
         ...data,
         description,
         thumbnailUrl: uploadedThumbnailUrl,
-        imageUrls: uploadedGalleryUrls,
+        mediaList: mediaList,
         videoUrl: data.videoUrl || '',
       };
       
       await eventService.create(eventData);
       alert('Event created successfully!');
-      navigate('/admin/events');
+      navigate('/secure-panel/events');
     } catch (error) {
       console.error('Error creating event:', error);
       alert('Failed to create event');

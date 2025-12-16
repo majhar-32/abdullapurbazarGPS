@@ -5,6 +5,7 @@ import { ArrowLeft, Save } from 'lucide-react';
 import RichTextEditor from '../../../components/admin/RichTextEditor';
 import ImageUpload from '../../../components/admin/ImageUpload';
 import { eventService } from '../../../services/eventService';
+import api from '../../../services/api';
 
 const EventEdit = () => {
   const { id } = useParams();
@@ -29,19 +30,19 @@ const EventEdit = () => {
       setDescription(data.description);
       
       if (data.thumbnailUrl) {
-        const url = data.thumbnailUrl.startsWith('http') ? data.thumbnailUrl : `http://localhost:8080/uploads/${data.thumbnailUrl}`;
+        const url = data.thumbnailUrl.startsWith('http') ? data.thumbnailUrl : `http://localhost:5002/uploads/${data.thumbnailUrl}`;
         setThumbnail([{ preview: url, name: 'Thumbnail' }]);
       }
       if (data.imageUrls && data.imageUrls.length > 0) {
         setGalleryImages(data.imageUrls.map(url => ({ 
-          preview: url.startsWith('http') ? url : `http://localhost:8080/uploads/${url}`, 
+          preview: url.startsWith('http') ? url : `http://localhost:5002/uploads/${url}`, 
           name: 'Image' 
         })));
       }
     } catch (error) {
       console.error('Error fetching event:', error);
       alert('Failed to fetch event details');
-      navigate('/admin/events');
+      navigate('/secure-panel/events');
     } finally {
       setLoading(false);
     }
@@ -51,21 +52,12 @@ const EventEdit = () => {
     const formData = new FormData();
     formData.append('file', file);
     try {
-      const token = localStorage.getItem('token');
-      const response = await fetch('http://localhost:8080/api/upload', {
-        method: 'POST',
+      const response = await api.post('/upload', formData, {
         headers: {
-          'Authorization': `Bearer ${token}`
+          'Content-Type': 'multipart/form-data',
         },
-        body: formData
       });
-      
-      if (!response.ok) {
-        throw new Error('File upload failed');
-      }
-      
-      const data = await response.json();
-      return data.fileName;
+      return response.data.fileUrl;
     } catch (error) {
       console.error('Error uploading file:', error);
       throw error;
@@ -91,17 +83,22 @@ const EventEdit = () => {
         }
       }
 
+      const mediaList = uploadedGalleryUrls.map(url => ({
+        mediaUrl: url,
+        mediaType: 'IMAGE'
+      }));
+
       const eventData = {
         ...data,
         description,
         thumbnailUrl: uploadedThumbnailUrl,
-        imageUrls: uploadedGalleryUrls,
+        mediaList: mediaList,
         videoUrl: data.videoUrl || '',
       };
       
       await eventService.update(id, eventData);
       alert('Event updated successfully!');
-      navigate('/admin/events');
+      navigate('/secure-panel/events');
     } catch (error) {
       console.error('Error updating event:', error);
       alert('Failed to update event');

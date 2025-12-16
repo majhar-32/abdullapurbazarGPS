@@ -18,13 +18,11 @@ const Sidebar = ({ isCollapsed, setIsCollapsed }) => {
   const { t } = useTranslation();
 
   const menuItems = [
-    { name: t('dashboard'), path: '/admin/dashboard', icon: LayoutDashboard },
-    { name: t('notices'), path: '/admin/notices', icon: Bell },
-    { name: t('events'), path: '/admin/events', icon: Calendar },
-    { name: t('managePages'), path: '/admin/pages', icon: FileText },
-    { name: t('manageTeachers'), path: '/admin/teachers', icon: Users },
-    { name: t('manageCommittee'), path: '/admin/committee', icon: Users },
-    { name: t('tickerSettings'), path: '/admin/settings/ticker', icon: Settings },
+    { name: t('dashboard'), path: '/secure-panel/dashboard', icon: LayoutDashboard },
+    { name: t('notices'), path: '/secure-panel/notices', icon: Bell },
+    { name: t('events'), path: '/secure-panel/events', icon: Calendar },
+    { name: t('managePages'), path: '/secure-panel/pages', icon: FileText },
+    { name: t('tickerSettings'), path: '/secure-panel/settings/ticker', icon: Settings },
   ];
 
   const isActive = (path) => location.pathname === path;
