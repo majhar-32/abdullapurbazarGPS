@@ -366,7 +366,7 @@ const Navbar = () => {
         <div className="flex justify-between items-center h-20">
           {/* Logo and School Name */}
           <Link to="/" className="flex items-center space-x-2 flex-shrink-0 mr-6 -ml-4">
-            <div className="h-18 w-18 rounded-full overflow-hidden">
+            <div className="h-14 w-14 rounded-full overflow-hidden border-2 border-white/20 bg-white shadow-md">
               <img src="/logo.png" alt="Logo" className="h-full w-full object-cover scale-110" />
             </div>
             <div className="block">
