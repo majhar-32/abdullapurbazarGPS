@@ -6,10 +6,17 @@
 export const getApiUrl = () => {
   let apiUrl = import.meta.env.VITE_API_URL;
 
-  // Fallback if env var is missing or empty
-  if (!apiUrl) {
-    console.warn('VITE_API_URL is missing, using fallback.');
+  // Check if running on deployed environment (not localhost)
+  const isProduction = window.location.hostname !== 'localhost' && window.location.hostname !== '127.0.0.1';
+
+  // If in production, force the production backend URL
+  // This overrides any incorrect VITE_API_URL (like localhost) that might be set in Netlify
+  if (isProduction) {
     apiUrl = 'https://schoolwebsite-production-8977.up.railway.app';
+  }
+  // Fallback for local development if env var is missing
+  else if (!apiUrl) {
+    apiUrl = 'http://localhost:5002';
   }
 
   // Trim whitespace

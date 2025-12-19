@@ -5,6 +5,7 @@ import { ArrowLeft, Save } from 'lucide-react';
 import RichTextEditor from '../../../components/admin/RichTextEditor';
 import FileUpload from '../../../components/admin/FileUpload';
 import { noticeService } from '../../../services/noticeService';
+import api from '../../../services/api';
 
 const NoticeCreate = () => {
   const navigate = useNavigate();
@@ -16,21 +17,12 @@ const NoticeCreate = () => {
     const formData = new FormData();
     formData.append('file', file);
     try {
-      const token = localStorage.getItem('token');
-      const response = await fetch('http://localhost:5002/api/upload', {
-        method: 'POST',
+      const response = await api.post('/upload', formData, {
         headers: {
-          'Authorization': `Bearer ${token}`
+          'Content-Type': 'multipart/form-data',
         },
-        body: formData
       });
-      
-      if (!response.ok) {
-        throw new Error('File upload failed');
-      }
-      
-      const data = await response.json();
-      return data.fileUrl;
+      return response.data.fileUrl;
     } catch (error) {
       console.error('Error uploading file:', error);
       throw error;

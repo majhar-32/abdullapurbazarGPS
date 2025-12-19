@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { getFileUrl } from '../../utils/apiUtils';
 import { Link } from 'react-router-dom';
 import { Calendar, ArrowRight, MapPin, Image as ImageIcon } from 'lucide-react';
 import { eventService } from '../../services/eventService';
@@ -64,7 +65,7 @@ const EventGallery = () => {
               <div className="relative h-56 overflow-hidden">
                 <div className="absolute inset-0 bg-gray-100" />
                 <img 
-                  src={event.thumbnailUrl?.startsWith('http') ? event.thumbnailUrl : `${import.meta.env.VITE_API_URL}/uploads/${event.thumbnailUrl}`}
+                  src={getFileUrl(event.thumbnailUrl)}
                   alt={event.title}
                   className="relative z-10 w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-700"
                   onError={(e) => {

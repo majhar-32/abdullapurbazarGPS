@@ -11,6 +11,8 @@ import { Document, Page, pdfjs } from 'react-pdf';
 import 'react-pdf/dist/Page/AnnotationLayer.css';
 import 'react-pdf/dist/Page/TextLayer.css';
 import { useTranslation } from '../../hooks/useTranslation';
+import api from '../../services/api';
+import { getApiUrl } from '../../utils/apiUtils';
 
 // Set up the worker
 pdfjs.GlobalWorkerOptions.workerSrc = new URL(
@@ -308,15 +310,12 @@ const ManagePages = () => {
 
   const fetchPages = async () => {
     try {
-      const token = localStorage.getItem('token');
-      const response = await fetch('http://localhost:5002/api/pages/all', {
+      const response = await api.get('/pages/all', {
         headers: {
-          'Authorization': `Bearer ${token}`,
           'Cache-Control': 'no-cache'
         }
       });
-      if (response.ok) {
-        const data = await response.json();
+      const data = response.data;
         const dataMap = {};
         data.forEach(page => {
           // Map backend snake_case to frontend camelCase
@@ -331,7 +330,7 @@ const ManagePages = () => {
           }
         });
         setPagesData(dataMap);
-      }
+
     } catch (error) {
       console.error('Error fetching pages:', error);
       toast.error(t('loadFailed'));
@@ -351,25 +350,18 @@ const ManagePages = () => {
     formData.append('file', file);
 
     setUploading(pageKey);
+
     try {
-      const token = localStorage.getItem('token');
       console.log('Starting upload for:', pageKey);
       
       // 1. Upload File
-      const uploadResponse = await fetch('http://localhost:5002/api/upload', {
-        method: 'POST',
+      const uploadResponse = await api.post('/upload', formData, {
         headers: {
-          'Authorization': `Bearer ${token}`
+          'Content-Type': 'multipart/form-data',
         },
-        body: formData,
       });
 
-      if (!uploadResponse.ok) {
-        const errorText = await uploadResponse.text();
-        console.error('Upload failed:', errorText);
-        throw new Error('File upload failed');
-      }
-      const uploadData = await uploadResponse.json();
+      const uploadData = uploadResponse.data;
       console.log('Upload successful:', uploadData);
       const pdfUrl = uploadData.fileUrl;
 
@@ -383,22 +375,10 @@ const ManagePages = () => {
       };
 
       console.log('Saving page data:', pageData);
-      const saveResponse = await fetch('http://localhost:5002/api/pages', {
-        method: 'POST',
-        headers: { 
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${token}`
-        },
-        body: JSON.stringify(pageData),
-      });
 
-      if (!saveResponse.ok) {
-        const errorText = await saveResponse.text();
-        console.error('Save page failed:', errorText);
-        throw new Error('Failed to save page info');
-      }
+      const saveResponse = await api.post('/pages', pageData);
       
-      const savedPage = await saveResponse.json();
+      const savedPage = saveResponse.data;
       console.log('Page saved:', savedPage);
 
       toast.success(t('uploadSuccess'));
@@ -415,26 +395,16 @@ const ManagePages = () => {
     if (!currentData) return;
 
     try {
-      const token = localStorage.getItem('token');
       const updatedPage = { 
         pageKey,
         title: currentData.title,
         pdfUrl: currentData.pdfUrl,
         isVisible: !currentData.visible 
       };
-      const response = await fetch('http://localhost:5002/api/pages', {
-        method: 'POST',
-        headers: { 
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${token}`
-        },
-        body: JSON.stringify(updatedPage),
-      });
+      await api.post('/pages', updatedPage);
 
-      if (response.ok) {
-        toast.success(`${t('visibilityUpdated')} ${updatedPage.visible ? t('live') : t('hidden')}`);
-        fetchPages();
-      }
+      toast.success(`${t('visibilityUpdated')} ${updatedPage.visible ? t('live') : t('hidden')}`);
+      fetchPages();
     } catch (error) {
       toast.error(t('visibilityFailed'));
     }
@@ -444,18 +414,9 @@ const ManagePages = () => {
     if (!window.confirm(t('deleteConfirm'))) return;
 
     try {
-      const token = localStorage.getItem('token');
-      const response = await fetch(`http://localhost:5002/api/pages/${id}`, {
-        method: 'DELETE',
-        headers: {
-          'Authorization': `Bearer ${token}`
-        }
-      });
-
-      if (response.ok) {
-        toast.success(t('deleteSuccess'));
-        fetchPages();
-      }
+      await api.delete(`/pages/${id}`);
+      toast.success(t('deleteSuccess'));
+      fetchPages();
     } catch (error) {
       toast.error(t('deleteFailed'));
     }
@@ -688,7 +649,7 @@ const ManagePages = () => {
         </div>
         <div id="pdf-preview-container" className="flex-1 bg-gray-100/50 p-6 overflow-y-auto flex flex-col items-center">
           <Document
-            file={previewUrl.startsWith('http') ? previewUrl : `http://localhost:5002${previewUrl}`}
+            file={previewUrl.startsWith('http') ? previewUrl : `${getApiUrl()}${previewUrl}`}
             onLoadSuccess={onDocumentLoadSuccess}
             loading={
               <div className="flex flex-col items-center gap-3 mt-20">
@@ -704,7 +665,7 @@ const ManagePages = () => {
                   <span className="text-sm text-gray-500">The file may be corrupted or incompatible.</span>
                 </p>
                 <a 
-                  href={previewUrl ? (previewUrl.startsWith('http') ? previewUrl : `http://localhost:5002${previewUrl}`) : '#'} 
+                  href={previewUrl ? (previewUrl.startsWith('http') ? previewUrl : `${getApiUrl()}${previewUrl}`) : '#'}  
                   target="_blank" 
                   rel="noopener noreferrer"
                   className="mt-2 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors text-sm font-medium flex items-center gap-2"

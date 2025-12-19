@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Document, Page, pdfjs } from 'react-pdf';
 import { useTranslation } from '../hooks/useTranslation';
+import { getApiUrl } from '../utils/apiUtils';
 import { Loader2, FileX, Calendar } from 'lucide-react';
 import 'react-pdf/dist/Page/AnnotationLayer.css';
 import 'react-pdf/dist/Page/TextLayer.css';
@@ -47,7 +48,7 @@ const UniversalPdfViewer = ({ pageKey }) => {
         setLoading(true);
         setError(null); // Reset error state
         setPageContent(null); // Reset content state
-        const response = await fetch(`http://localhost:5002/api/pages/${pageKey}`);
+        const response = await fetch(`${getApiUrl()}/api/pages/${pageKey}`);
         if (!response.ok) {
           if (response.status === 404) {
             setError('Page not found');
@@ -141,7 +142,7 @@ const UniversalPdfViewer = ({ pageKey }) => {
         <div id="pdf-container" className="p-6 flex flex-col items-center bg-gray-100 min-h-[600px]">
           {pageContent.pdfUrl ? (
             <Document
-              file={pageContent.pdfUrl ? (pageContent.pdfUrl.startsWith('http') ? pageContent.pdfUrl : `http://localhost:5002${pageContent.pdfUrl}`) : null}
+              file={pageContent.pdfUrl ? (pageContent.pdfUrl.startsWith('http') ? pageContent.pdfUrl : `${getApiUrl()}${pageContent.pdfUrl}`) : null}
               onLoadSuccess={onDocumentLoadSuccess}
               loading={<div className="h-[600px] w-full max-w-[800px] bg-gray-200 animate-pulse rounded"></div>}
               error={
@@ -149,7 +150,7 @@ const UniversalPdfViewer = ({ pageKey }) => {
                   <FileX size={40} />
                   <p className="font-medium">Failed to load PDF file.</p>
                   <a 
-                    href={pageContent.pdfUrl ? (pageContent.pdfUrl.startsWith('http') ? pageContent.pdfUrl : `http://localhost:5002${pageContent.pdfUrl}`) : '#'} 
+                    href={pageContent.pdfUrl ? (pageContent.pdfUrl.startsWith('http') ? pageContent.pdfUrl : `${getApiUrl()}${pageContent.pdfUrl}`) : '#'} 
                     target="_blank" 
                     rel="noopener noreferrer"
                     className="mt-2 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors text-sm font-medium"

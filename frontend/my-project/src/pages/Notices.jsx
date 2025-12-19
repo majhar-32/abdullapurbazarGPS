@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { getFileUrl } from '../utils/apiUtils';
 import { Calendar, ArrowRight, Bell, X, FileText, Image as ImageIcon } from 'lucide-react';
 import NoticeTicker from '../components/ui/NoticeTicker';
 import FadeInSection from '../components/ui/FadeInSection';
@@ -42,16 +43,7 @@ const Notices = () => {
   ];
 
   const openPreview = (attachmentUrl, title) => {
-    // Fix: Check if URL already contains /uploads or starts with http
-    let fullUrl = attachmentUrl;
-    if (!attachmentUrl.startsWith('http')) {
-        // If it starts with /, just prepend base URL, otherwise prepend /uploads/
-        if (attachmentUrl.startsWith('/')) {
-            fullUrl = `${import.meta.env.VITE_API_URL}${attachmentUrl}`;
-        } else {
-            fullUrl = `${import.meta.env.VITE_API_URL}/uploads/${attachmentUrl}`;
-        }
-    }
+    const fullUrl = getFileUrl(attachmentUrl);
 
     setPreviewTitle(title);
     

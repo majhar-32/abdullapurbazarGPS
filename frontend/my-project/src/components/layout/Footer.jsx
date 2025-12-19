@@ -41,7 +41,7 @@ const Footer = () => {
                   <ArrowRight size={14} className="mr-2" /> Home
                 </Link>
               </li>
-              <li>
+              <li>     
                 <Link to="/history" className="text-blue-200 hover:text-white hover:pl-2 transition-all flex items-center">
                   <ArrowRight size={14} className="mr-2" /> About Us
                 </Link>

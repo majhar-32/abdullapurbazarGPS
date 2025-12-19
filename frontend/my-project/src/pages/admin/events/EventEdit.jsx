@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { getFileUrl } from '../../../utils/apiUtils';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import { ArrowLeft, Save } from 'lucide-react';
@@ -30,12 +31,11 @@ const EventEdit = () => {
       setDescription(data.description);
       
       if (data.thumbnailUrl) {
-        const url = data.thumbnailUrl.startsWith('http') ? data.thumbnailUrl : `http://localhost:5002/uploads/${data.thumbnailUrl}`;
-        setThumbnail([{ preview: url, name: 'Thumbnail' }]);
+        setThumbnail([{ preview: getFileUrl(data.thumbnailUrl), name: 'Thumbnail' }]);
       }
       if (data.imageUrls && data.imageUrls.length > 0) {
         setGalleryImages(data.imageUrls.map(url => ({ 
-          preview: url.startsWith('http') ? url : `http://localhost:5002/uploads/${url}`, 
+          preview: getFileUrl(url), 
           name: 'Image' 
         })));
       }

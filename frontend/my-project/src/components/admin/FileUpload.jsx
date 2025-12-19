@@ -1,4 +1,5 @@
 import React, { useCallback } from 'react';
+import { getFileUrl } from '../../utils/apiUtils';
 import { useDropzone } from 'react-dropzone';
 import { Upload, X, FileText, Image as ImageIcon } from 'lucide-react';
 
@@ -57,7 +58,7 @@ const FileUpload = ({ file, onChange, accept = { 'image/*': [], 'application/pdf
           <div className="mr-4">
             {file.type?.startsWith('image/') || file.name?.match(/\.(jpg|jpeg|png|gif)$/i) ? (
               <img
-                src={file.preview || (file.name.startsWith('http') ? file.name : `http://localhost:5002/uploads/${file.name}`)}
+                src={file.preview || getFileUrl(file.name)}
                 alt={file.name}
                 className="w-16 h-16 object-cover rounded-lg"
                 onError={(e) => { 

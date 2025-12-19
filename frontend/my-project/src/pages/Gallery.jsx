@@ -1,4 +1,5 @@
 import React from 'react';
+import { getFileUrl } from '../utils/apiUtils';
 import { Link } from 'react-router-dom';
 import { Calendar, ArrowRight, Image as ImageIcon } from 'lucide-react';
 import FadeInSection from '../components/ui/FadeInSection';
@@ -49,7 +50,7 @@ const Gallery = () => {
                   {/* Thumbnail */}
                   <div className="h-48 bg-gray-200 relative overflow-hidden group">
                     <img 
-                      src={event.thumbnailUrl ? (event.thumbnailUrl.startsWith('http') ? event.thumbnailUrl : (event.thumbnailUrl.startsWith('/') ? `${import.meta.env.VITE_API_URL}${event.thumbnailUrl}` : `${import.meta.env.VITE_API_URL}/uploads/${event.thumbnailUrl}`)) : "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIzMDAiIGhlaWdodD0iMjAwIiB2aWV3Qm94PSIwIDAgMzAwIDIwMCI+PHJlY3Qgd2lkdGg9IjMwMCIgaGVpZ2h0PSIyMDAiIGZpbGw9IiNmM2Y0ZjYiLz48dGV4dCB4PSI1MCUiIHk9IjUwJSIgZm9udC1mYW1pbHk9InNhbnMtc2VyaWYiIGZvbnQtc2l6ZT0iMjAiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGR5PSIuM2VtIiBmaWxsPSIjOWNhM2FmIj5JbWFnZSBOb3QgRm91bmQ8L3RleHQ+PC9zdmc+"} 
+                      src={getFileUrl(event.thumbnailUrl)} 
                       alt={event.title} 
                       className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
                       onError={(e) => {

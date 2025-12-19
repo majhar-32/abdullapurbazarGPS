@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { getFileUrl } from '../../utils/apiUtils';
 import { Link } from 'react-router-dom';
 import { Calendar, ArrowRight, FileText, Image as ImageIcon, X, Bell, Eye, Download } from 'lucide-react';
 import NoticeTicker from './NoticeTicker';
@@ -43,16 +44,7 @@ const NoticeBoard = () => {
     
     const attachmentUrl = notice.attachmentUrl;
     if (attachmentUrl) {
-        // Fix: Check if URL already contains /uploads or starts with http
-        let fullUrl = attachmentUrl;
-        if (!attachmentUrl.startsWith('http')) {
-            // If it starts with /, just prepend base URL, otherwise prepend /uploads/
-            if (attachmentUrl.startsWith('/')) {
-                fullUrl = `${import.meta.env.VITE_API_URL}${attachmentUrl}`;
-            } else {
-                fullUrl = `${import.meta.env.VITE_API_URL}/uploads/${attachmentUrl}`;
-            }
-        }
+        const fullUrl = getFileUrl(attachmentUrl);
         
         setPreviewTitle(notice.title);
         

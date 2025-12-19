@@ -3,6 +3,7 @@ import {
   Users, Plus, Search, Edit2, Trash2, Upload, X, Loader2, Phone, Mail 
 } from 'lucide-react';
 import toast from 'react-hot-toast';
+import api from '../../../services/api';
 
 const ManageTeachers = () => {
   const [teachers, setTeachers] = useState([]);
@@ -28,11 +29,8 @@ const ManageTeachers = () => {
 
   const fetchTeachers = async () => {
     try {
-      const response = await fetch('http://localhost:5002/api/teachers');
-      if (response.ok) {
-        const data = await response.json();
-        setTeachers(data);
-      }
+      const response = await api.get('/teachers');
+      setTeachers(response.data);
     } catch (error) {
       console.error('Error fetching teachers:', error);
       toast.error('Failed to load teachers');
@@ -58,22 +56,14 @@ const ManageTeachers = () => {
 
     setUploading(true);
     try {
-      const token = localStorage.getItem('token');
-      const response = await fetch('http://localhost:5002/api/upload', {
-        method: 'POST',
+      const response = await api.post('/upload', uploadData, {
         headers: {
-          'Authorization': `Bearer ${token}`
+          'Content-Type': 'multipart/form-data',
         },
-        body: uploadData
       });
 
-      if (response.ok) {
-        const data = await response.json();
-        setFormData(prev => ({ ...prev, imageUrl: data.fileUrl }));
-        toast.success('Image uploaded successfully');
-      } else {
-        throw new Error('Upload failed');
-      }
+      setFormData(prev => ({ ...prev, imageUrl: response.data.fileUrl }));
+      toast.success('Image uploaded successfully');
     } catch (error) {
       console.error(error);
       toast.error('Failed to upload image');
@@ -84,52 +74,31 @@ const ManageTeachers = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const token = localStorage.getItem('token');
     const url = editingTeacher 
-      ? `http://localhost:5002/api/teachers/${editingTeacher.id}`
-      : 'http://localhost:5002/api/teachers';
+      ? `/teachers/${editingTeacher.id}`
+      : '/teachers';
     
-    const method = editingTeacher ? 'PUT' : 'POST';
+    const method = editingTeacher ? 'put' : 'post';
 
     try {
-      const response = await fetch(url, {
-        method: method,
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${token}`
-        },
-        body: JSON.stringify(formData)
-      });
-
-      if (response.ok) {
-        toast.success(editingTeacher ? 'Teacher updated' : 'Teacher added');
-        fetchTeachers();
-        closeModal();
-      } else {
-        throw new Error('Failed to save teacher');
-      }
+      await api[method](url, formData);
+      toast.success(editingTeacher ? 'Teacher updated' : 'Teacher added');
+      fetchTeachers();
+      closeModal();
     } catch (error) {
       console.error(error);
       toast.error('Operation failed');
     }
   };
 
+
   const handleDelete = async (id) => {
     if (!window.confirm('Are you sure you want to delete this teacher?')) return;
 
     try {
-      const token = localStorage.getItem('token');
-      const response = await fetch(`http://localhost:5002/api/teachers/${id}`, {
-        method: 'DELETE',
-        headers: {
-          'Authorization': `Bearer ${token}`
-        }
-      });
-
-      if (response.ok) {
-        toast.success('Teacher deleted');
-        fetchTeachers();
-      }
+      await api.delete(`/teachers/${id}`);
+      toast.success('Teacher deleted');
+      fetchTeachers();
     } catch (error) {
       toast.error('Failed to delete teacher');
     }

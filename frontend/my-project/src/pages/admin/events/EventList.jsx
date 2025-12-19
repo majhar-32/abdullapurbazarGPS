@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { getFileUrl } from '../../../utils/apiUtils';
 import { Link } from 'react-router-dom';
 import { Plus, Search, Edit, Trash2, Eye, Calendar } from 'lucide-react';
 import { eventService } from '../../../services/eventService';
@@ -75,7 +76,7 @@ const EventList = () => {
             {/* Thumbnail */}
             <div className="h-48 bg-gray-200 relative">
               <img
-                src={event.thumbnailUrl ? (event.thumbnailUrl.startsWith('http') ? event.thumbnailUrl : (event.thumbnailUrl.startsWith('/') ? `${import.meta.env.VITE_API_URL}${event.thumbnailUrl}` : `${import.meta.env.VITE_API_URL}/uploads/${event.thumbnailUrl}`)) : "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxNTAiIGhlaWdodD0iMTUwIiB2aWV3Qm94PSIwIDAgMTUwIDE1MCI+PHJlY3Qgd2lkdGg9IjE1MCIgaGVpZ2h0PSIxNTAiIGZpbGw9IiNmM2Y0ZjYiLz48dGV4dCB4PSI1MCUiIHk9IjUwJSIgZm9udC1mYW1pbHk9InNhbnMtc2VyaWYiIGZvbnQtc2l6ZT0iMTQiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGR5PSIuM2VtIiBmaWxsPSIjOWNhM2FmIj5JbWFnZSBOb3QgRm91bmQ8L3RleHQ+PC9zdmc+"}
+                src={getFileUrl(event.thumbnailUrl)}
                 alt={event.title}
                 className="w-full h-full object-cover"
                 onError={(e) => {

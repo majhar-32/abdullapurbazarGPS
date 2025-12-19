@@ -3,6 +3,7 @@ import {
   Users, Plus, Search, Edit2, Trash2, Upload, X, Loader2, Phone, Mail 
 } from 'lucide-react';
 import toast from 'react-hot-toast';
+import api from '../../../services/api';
 
 const ManageCommittee = () => {
   const [members, setMembers] = useState([]);
@@ -28,11 +29,8 @@ const ManageCommittee = () => {
 
   const fetchMembers = async () => {
     try {
-      const response = await fetch('http://localhost:5002/api/committee-members');
-      if (response.ok) {
-        const data = await response.json();
-        setMembers(data);
-      }
+      const response = await api.get('/committee-members');
+      setMembers(response.data);
     } catch (error) {
       console.error('Error fetching members:', error);
       toast.error('Failed to load committee members');
@@ -58,22 +56,14 @@ const ManageCommittee = () => {
 
     setUploading(true);
     try {
-      const token = localStorage.getItem('token');
-      const response = await fetch('http://localhost:5002/api/upload', {
-        method: 'POST',
+      const response = await api.post('/upload', uploadData, {
         headers: {
-          'Authorization': `Bearer ${token}`
+          'Content-Type': 'multipart/form-data',
         },
-        body: uploadData
       });
 
-      if (response.ok) {
-        const data = await response.json();
-        setFormData(prev => ({ ...prev, imageUrl: data.fileUrl }));
-        toast.success('Image uploaded successfully');
-      } else {
-        throw new Error('Upload failed');
-      }
+      setFormData(prev => ({ ...prev, imageUrl: response.data.fileUrl }));
+      toast.success('Image uploaded successfully');
     } catch (error) {
       console.error(error);
       toast.error('Failed to upload image');
@@ -84,52 +74,31 @@ const ManageCommittee = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const token = localStorage.getItem('token');
     const url = editingMember 
-      ? `http://localhost:5002/api/committee-members/${editingMember.id}`
-      : 'http://localhost:5002/api/committee-members';
+      ? `/committee-members/${editingMember.id}`
+      : '/committee-members';
     
-    const method = editingMember ? 'PUT' : 'POST';
+    const method = editingMember ? 'put' : 'post';
 
     try {
-      const response = await fetch(url, {
-        method: method,
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${token}`
-        },
-        body: JSON.stringify(formData)
-      });
-
-      if (response.ok) {
-        toast.success(editingMember ? 'Member updated' : 'Member added');
-        fetchMembers();
-        closeModal();
-      } else {
-        throw new Error('Failed to save member');
-      }
+      await api[method](url, formData);
+      toast.success(editingMember ? 'Member updated' : 'Member added');
+      fetchMembers();
+      closeModal();
     } catch (error) {
       console.error(error);
       toast.error('Operation failed');
     }
   };
 
+
   const handleDelete = async (id) => {
     if (!window.confirm('Are you sure you want to delete this member?')) return;
 
     try {
-      const token = localStorage.getItem('token');
-      const response = await fetch(`http://localhost:5002/api/committee-members/${id}`, {
-        method: 'DELETE',
-        headers: {
-          'Authorization': `Bearer ${token}`
-        }
-      });
-
-      if (response.ok) {
-        toast.success('Member deleted');
-        fetchMembers();
-      }
+      await api.delete(`/committee-members/${id}`);
+      toast.success('Member deleted');
+      fetchMembers();
     } catch (error) {
       toast.error('Failed to delete member');
     }
