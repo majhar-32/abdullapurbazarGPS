@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { 
-  LayoutDashboard, 
   Settings, 
   LogOut,
   FileText,
@@ -18,7 +17,6 @@ const Sidebar = ({ isCollapsed, setIsCollapsed }) => {
   const { t } = useTranslation();
 
   const menuItems = [
-    { name: t('dashboard'), path: '/secure-panel/dashboard', icon: LayoutDashboard },
     { name: t('notices'), path: '/secure-panel/notices', icon: Bell },
     { name: t('events'), path: '/secure-panel/events', icon: Calendar },
     { name: t('managePages'), path: '/secure-panel/pages', icon: FileText },

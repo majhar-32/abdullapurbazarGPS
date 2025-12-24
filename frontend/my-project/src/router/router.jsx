@@ -14,7 +14,6 @@ import NotFound from '../pages/NotFound';
 // Admin imports
 import AdminLayout from '../components/admin/AdminLayout';
 import Login from '../pages/admin/Login';
-import Dashboard from '../pages/admin/Dashboard';
 import NoticeList from '../pages/admin/notices/NoticeList';
 import NoticeCreate from '../pages/admin/notices/NoticeCreate';
 import NoticeEdit from '../pages/admin/notices/NoticeEdit';
@@ -247,11 +246,7 @@ export const router = createBrowserRouter([
     children: [
       {
         index: true,
-        element: <Navigate to="dashboard" replace />,
-      },
-      {
-        path: 'dashboard',
-        element: <Dashboard />,
+        element: <Navigate to="notices" replace />,
       },
       {
         path: 'notices',
