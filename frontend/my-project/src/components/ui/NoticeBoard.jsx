@@ -103,11 +103,11 @@ const NoticeBoard = () => {
                 <div className="overflow-x-auto">
                     <table className="w-full text-left border-collapse">
                         <thead>
-                            <tr className="bg-gray-50 border-b border-gray-200 text-gray-700 uppercase text-sm leading-normal">
-                                <th className="py-3 px-6 font-bold">SL NO.</th>
-                                <th className="py-3 px-6 font-bold w-1/2">Topic</th>
-                                <th className="py-3 px-6 font-bold">Date</th>
-                                <th className="py-3 px-6 font-bold text-center">View</th>
+                            <tr className="bg-gray-50 border-b border-gray-200 text-gray-700 uppercase text-xs md:text-sm leading-normal">
+                                <th className="py-3 px-3 md:px-6 font-bold hidden md:table-cell">SL NO.</th>
+                                <th className="py-3 px-3 md:px-6 font-bold w-1/2">Topic</th>
+                                <th className="py-3 px-3 md:px-6 font-bold">Date</th>
+                                <th className="py-3 px-3 md:px-6 font-bold text-center">View</th>
                             </tr>
                         </thead>
                         <tbody className="text-gray-600 text-sm font-light">
@@ -122,23 +122,23 @@ const NoticeBoard = () => {
                             ) : (
                                 notices.map((notice, index) => (
                                     <tr key={notice.id} className="border-b border-gray-200 hover:bg-gray-50 transition-colors">
-                                        <td className="py-4 px-6 font-medium whitespace-nowrap">{index + 1}</td>
-                                        <td className="py-4 px-6">
-                                            <span className="font-medium text-gray-800 line-clamp-1" title={notice.title}>
+                                        <td className="py-3 md:py-4 px-3 md:px-6 font-medium whitespace-nowrap hidden md:table-cell">{index + 1}</td>
+                                        <td className="py-3 md:py-4 px-3 md:px-6">
+                                            <span className="font-medium text-gray-800 line-clamp-2 md:line-clamp-1 text-xs md:text-sm" title={notice.title}>
                                                 {notice.title}
                                             </span>
                                         </td>
-                                        <td className="py-4 px-6 whitespace-nowrap">
+                                        <td className="py-3 md:py-4 px-3 md:px-6 whitespace-nowrap text-xs md:text-sm">
                                             {new Date(notice.publishDate).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}
                                         </td>
-                                        <td className="py-4 px-6 text-center">
+                                        <td className="py-3 md:py-4 px-3 md:px-6 text-center">
                                             <button 
                                                 onClick={() => openPreview(notice)}
                                                 className="text-blue-500 hover:text-blue-700 transform hover:scale-110 transition-transform flex flex-col items-center mx-auto"
                                                 title="View Notice"
                                             >
-                                                <Eye size={20} />
-                                                <span className="text-[10px] mt-1">View</span>
+                                                <Eye size={18} className="md:w-5 md:h-5" />
+                                                <span className="text-[10px] mt-1 hidden md:block">View</span>
                                             </button>
                                         </td>
                                     </tr>
