@@ -7,9 +7,6 @@ const prisma = new PrismaClient();
 const getEvents = async (req, res) => {
   try {
     const events = await prisma.events.findMany({
-      include: {
-        event_media: true,
-      },
       orderBy: { event_date: 'desc' },
     });
 
@@ -22,11 +19,7 @@ const getEvents = async (req, res) => {
       videoUrl: event.video_url,
       createdAt: event.created_at,
       updatedAt: event.updated_at,
-      mediaList: event.event_media.map(media => ({
-        id: media.id.toString(),
-        mediaUrl: media.media_url,
-        mediaType: media.media_type
-      }))
+      // mediaList is not needed for list view
     }));
 
     res.json(formattedEvents);
