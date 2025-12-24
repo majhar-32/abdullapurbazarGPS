@@ -74,6 +74,7 @@ const EventDetails = () => {
                   <img 
                     src={getFileUrl(img)} 
                     alt={`Event ${index + 1}`} 
+                    loading="lazy"
                     className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" 
                     onError={(e) => {
                       console.error("Failed to load image:", e.target.src);
