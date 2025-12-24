@@ -16,7 +16,7 @@ const ProtectedRoute = ({ children }) => {
 
   if (!user) {
     // Redirect to login page but save the attempted url
-    return <Navigate to="/abgps-admin-portal-2024-secure/login" state={{ from: location }} replace />;
+    return <Navigate to="/abgps-admin-portal-20@#25-s@cure-12-31#/login" state={{ from: location }} replace />;
   }
 
   return children;

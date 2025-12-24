@@ -51,7 +51,7 @@ const NoticeList = () => {
       <div className="flex justify-between items-center mb-6">
         <h1 className="text-3xl font-bold text-gray-800">Notices</h1>
         <Link
-          to="/abgps-admin-portal-2024-secure/notices/create"
+          to="/abgps-admin-portal-20@#25-s@cure-12-31#/notices/create"
           className="flex items-center space-x-2 bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors"
         >
           <Plus size={20} />
@@ -160,7 +160,7 @@ const NoticeList = () => {
                       <Eye size={18} />
                     </Link>
                     <Link
-                      to={`/abgps-admin-portal-2024-secure/notices/edit/${notice.id}`}
+                      to={`/abgps-admin-portal-20@#25-s@cure-12-31#/notices/edit/${notice.id}`}
                       className="p-2 text-blue-600 hover:bg-blue-50 rounded-lg transition-colors"
                       title="Edit"
                     >
