@@ -64,7 +64,7 @@ const Hero = () => {
   };
 
   return (
-    <div className="relative h-[500px] md:h-[600px] overflow-hidden">
+    <div className="relative w-full aspect-video h-auto md:h-[600px] md:aspect-auto overflow-hidden">
       <AnimatePresence mode='sync'>
         <motion.div
           key={currentSlide}
