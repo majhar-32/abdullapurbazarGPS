@@ -56,8 +56,9 @@ const NoticeTicker = () => {
         
         <div className="flex-grow overflow-hidden relative h-6">
           <motion.div 
-            className="whitespace-nowrap absolute flex items-center"
-            animate={{ x: ["100%", "-100%"] }}
+            className="whitespace-nowrap flex items-center"
+            style={{ paddingLeft: '100%' }}
+            animate={{ x: ["0%", "-100%"] }}
             transition={{ repeat: Infinity, duration: getDuration(), ease: "linear" }}
           >
             {notices.map((notice, index) => (
