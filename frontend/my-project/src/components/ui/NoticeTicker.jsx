@@ -46,6 +46,9 @@ const NoticeTicker = () => {
     }
   };
 
+  // Duplicate notices to create a seamless loop
+  const duplicatedNotices = [...notices, ...notices];
+
   return (
     <div className="bg-blue-900 text-white py-2 overflow-hidden flex items-center">
       <div className="container mx-auto flex items-center px-4">
@@ -57,12 +60,11 @@ const NoticeTicker = () => {
         <div className="flex-grow overflow-hidden relative h-6">
           <motion.div 
             className="whitespace-nowrap flex items-center w-max"
-            style={{ paddingLeft: '100%' }}
-            animate={{ x: ["0%", "-100%"] }}
+            animate={{ x: ["0%", "-50%"] }}
             transition={{ repeat: Infinity, duration: getDuration(), ease: "linear" }}
           >
-            {notices.map((notice, index) => (
-              <span key={notice.id || index} className="mr-8 text-sm md:text-base flex items-center">
+            {duplicatedNotices.map((notice, index) => (
+              <span key={`${notice.id || index}-${index}`} className="mr-8 text-sm md:text-base flex items-center">
                 <span className="mx-2 text-[10px] text-gray-400">●</span>
                 {notice.title}
                 <span className="mx-2 text-[10px] text-gray-400">●</span>
