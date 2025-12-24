@@ -78,8 +78,10 @@ const ImageUpload = ({ images = [], onChange, multiple = false, maxFiles = 5, al
               {isVideo(image.file || image) ? (
                 <video
                   src={image.preview || image}
-                  className="w-full h-40 object-cover rounded-lg border border-gray-200 bg-black"
+                  className="w-full h-40 object-cover rounded-lg border border-gray-200 bg-gray-100"
                   controls
+                  playsInline
+                  muted
                 />
               ) : (
                 <img
