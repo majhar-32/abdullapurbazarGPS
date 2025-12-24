@@ -179,9 +179,9 @@ const EventEdit = () => {
               images={galleryImages}
               onChange={setGalleryImages}
               multiple={true}
-              maxFiles={10}
+              maxFiles={100}
             />
-            <p className="text-sm text-gray-500 mt-2">Upload up to 10 images for the event gallery</p>
+            <p className="text-sm text-gray-500 mt-2">Upload up to 100 images for the event gallery</p>
           </div>
 
           {/* Video URL */}
