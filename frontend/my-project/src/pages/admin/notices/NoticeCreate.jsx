@@ -12,6 +12,7 @@ const NoticeCreate = () => {
   const { register, handleSubmit, formState: { errors } } = useForm();
   const [description, setDescription] = useState('');
   const [attachment, setAttachment] = useState(null);
+  const [loading, setLoading] = useState(false);
 
   const uploadFile = async (file) => {
     const formData = new FormData();
@@ -30,6 +31,7 @@ const NoticeCreate = () => {
   };
 
   const onSubmit = async (data) => {
+    setLoading(true);
     try {
       let attachmentUrl = '';
       if (attachment && attachment.file) {
@@ -47,6 +49,8 @@ const NoticeCreate = () => {
     } catch (error) {
       console.error('Error creating notice:', error);
       alert('Failed to create notice');
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -176,11 +180,20 @@ const NoticeCreate = () => {
             </button>
             <button
               type="submit"
-              disabled={!description}
+              disabled={!description || loading}
               className="flex items-center space-x-2 px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
             >
-              <Save size={18} />
-              <span>Create Notice</span>
+              {loading ? (
+                <>
+                  <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-white"></div>
+                  <span>Creating...</span>
+                </>
+              ) : (
+                <>
+                  <Save size={18} />
+                  <span>Create Notice</span>
+                </>
+              )}
             </button>
           </div>
         </div>

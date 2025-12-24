@@ -13,6 +13,7 @@ const EventCreate = () => {
   const [description, setDescription] = useState('');
   const [thumbnail, setThumbnail] = useState([]);
   const [galleryImages, setGalleryImages] = useState([]);
+  const [loading, setLoading] = useState(false);
 
   const uploadFile = async (file) => {
     const formData = new FormData();
@@ -31,6 +32,7 @@ const EventCreate = () => {
   };
 
   const onSubmit = async (data) => {
+    setLoading(true);
     try {
       let uploadedThumbnailUrl = '';
       if (thumbnail.length > 0 && thumbnail[0].file) {
@@ -76,6 +78,8 @@ const EventCreate = () => {
     } catch (error) {
       console.error('Error creating event:', error);
       alert('Failed to create event');
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -172,11 +176,20 @@ const EventCreate = () => {
             </button>
             <button
               type="submit"
-              disabled={!description || thumbnail.length === 0}
+              disabled={!description || thumbnail.length === 0 || loading}
               className="flex items-center space-x-2 px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
             >
-              <Save size={18} />
-              <span>Create Event</span>
+              {loading ? (
+                <>
+                  <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-white"></div>
+                  <span>Creating...</span>
+                </>
+              ) : (
+                <>
+                  <Save size={18} />
+                  <span>Create Event</span>
+                </>
+              )}
             </button>
           </div>
         </div>
