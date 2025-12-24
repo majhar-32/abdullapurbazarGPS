@@ -1,6 +1,8 @@
 import React from 'react';
 import { User, Phone, Mail } from 'lucide-react';
 
+import SEO from '../../components/common/SEO';
+
 const Committee = () => {
   // Hardcoded committee data as requested
   const members = [
@@ -18,6 +20,10 @@ const Committee = () => {
 
   return (
     <div className="bg-gray-50 min-h-screen py-12">
+      <SEO 
+        title="Managing Committee" 
+        description="Meet the School Managing Committee (SMC) of Abdullapur Bazar Government Primary School."
+      />
       <div className="container mx-auto px-4">
         <div className="text-center mb-12">
           <h1 className="text-3xl md:text-4xl font-bold text-gray-800 mb-4">Managing Committee</h1>

@@ -5,6 +5,7 @@ import NoticeTicker from '../components/ui/NoticeTicker';
 import FadeInSection from '../components/ui/FadeInSection';
 import PdfPreviewModal from '../components/ui/PdfPreviewModal';
 import { noticeService } from '../services/noticeService';
+import SEO from '../components/common/SEO';
 
 const Notices = () => {
   const [filter, setFilter] = useState('all');
@@ -72,6 +73,10 @@ const Notices = () => {
 
   return (
     <div className="bg-gray-50 min-h-screen">
+      <SEO 
+        title="Notices" 
+        description="Latest notices, events, and announcements from Abdullapur Bazar Government Primary School."
+      />
       <NoticeTicker />
       
       {loading ? (

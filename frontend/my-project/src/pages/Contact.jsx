@@ -1,9 +1,15 @@
 import React from 'react';
 import { MapPin, Phone, Mail, Facebook, Linkedin, Youtube } from 'lucide-react';
 
+import SEO from '../components/common/SEO';
+
 const Contact = () => {
   return (
     <div className="bg-gray-50 min-h-screen py-12">
+      <SEO 
+        title="Contact Us" 
+        description="Contact Abdullapur Bazar Government Primary School. Find our location, phone number, and email address."
+      />
       <div className="container mx-auto px-4">
         
         <div className="text-center mb-12">

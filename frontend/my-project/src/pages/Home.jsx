@@ -7,9 +7,15 @@ import Achievements from '../components/ui/Achievements';
 import FadeInSection from '../components/ui/FadeInSection';
 import SchoolFeatures from '../components/ui/SchoolFeatures';
 
+import SEO from '../components/common/SEO';
+
 const Home = () => {
   return (
     <div>
+      <SEO 
+        title="Home" 
+        description="Welcome to Abdullapur Bazar Government Primary School. A leading primary educational institution committed to academic excellence and character building."
+      />
       <Hero />
       <FadeInSection>
         <NoticeBoard />
