@@ -37,27 +37,37 @@ const EventCreate = () => {
         uploadedThumbnailUrl = await uploadFile(thumbnail[0].file);
       }
 
-      const uploadedGalleryUrls = [];
+      const mediaList = [];
+      if (galleryImages.length > 0) {
+        for (let i = 0; i < galleryImages.length; i++) {
+          const img = galleryImages[i];
+          // Use the uploaded URL if available (from the loop above)
+          // Wait, the loop above pushes to uploadedGalleryUrls but doesn't map back to the file type easily
+          // Let's refactor the loop to handle both
+        }
+      }
+
+      // Refactored loop
+      const finalMediaList = [];
       if (galleryImages.length > 0) {
         for (const img of galleryImages) {
           if (img.file) {
             const url = await uploadFile(img.file);
-            uploadedGalleryUrls.push(url);
+            const isVideo = img.file.type.startsWith('video/') || img.file.name.match(/\.(mp4|webm|ogg)$/i);
+            finalMediaList.push({
+              mediaUrl: url,
+              mediaType: isVideo ? 'VIDEO' : 'IMAGE'
+            });
           }
         }
       }
-
-      const mediaList = uploadedGalleryUrls.map(url => ({
-        mediaUrl: url,
-        mediaType: 'IMAGE'
-      }));
 
       const eventData = {
         ...data,
         description,
         thumbnailUrl: uploadedThumbnailUrl,
-        mediaList: mediaList,
-        videoUrl: data.videoUrl || '',
+        mediaList: finalMediaList,
+        videoUrl: '', // Deprecated, using mediaList for videos
       };
       
       await eventService.create(eventData);
@@ -137,30 +147,19 @@ const EventCreate = () => {
           {/* Gallery Images */}
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-2">
-              Gallery Images (Optional)
+              Gallery Media (Images & Videos)
             </label>
             <ImageUpload
               images={galleryImages}
               onChange={setGalleryImages}
               multiple={true}
               maxFiles={100}
+              allowVideo={true}
             />
-            <p className="text-sm text-gray-500 mt-2">Upload up to 100 images for the event gallery</p>
+            <p className="text-sm text-gray-500 mt-2">Upload up to 100 images or videos for the event gallery</p>
           </div>
 
-          {/* Video URL */}
-          <div>
-            <label className="block text-sm font-medium text-gray-700 mb-2">
-              Video URL (Optional)
-            </label>
-            <input
-              type="url"
-              {...register('videoUrl')}
-              className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-              placeholder="https://youtube.com/watch?v=..."
-            />
-            <p className="text-sm text-gray-500 mt-1">YouTube or other video platform URL</p>
-          </div>
+
 
           {/* Actions */}
           <div className="flex justify-end space-x-4 pt-4 border-t border-gray-200">

@@ -62,37 +62,44 @@ const EventDetails = () => {
           />
         </div>
 
-        {/* Image Gallery Section */}
-        {event.imageUrls && event.imageUrls.length > 0 && (
+        {/* Media Gallery Section */}
+        {event.mediaList && event.mediaList.length > 0 && (
           <div className="mb-12">
             <h2 className="text-2xl font-bold text-gray-800 mb-6 flex items-center">
-              <ImageIcon className="mr-3 text-blue-600" /> Event Photos
+              <ImageIcon className="mr-3 text-blue-600" /> Event Gallery
             </h2>
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-              {event.imageUrls.map((img, index) => (
-                <div key={index} className="aspect-square bg-gray-200 rounded-lg overflow-hidden shadow-sm hover:shadow-md transition-all cursor-pointer group relative">
-                  <img 
-                    src={getFileUrl(img)} 
-                    alt={`Event ${index + 1}`} 
-                    loading="lazy"
-                    className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" 
-                    onError={(e) => {
-                      console.error("Failed to load image:", e.target.src);
-                      e.target.onerror = null;
-                      e.target.src = "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxNTAiIGhlaWdodD0iMTUwIiB2aWV3Qm94PSIwIDAgMTUwIDE1MCI+PHJlY3Qgd2lkdGg9IjE1MCIgaGVpZ2h0PSIxNTAiIGZpbGw9IiNmM2Y0ZjYiLz48dGV4dCB4PSI1MCUiIHk9IjUwJSIgZm9udC1mYW1pbHk9InNhbnMtc2VyaWYiIGZvbnQtc2l6ZT0iMTQiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGR5PSIuM2VtIiBmaWxsPSIjOWNhM2FmIj5JbWFnZSBOb3QgRm91bmQ8L3RleHQ+PC9zdmc+";
-                    }}
-                  />
+              {event.mediaList.map((media, index) => (
+                <div key={index} className="aspect-square bg-gray-200 rounded-lg overflow-hidden shadow-sm hover:shadow-md transition-all group relative">
+                  {media.mediaType === 'VIDEO' ? (
+                    <video 
+                      src={getFileUrl(media.mediaUrl)} 
+                      className="w-full h-full object-cover" 
+                      controls
+                    />
+                  ) : (
+                    <img 
+                      src={getFileUrl(media.mediaUrl)} 
+                      alt={`Event media ${index + 1}`} 
+                      loading="lazy"
+                      className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110 cursor-pointer" 
+                      onError={(e) => {
+                        e.target.onerror = null;
+                        e.target.src = "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxNTAiIGhlaWdodD0iMTUwIiB2aWV3Qm94PSIwIDAgMTUwIDE1MCI+PHJlY3Qgd2lkdGg9IjE1MCIgaGVpZ2h0PSIxNTAiIGZpbGw9IiNmM2Y0ZjYiLz48dGV4dCB4PSI1MCUiIHk9IjUwJSIgZm9udC1mYW1pbHk9InNhbnMtc2VyaWYiIGZvbnQtc2l6ZT0iMTQiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGR5PSIuM2VtIiBmaWxsPSIjOWNhM2FmIj5JbWFnZSBOb3QgRm91bmQ8L3RleHQ+PC9zdmc+";
+                      }}
+                    />
+                  )}
                 </div>
               ))}
             </div>
           </div>
         )}
 
-        {/* Video Section */}
-        {event.videoUrl && (
+        {/* Legacy Video URL Section (if any) */}
+        {event.videoUrl && !event.mediaList?.some(m => m.mediaUrl === event.videoUrl) && (
           <div className="mb-12">
             <h2 className="text-2xl font-bold text-gray-800 mb-6 flex items-center">
-              <PlayCircle className="mr-3 text-red-600" /> Event Videos
+              <PlayCircle className="mr-3 text-red-600" /> Featured Video
             </h2>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div className="aspect-video bg-black rounded-xl overflow-hidden shadow-md">

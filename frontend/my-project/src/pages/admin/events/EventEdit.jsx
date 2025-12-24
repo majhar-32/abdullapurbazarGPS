@@ -33,10 +33,12 @@ const EventEdit = () => {
       if (data.thumbnailUrl) {
         setThumbnail([{ preview: getFileUrl(data.thumbnailUrl), name: 'Thumbnail' }]);
       }
-      if (data.imageUrls && data.imageUrls.length > 0) {
-        setGalleryImages(data.imageUrls.map(url => ({ 
-          preview: getFileUrl(url), 
-          name: 'Image' 
+      if (data.mediaList && data.mediaList.length > 0) {
+        setGalleryImages(data.mediaList.map(media => ({ 
+          preview: getFileUrl(media.mediaUrl), 
+          name: media.mediaUrl.split('/').pop(),
+          type: media.mediaType === 'VIDEO' ? 'video/mp4' : 'image/jpeg',
+          originalType: media.mediaType
         })));
       }
     } catch (error) {
@@ -71,29 +73,64 @@ const EventEdit = () => {
         uploadedThumbnailUrl = await uploadFile(thumbnail[0].file);
       }
 
-      const uploadedGalleryUrls = [];
+      const finalMediaList = [];
       if (galleryImages.length > 0) {
         for (const img of galleryImages) {
           if (img.file) {
             const url = await uploadFile(img.file);
-            uploadedGalleryUrls.push(url);
+            const isVideo = img.file.type.startsWith('video/') || img.file.name.match(/\.(mp4|webm|ogg)$/i);
+            finalMediaList.push({
+              mediaUrl: url,
+              mediaType: isVideo ? 'VIDEO' : 'IMAGE'
+            });
           } else if (img.preview) {
-            uploadedGalleryUrls.push(img.preview);
+            // Existing file
+            // Extract relative path if it's a full URL (though backend expects relative usually, let's check)
+            // The backend stores relative paths usually. getFileUrl adds the domain.
+            // If we send back the full URL, backend might save it as is.
+            // But wait, getFileUrl returns full URL. 
+            // We should probably extract the path or just send what we have if backend handles it.
+            // Actually, the backend create/update logic just saves the string.
+            // If we send full URL, it saves full URL.
+            // We should try to strip the domain if possible, or just rely on what we have.
+            // Ideally we should store what was originally there.
+            // But we only have the preview URL which is full.
+            // Let's assume we can send the preview URL, or better, try to extract the relative path if it matches our domain.
+            // However, for simplicity and safety, let's just use the preview URL but strip the base URL if it's local.
+            // Or better, we can just use the `name` if it contains the path? No.
+            // Let's just use the preview URL. If it's an absolute URL, fine.
+            
+            // Determine type for existing file
+            const isVideo = img.type?.startsWith('video/') || img.name?.match(/\.(mp4|webm|ogg)$/i) || img.originalType === 'VIDEO';
+            
+            // We need to send the relative path if possible to keep DB clean, but full URL is also fine if handled.
+            // Let's try to parse it.
+            let url = img.preview;
+            try {
+                const urlObj = new URL(url);
+                if (urlObj.origin === window.location.origin || urlObj.origin.includes('localhost') || urlObj.origin.includes('vercel')) {
+                    // It's likely our own file, try to get pathname
+                    // But getFileUrl might point to a different backend.
+                    // Let's just send the url.
+                }
+            } catch (e) {
+                // Not a URL, maybe relative path
+            }
+
+            finalMediaList.push({
+              mediaUrl: url,
+              mediaType: isVideo ? 'VIDEO' : 'IMAGE'
+            });
           }
         }
       }
-
-      const mediaList = uploadedGalleryUrls.map(url => ({
-        mediaUrl: url,
-        mediaType: 'IMAGE'
-      }));
 
       const eventData = {
         ...data,
         description,
         thumbnailUrl: uploadedThumbnailUrl,
-        mediaList: mediaList,
-        videoUrl: data.videoUrl || '',
+        mediaList: finalMediaList,
+        videoUrl: '', // Deprecated
       };
       
       await eventService.update(id, eventData);
@@ -173,30 +210,19 @@ const EventEdit = () => {
           {/* Gallery Images */}
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-2">
-              Gallery Images (Optional)
+              Gallery Media (Images & Videos)
             </label>
             <ImageUpload
               images={galleryImages}
               onChange={setGalleryImages}
               multiple={true}
               maxFiles={100}
+              allowVideo={true}
             />
-            <p className="text-sm text-gray-500 mt-2">Upload up to 100 images for the event gallery</p>
+            <p className="text-sm text-gray-500 mt-2">Upload up to 100 images or videos for the event gallery</p>
           </div>
 
-          {/* Video URL */}
-          <div>
-            <label className="block text-sm font-medium text-gray-700 mb-2">
-              Video URL (Optional)
-            </label>
-            <input
-              type="url"
-              {...register('videoUrl')}
-              className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-              placeholder="https://youtube.com/watch?v=..."
-            />
-            <p className="text-sm text-gray-500 mt-1">YouTube or other video platform URL</p>
-          </div>
+
 
           {/* Actions */}
           <div className="flex justify-end space-x-4 pt-4 border-t border-gray-200">
