@@ -18,7 +18,7 @@ const Login = () => {
     
     if (result.success) {
       toast.success('Login successful!');
-      navigate('/secure-panel/notices');
+      navigate('/abgps-admin-portal-2024-secure/notices');
     } else {
       toast.error(result.error);
     }

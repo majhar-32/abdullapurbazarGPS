@@ -47,7 +47,7 @@ const EventList = () => {
       <div className="flex justify-between items-center mb-6">
         <h1 className="text-3xl font-bold text-gray-800">Events</h1>
         <Link
-          to="/secure-panel/events/create"
+          to="/abgps-admin-portal-2024-secure/events/create"
           className="flex items-center space-x-2 bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors"
         >
           <Plus size={20} />
@@ -107,7 +107,7 @@ const EventList = () => {
                   <Eye size={18} />
                 </Link>
                 <Link
-                  to={`/secure-panel/events/edit/${event.id}`}
+                  to={`/abgps-admin-portal-2024-secure/events/edit/${event.id}`}
                   className="p-2 text-blue-600 hover:bg-blue-50 rounded-lg transition-colors"
                   title="Edit"
                 >

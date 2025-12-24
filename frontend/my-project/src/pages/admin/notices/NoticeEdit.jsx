@@ -39,7 +39,7 @@ const NoticeEdit = () => {
     } catch (error) {
       console.error('Error fetching notice:', error);
       alert('Failed to fetch notice details');
-      navigate('/secure-panel/notices');
+      navigate('/abgps-admin-portal-2024-secure/notices');
     } finally {
       setLoading(false);
     }
@@ -75,7 +75,7 @@ const NoticeEdit = () => {
       };
       await noticeService.update(id, noticeData);
       alert('Notice updated successfully!');
-      navigate('/secure-panel/notices');
+      navigate('/abgps-admin-portal-2024-secure/notices');
     } catch (error) {
       console.error('Error updating notice:', error);
       alert('Failed to update notice');
@@ -89,7 +89,7 @@ const NoticeEdit = () => {
       {/* Header */}
       <div className="flex items-center mb-6">
         <button
-          onClick={() => navigate('/secure-panel/notices')}
+          onClick={() => navigate('/abgps-admin-portal-2024-secure/notices')}
           className="mr-4 p-2 hover:bg-gray-100 rounded-lg transition-colors"
         >
           <ArrowLeft size={24} />
@@ -201,7 +201,7 @@ const NoticeEdit = () => {
           <div className="flex justify-end space-x-4 pt-4 border-t border-gray-200">
             <button
               type="button"
-              onClick={() => navigate('/secure-panel/notices')}
+              onClick={() => navigate('/abgps-admin-portal-2024-secure/notices')}
               className="px-6 py-2 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition-colors"
             >
               Cancel

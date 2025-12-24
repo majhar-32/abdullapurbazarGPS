@@ -11,7 +11,7 @@ const AdminNavbar = ({ toggleSidebar }) => {
 
   const handleLogout = () => {
     logout();
-    navigate('/secure-panel/login');
+    navigate('/abgps-admin-portal-2024-secure/login');
   };
 
   return (
