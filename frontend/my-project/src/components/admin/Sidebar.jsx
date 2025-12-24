@@ -17,10 +17,10 @@ const Sidebar = ({ isCollapsed, setIsCollapsed }) => {
   const { t } = useTranslation();
 
   const menuItems = [
-    { name: t('notices'), path: '/abgps-admin-portal-20@#25-s@cure-12-31#/notices', icon: Bell },
-    { name: t('events'), path: '/abgps-admin-portal-20@#25-s@cure-12-31#/events', icon: Calendar },
-    { name: t('managePages'), path: '/abgps-admin-portal-20@#25-s@cure-12-31#/pages', icon: FileText },
-    { name: t('tickerSettings'), path: '/abgps-admin-portal-20@#25-s@cure-12-31#/settings/ticker', icon: Settings },
+    { name: t('notices'), path: '/abgps-admin-portal-20@_25-s@cure-12-31_/notices', icon: Bell },
+    { name: t('events'), path: '/abgps-admin-portal-20@_25-s@cure-12-31_/events', icon: Calendar },
+    { name: t('managePages'), path: '/abgps-admin-portal-20@_25-s@cure-12-31_/pages', icon: FileText },
+    { name: t('tickerSettings'), path: '/abgps-admin-portal-20@_25-s@cure-12-31_/settings/ticker', icon: Settings },
   ];
 
   const isActive = (path) => location.pathname === path;

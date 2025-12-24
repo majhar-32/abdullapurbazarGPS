@@ -233,11 +233,11 @@ export const router = createBrowserRouter([
   },
   // Admin Routes
   {
-    path: '/abgps-admin-portal-20@#25-s@cure-12-31#/login',
+    path: '/abgps-admin-portal-20@_25-s@cure-12-31_/login',
     element: <Login />,
   },
   {
-    path: '/abgps-admin-portal-20@#25-s@cure-12-31#',
+    path: '/abgps-admin-portal-20@_25-s@cure-12-31_',
     element: (
       <ProtectedRoute>
         <AdminLayout />

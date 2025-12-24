@@ -43,7 +43,7 @@ const NoticeCreate = () => {
       };
       await noticeService.create(noticeData);
       alert('Notice created successfully!');
-      navigate('/abgps-admin-portal-20@#25-s@cure-12-31#/notices');
+      navigate('/abgps-admin-portal-20@_25-s@cure-12-31_/notices');
     } catch (error) {
       console.error('Error creating notice:', error);
       alert('Failed to create notice');
@@ -55,7 +55,7 @@ const NoticeCreate = () => {
       {/* Header */}
       <div className="flex items-center mb-6">
         <button
-          onClick={() => navigate('/abgps-admin-portal-20@#25-s@cure-12-31#/notices')}
+          onClick={() => navigate('/abgps-admin-portal-20@_25-s@cure-12-31_/notices')}
           className="mr-4 p-2 hover:bg-gray-100 rounded-lg transition-colors"
         >
           <ArrowLeft size={24} />
@@ -169,7 +169,7 @@ const NoticeCreate = () => {
           <div className="flex justify-end space-x-4 pt-4 border-t border-gray-200">
             <button
               type="button"
-              onClick={() => navigate('/abgps-admin-portal-20@#25-s@cure-12-31#/notices')}
+              onClick={() => navigate('/abgps-admin-portal-20@_25-s@cure-12-31_/notices')}
               className="px-6 py-2 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition-colors"
             >
               Cancel

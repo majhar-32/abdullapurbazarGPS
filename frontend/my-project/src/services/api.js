@@ -30,7 +30,7 @@ api.interceptors.response.use(
       // Token expired or invalid
       localStorage.removeItem('token');
       localStorage.removeItem('user');
-      window.location.href = '/abgps-admin-portal-20@#25-s@cure-12-31#/login';
+      window.location.href = '/abgps-admin-portal-20@_25-s@cure-12-31_/login';
     }
     return Promise.reject(error);
   }
