@@ -57,6 +57,40 @@ const Navbar = () => {
         { name: t('dutyDistribution'), path: '/duty-distribution' },
       ]
     },
+    { name: t('noticeBoard'), path: '/notices', icon: <Megaphone size={18} /> },
+    { name: t('gallery'), path: '/gallery', icon: <Image size={18} /> },
+    { 
+      name: t('aboutUs'), 
+      path: '#', 
+      icon: <Info size={18} />,
+      dropdown: [
+        { name: t('history'), path: '/history' },
+        {
+          name: t('achievements'),
+          path: '#',
+          dropdown: [
+
+            { name: t('national'), path: '/achievements/national' },
+            { name: t('international'), path: '/achievements/international' },
+            { name: t('local'), path: '/achievements/local' },
+          ]
+        },
+        { name: t('monitoringBoard'), path: '/monitoring-board' },
+        { name: t('libraryInfo'), path: '/library-info' },
+        { name: t('ictEquipment'), path: '/ict-equipment' },
+        {
+          name: t('inspection'),
+          path: '#',
+          dropdown: [
+            { name: t('offlineInspection'), path: '/inspection/offline' },
+            { name: t('onlineInspection'), path: '/inspection/online' },
+            { name: t('websiteInspection'), path: '/inspection/website' },
+          ]
+        },
+        { name: t('landInfo'), path: '/land-info' },
+      ]
+
+    },
     {
       name: t('evaluation'),
       path: '#',
@@ -91,38 +125,6 @@ const Navbar = () => {
         { name: t('scholarshipExamInfo'), path: '/scholarship-exam-info' },
 
       ]
-    },
-    { 
-      name: t('aboutUs'), 
-      path: '#', 
-      icon: <Info size={18} />,
-      dropdown: [
-        { name: t('history'), path: '/history' },
-        {
-          name: t('achievements'),
-          path: '#',
-          dropdown: [
-
-            { name: t('national'), path: '/achievements/national' },
-            { name: t('international'), path: '/achievements/international' },
-            { name: t('local'), path: '/achievements/local' },
-          ]
-        },
-        { name: t('monitoringBoard'), path: '/monitoring-board' },
-        { name: t('libraryInfo'), path: '/library-info' },
-        { name: t('ictEquipment'), path: '/ict-equipment' },
-        {
-          name: t('inspection'),
-          path: '#',
-          dropdown: [
-            { name: t('offlineInspection'), path: '/inspection/offline' },
-            { name: t('onlineInspection'), path: '/inspection/online' },
-            { name: t('websiteInspection'), path: '/inspection/website' },
-          ]
-        },
-        { name: t('landInfo'), path: '/land-info' },
-      ]
-
     },
     { 
       name: t('academic'), 
@@ -287,10 +289,7 @@ const Navbar = () => {
 
       ]
     },
-    { name: t('noticeBoard'), path: '/notices', icon: <Megaphone size={18} /> },
-    { name: t('gallery'), path: '/gallery', icon: <Image size={18} /> },
     { name: t('contact'), path: '/contact', icon: <Phone size={18} /> },
-
   ];
 
   // Split nav items: first 6 in main navbar, rest in sidebar
