@@ -8,17 +8,42 @@ const Hero = () => {
   const slides = [
     {
       id: 1,
-      image: '/slider2.jpg',
-      showText: false
-    },
-    {
-      id: 2,
       image: '/slider1.png',
       showText: false
     },
     {
+      id: 2,
+      image: '/slider2.png',
+      showText: false
+    },
+    {
       id: 3,
+      image: '/slider3.png',
+      showText: false
+    },
+    {
+      id: 4,
       image: '/slider4.png',
+      showText: false
+    },
+    {
+      id: 5,
+      image: '/slider5.png',
+      showText: false
+    },
+    {
+      id: 6,
+      image: '/slider6.png',
+      showText: false
+    },
+    {
+      id: 7,
+      image: '/slider7.png',
+      showText: false
+    },
+    {
+      id: 8,
+      image: '/slider8.png',
       showText: false
     },
   ];
