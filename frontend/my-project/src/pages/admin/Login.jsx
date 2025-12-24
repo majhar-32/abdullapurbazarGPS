@@ -18,7 +18,7 @@ const Login = () => {
     
     if (result.success) {
       toast.success('Login successful!');
-      navigate('/secure-panel/dashboard');
+      navigate('/secure-panel/notices');
     } else {
       toast.error(result.error);
     }
