@@ -16,8 +16,9 @@ const fs = require('fs');
 const path = require('path');
 
 // Ensure uploads directory exists
+// Ensure uploads directory exists (only for local dev)
 const uploadDir = path.join(__dirname, 'uploads');
-if (!fs.existsSync(uploadDir)) {
+if (process.env.NODE_ENV !== 'production' && !fs.existsSync(uploadDir)) {
   fs.mkdirSync(uploadDir, { recursive: true });
 }
 
@@ -62,7 +63,9 @@ app.use('/api/committee-members', committeeRoutes);
 app.use('/api/upload', uploadRoutes);
 app.use('/api/dashboard', dashboardRoutes);
 
-app.use('/uploads', express.static(path.join(__dirname, '/uploads')));
+if (process.env.NODE_ENV !== 'production') {
+  app.use('/uploads', express.static(path.join(__dirname, '/uploads')));
+}
 
 // Error Handling Middleware
 app.use((err, req, res, next) => {
@@ -70,6 +73,10 @@ app.use((err, req, res, next) => {
   res.status(500).json({ error: 'Something went wrong!' });
 });
 
-app.listen(PORT, () => {
-  console.log(`Server is running on port ${PORT}`);
-});
+if (process.env.NODE_ENV !== 'production') {
+  app.listen(PORT, () => {
+    console.log(`Server is running on port ${PORT}`);
+  });
+}
+
+module.exports = app;

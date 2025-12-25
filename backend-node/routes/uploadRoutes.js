@@ -20,7 +20,7 @@ router.post('/', (req, res) => {
       return res.status(400).json({ error: 'No file uploaded' });
     }
 
-    res.json({ fileUrl: `/uploads/${req.file.filename}` });
+    res.json({ fileUrl: req.file.path });
   });
 });
 

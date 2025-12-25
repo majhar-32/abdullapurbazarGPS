@@ -1,40 +1,36 @@
-const path = require('path');
+```javascript
 const multer = require('multer');
+const path = require('path');
+const { storage } = require('../config/cloudinary');
 
-const storage = multer.diskStorage({
-  destination(req, file, cb) {
-    cb(null, path.join(__dirname, '../uploads/'));
-  },
-  filename(req, file, cb) {
-    cb(
-      null,
-      `${file.fieldname}-${Date.now()}${path.extname(file.originalname)}`
-    );
-  },
+// Init Upload
+const upload = multer({
+  storage: storage,
+  limits: { fileSize: 100000000 }, // 100MB limit
+  fileFilter: function (req, file, cb) {
+    checkFileType(file, cb);
+  }
 });
 
+// Check File Type
 function checkFileType(file, cb) {
-  // Allowed extensions
-  const filetypes = /jpg|jpeg|png|pdf|mp4|webm|ogg|mov|avi|mkv|wmv/;
-  // Allowed mimetypes (video/.* covers all video types)
-  const mimetypes = /image\/.*|application\/pdf|video\/.*|application\/octet-stream/;
-
+  // Allowed ext
+  const filetypes = /jpeg|jpg|png|gif|pdf|mp4|mov|avi|mkv|wmv/;
+  // Check ext
   const extname = filetypes.test(path.extname(file.originalname).toLowerCase());
-  const mimetype = mimetypes.test(file.mimetype);
+  // Check mime
+  const mimetype = filetypes.test(file.mimetype);
 
-  if (extname && mimetype) {
+  if (mimetype && extname) {
     return cb(null, true);
   } else {
-    cb(new Error('Unsupported file type! Allowed: Images, PDFs, Videos'));
+    // Allow video mimetypes that might not match the extension exactly (common in some uploads)
+    if (file.mimetype.startsWith('video/')) {
+        return cb(null, true);
+    }
+    cb(new Error('Error: Images, PDFs, and Videos Only!'));
   }
 }
 
-const upload = multer({
-  storage,
-  limits: { fileSize: 100 * 1024 * 1024 }, // 100MB limit
-  fileFilter: function (req, file, cb) {
-    checkFileType(file, cb);
-  },
-});
 
 module.exports = upload;
