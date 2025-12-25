@@ -58,6 +58,7 @@ const SchoolFeatures = () => {
     }
   ];
 
+  const features = [
     {
       id: 1,
       title: "Experienced Teachers",
