@@ -10,14 +10,18 @@ const Footer = () => {
           
           {/* Column 1: School Info */}
           <div>
-            <div className="flex items-center space-x-3 mb-6">
-              <img src="/logo.png" alt="Logo" className="h-12 w-12 rounded-full bg-white p-1" />
-              <div>
-                <h3 className="text-xl font-bold leading-tight">Abdullapur Bazar Government<br/>Primary School</h3>
+            <Link to="/" className="flex items-center space-x-2 mb-6">
+              <div className="h-18 w-18 rounded-full overflow-hidden">
+                <img src="/logo.png" alt="Logo" className="h-full w-full object-cover scale-110" />
               </div>
-            </div>
+              <div className="block">
+                <h3 className="text-xl font-bold leading-tight">Abdullapur Bazar GPS</h3>
+                <p className="text-xs text-blue-200">Austagram, Kishoreganj</p>
+                <p className="text-xs text-blue-200">Est. 1977</p>
+              </div>
+            </Link>
             <p className="text-blue-200 text-sm leading-relaxed mb-6">
-              Est. 1990. We are dedicated to providing quality primary education to nurture the future leaders of our nation. Our focus is on holistic development and moral values.
+              Est. 1977. We are dedicated to providing quality primary education to nurture the future leaders of our nation. Our focus is on holistic development and moral values.
             </p>
             <div className="flex space-x-4">
               <a href="https://www.facebook.com/profile.php?id=100015057793581" className="bg-blue-800 p-2 rounded-full hover:bg-blue-600 transition-colors">
