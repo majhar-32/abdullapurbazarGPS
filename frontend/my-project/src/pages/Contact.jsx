@@ -1,5 +1,5 @@
 import React from 'react';
-import { MapPin, Phone, Mail, Facebook, Linkedin, Youtube } from 'lucide-react';
+import { MapPin, Phone, Mail, Facebook, Youtube } from 'lucide-react';
 
 import SEO from '../components/common/SEO';
 
@@ -88,11 +88,8 @@ const Contact = () => {
                 <a href="https://www.facebook.com/profile.php?id=100015057793581" className="bg-blue-50 p-3 rounded-full text-blue-600 hover:bg-blue-600 hover:text-white transition-all duration-300">
                   <Facebook size={20} />
                 </a>
-                <a href="#" className="bg-blue-50 p-3 rounded-full text-blue-600 hover:bg-blue-600 hover:text-white transition-all duration-300">
+                <a href="https://www.youtube.com/channel/UCN9UZVVYZxvgp8iUJ-aAayg" className="bg-blue-50 p-3 rounded-full text-blue-600 hover:bg-blue-600 hover:text-white transition-all duration-300">
                   <Youtube size={20} />
-                </a>
-                <a href="#" className="bg-blue-50 p-3 rounded-full text-blue-600 hover:bg-blue-600 hover:text-white transition-all duration-300">
-                  <Linkedin size={20} />
                 </a>
               </div>
             </div>

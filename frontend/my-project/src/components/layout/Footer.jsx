@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { Phone, Mail, MapPin, Facebook, Linkedin, Youtube, ArrowRight } from 'lucide-react';
+import { Phone, Mail, MapPin, Facebook, Youtube, ArrowRight } from 'lucide-react';
 
 const Footer = () => {
   return (
@@ -27,11 +27,8 @@ const Footer = () => {
               <a href="https://www.facebook.com/profile.php?id=100015057793581" className="bg-blue-800 p-2 rounded-full hover:bg-blue-600 transition-colors">
                 <Facebook size={18} />
               </a>
-              <a href="#" className="bg-blue-800 p-2 rounded-full hover:bg-blue-600 transition-colors">
+              <a href="https://www.youtube.com/channel/UCN9UZVVYZxvgp8iUJ-aAayg" className="bg-blue-800 p-2 rounded-full hover:bg-blue-600 transition-colors">
                 <Youtube size={18} />
-              </a>
-              <a href="#" className="bg-blue-800 p-2 rounded-full hover:bg-blue-600 transition-colors">
-                <Linkedin size={18} />
               </a>
             </div>
           </div>
