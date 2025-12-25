@@ -1,17 +1,17 @@
 import React from 'react';
-import { User, Phone, Mail } from 'lucide-react';
+import { User, Phone } from 'lucide-react';
 
 import SEO from '../../components/common/SEO';
 
 const Teachers = () => {
   // Hardcoded teacher data as requested
   const teachers = [
-    { id: 1, name: "Teacher 1", designation: "Head Teacher", phone: "01700000001", email: "teacher1@school.com", imageUrl: null },
-    { id: 2, name: "Teacher 2", designation: "Assistant Teacher", phone: "01700000002", email: "teacher2@school.com", imageUrl: null },
-    { id: 3, name: "Teacher 3", designation: "Assistant Teacher", phone: "01700000003", email: "teacher3@school.com", imageUrl: null },
-    { id: 4, name: "Teacher 4", designation: "Assistant Teacher", phone: "01700000004", email: "teacher4@school.com", imageUrl: null },
-    { id: 5, name: "Teacher 5", designation: "Assistant Teacher", phone: "01700000005", email: "teacher5@school.com", imageUrl: null },
-    { id: 6, name: "Teacher 6", designation: "Assistant Teacher", phone: "01700000006", email: "teacher6@school.com", imageUrl: null },
+    { id: 1, name: "রফিকুল ইসলাম", designation: "Head Teacher", phone: "01716849460", imageUrl: "/teacher1.png" },
+    { id: 2, name: "রায়হান আহম্মেদ", designation: "Assistant Teacher", phone: "01912225377", imageUrl: "/teacher2.png" },
+    { id: 3, name: "সফিকুল ইসলাম", designation: "Assistant Teacher", phone: "01710196063", imageUrl: "/teacher3.png" },
+    { id: 4, name: "মোস্তফা কামাল", designation: "Assistant Teacher", phone: "01622210023", imageUrl: "/teacher4.png" },
+    { id: 5, name: "হারুন অর রশিদ", designation: "Assistant Teacher", phone: "01608790817", imageUrl: "/teacher5.png" },
+    { id: 6, name: "হেপি আক্তার", designation: "Assistant Teacher", phone: "01936325456", imageUrl: "/teacher6.png" },
   ];
 
   return (
@@ -53,12 +53,6 @@ const Teachers = () => {
                     <a href={`tel:${teacher.phone}`} className="flex items-center gap-2 hover:text-blue-600 transition-colors">
                       <Phone size={16} />
                       <span>{teacher.phone}</span>
-                    </a>
-                  )}
-                  {teacher.email && (
-                    <a href={`mailto:${teacher.email}`} className="flex items-center gap-2 hover:text-blue-600 transition-colors">
-                      <Mail size={16} />
-                      <span>{teacher.email}</span>
                     </a>
                   )}
                 </div>
