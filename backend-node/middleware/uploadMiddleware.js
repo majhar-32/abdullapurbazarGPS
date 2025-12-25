@@ -1,4 +1,4 @@
-```javascript
+
 const multer = require('multer');
 const path = require('path');
 const { storage } = require('../config/cloudinary');
@@ -26,7 +26,7 @@ function checkFileType(file, cb) {
   } else {
     // Allow video mimetypes that might not match the extension exactly (common in some uploads)
     if (file.mimetype.startsWith('video/')) {
-        return cb(null, true);
+      return cb(null, true);
     }
     cb(new Error('Error: Images, PDFs, and Videos Only!'));
   }
