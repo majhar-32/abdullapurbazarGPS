@@ -58,7 +58,6 @@ const SchoolFeatures = () => {
     }
   ];
 
-  const features = [
     {
       id: 1,
       title: "Experienced Teachers",
@@ -76,36 +75,12 @@ const SchoolFeatures = () => {
       borderColor: "border-green-200"
     },
     {
-      id: 3,
-      title: "Co-curricular Activities",
-      description: "Sports, cultural programs, debating, and scouting for holistic development.",
-      icon: <Trophy size={40} />,
-      color: "bg-yellow-100 text-yellow-600",
-      borderColor: "border-yellow-200"
-    },
-    {
-      id: 4,
-      title: "Scholarship Opportunities",
-      description: "Stipends and financial aid for meritorious and needy students.",
-      icon: <Banknote size={40} />,
-      color: "bg-purple-100 text-purple-600",
-      borderColor: "border-purple-200"
-    },
-    {
       id: 5,
       title: "Safe Environment",
       description: "Secure, child-friendly, and green campus environment.",
       icon: <ShieldCheck size={40} />,
       color: "bg-red-100 text-red-600",
       borderColor: "border-red-200"
-    },
-    {
-      id: 6,
-      title: "Modern Library & Lab",
-      description: "Well-stocked library and computer lab facilities.",
-      icon: <Library size={40} />,
-      color: "bg-teal-100 text-teal-600",
-      borderColor: "border-teal-200"
     }
   ];
 

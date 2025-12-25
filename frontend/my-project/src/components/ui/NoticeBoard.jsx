@@ -165,21 +165,21 @@ const NoticeBoard = () => {
               </div>
               <ul className="divide-y divide-gray-100 max-h-[500px] overflow-y-auto custom-scrollbar">
                 {[
-                  { name: 'CRVS', url: 'http://crvs.gov.bd' },
-                  { name: 'IPEMIS', url: 'http://ipemis.dpe.gov.bd' },
-                  { name: 'PESP MIS', url: 'http://pespmis.dpe.gov.bd' },
-                  { name: 'NCTB', url: 'http://www.nctb.gov.bd' },
-                  { name: 'DPE', url: 'http://www.dpe.gov.bd' },
-                  { name: 'MOPME', url: 'https://mopme.gov.bd' },
-                  { name: 'NAPE', url: 'http://nape.gov.bd' },
-                  { name: 'GPF Info', url: 'http://www.cafopfm.gov.bd' },
-                  { name: 'Pay Fixation', url: 'http://www.payfixation.gov.bd' },
-                  { name: 'E-Return', url: 'https://etaxnbr.gov.bd' },
-                  { name: 'Muktopaath', url: 'https://muktopaath.gov.bd' },
-                  { name: 'BKKB', url: 'http://www.bkkb.gov.bd' },
-                  { name: 'BD Scout', url: 'http://www.scouts.gov.bd' },
-                  { name: 'Scratch', url: 'https://scratch.mit.edu' },
-                  { name: 'Teachers Portal', url: 'https://www.teachers.gov.bd' },
+                  { name: 'CRVS', desc: 'Birth Registration', url: 'http://crvs.gov.bd' },
+                  { name: 'IPEMIS', desc: 'Primary Education MIS', url: 'http://ipemis.dpe.gov.bd' },
+                  { name: 'PESP MIS', desc: 'Stipend Program', url: 'http://pespmis.dpe.gov.bd' },
+                  { name: 'NCTB', desc: 'Curriculum Board', url: 'http://www.nctb.gov.bd' },
+                  { name: 'DPE', desc: 'Directorate of Primary Education', url: 'http://www.dpe.gov.bd' },
+                  { name: 'MOPME', desc: 'Ministry of Primary Education', url: 'https://mopme.gov.bd' },
+                  { name: 'NAPE', desc: 'Academy for Primary Education', url: 'http://nape.gov.bd' },
+                  { name: 'GPF Info', desc: 'Provident Fund Info', url: 'http://www.cafopfm.gov.bd' },
+                  { name: 'Pay Fixation', desc: 'Online Pay Fixation', url: 'http://www.payfixation.gov.bd' },
+                  { name: 'E-Return', desc: 'Online Tax Return', url: 'https://etaxnbr.gov.bd' },
+                  { name: 'Muktopaath', desc: 'E-Learning Platform', url: 'https://muktopaath.gov.bd' },
+                  { name: 'BKKB', desc: 'Employee Welfare Board', url: 'http://www.bkkb.gov.bd' },
+                  { name: 'BD Scout', desc: 'Bangladesh Scouts', url: 'http://www.scouts.gov.bd' },
+                  { name: 'Scratch', desc: 'Programming for Kids', url: 'https://scratch.mit.edu' },
+                  { name: 'Teachers Portal', desc: 'Shikkhok Batayon', url: 'https://www.teachers.gov.bd' },
                 ].map((link, index) => (
                   <li key={index}>
                     <a 
@@ -193,7 +193,10 @@ const NoticeBoard = () => {
                           <path fillRule="evenodd" d="M2.25 12c0-5.385 4.365-9.75 9.75-9.75s9.75 4.365 9.75 9.75-4.365 9.75-9.75 9.75S2.25 17.385 2.25 12zm13.36-1.814a.75.75 0 10-1.22-.872l-3.236 4.53L9.53 12.22a.75.75 0 00-1.06 1.06l2.25 2.25a.75.75 0 001.14-.094l3.75-5.25z" clipRule="evenodd" />
                         </svg>
                       </div>
-                      <span className="text-gray-700 font-medium group-hover:text-[#669900] transition-colors">{link.name}</span>
+                      <div className="flex flex-col">
+                        <span className="text-gray-700 font-medium group-hover:text-[#669900] transition-colors">{link.name}</span>
+                        <span className="text-xs text-gray-500 group-hover:text-[#669900]/80 transition-colors">{link.desc}</span>
+                      </div>
                     </a>
                   </li>
                 ))}
