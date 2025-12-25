@@ -11,8 +11,9 @@ export const getApiUrl = () => {
 
   // If in production, force the production backend URL
   // This overrides any incorrect VITE_API_URL (like localhost) that might be set in Netlify
-  if (isProduction) {
-    apiUrl = 'https://schoolwebsite-production-8977.up.railway.app';
+  // If in production, use the env var or fallback (but don't hardcode old backend)
+  if (isProduction && !apiUrl) {
+    console.warn('VITE_API_URL is missing in production!');
   }
   // Fallback for local development if env var is missing
   else if (!apiUrl) {
