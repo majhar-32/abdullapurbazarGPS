@@ -31,7 +31,6 @@ router.get('/signature', (req, res) => {
 
   const signature = cloudinary.utils.api_sign_request({
     timestamp: timestamp,
-    folder: 'school-website',
   }, process.env.CLOUDINARY_API_SECRET);
 
   res.json({

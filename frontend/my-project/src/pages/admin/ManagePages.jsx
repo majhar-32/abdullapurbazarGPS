@@ -367,10 +367,14 @@ const ManagePages = () => {
       formData.append('api_key', signData.apiKey);
       formData.append('timestamp', signData.timestamp);
       formData.append('signature', signData.signature);
-      formData.append('folder', 'school-website');
+      // Removed folder to match backend signature
+      
+      // Determine resource type: 'raw' for PDF to avoid 401, 'auto' for others
+      const isPdf = file.type === 'application/pdf';
+      const resourceType = isPdf ? 'raw' : 'auto';
       
       const uploadResponse = await axios.post(
-        `https://api.cloudinary.com/v1_1/${signData.cloudName}/auto/upload`, 
+        `https://api.cloudinary.com/v1_1/${signData.cloudName}/${resourceType}/upload`, 
         formData, 
         {
           headers: { 'Content-Type': 'multipart/form-data' },
