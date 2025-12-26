@@ -146,7 +146,7 @@ const NoticeBoard = () => {
             <div className="mt-6 flex justify-center">
                 <Link 
                     to="/notices" 
-                    className="bg-blue-600 text-white px-6 py-2 rounded-lg font-semibold hover:bg-blue-700 transition-colors flex items-center gap-2 shadow-md hover:shadow-lg"
+                    className="bg-[#F5AFAF] text-gray-800 px-6 py-2 rounded-lg font-semibold hover:bg-[#E09090] transition-colors flex items-center gap-2 shadow-md hover:shadow-lg"
                 >
                     View All Notice <ArrowRight size={18} />
                 </Link>
