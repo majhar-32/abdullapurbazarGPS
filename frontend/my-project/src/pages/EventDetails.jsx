@@ -95,8 +95,8 @@ const EventDetails = () => {
           </div>
         )}
 
-        {/* Legacy Video URL Section (if any) */}
-        {event.videoUrl && !event.mediaList?.some(m => m.mediaUrl === event.videoUrl) && (
+        {/* YouTube Video Section */}
+        {event.videoUrl && (
           <div className="mb-12">
             <h2 className="text-2xl font-bold text-gray-800 mb-6 flex items-center">
               <PlayCircle className="mr-3 text-red-600" /> Featured Video
@@ -106,7 +106,7 @@ const EventDetails = () => {
                 <iframe 
                   width="100%" 
                   height="100%" 
-                  src={event.videoUrl} 
+                  src={event.videoUrl.replace('watch?v=', 'embed/').replace('youtu.be/', 'youtube.com/embed/')} 
                   title="Event Video" 
                   frameBorder="0" 
                   allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 

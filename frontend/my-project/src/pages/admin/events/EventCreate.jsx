@@ -90,7 +90,7 @@ const EventCreate = () => {
         description,
         thumbnailUrl: uploadedThumbnailUrl,
         mediaList: finalMediaList,
-        videoUrl: '', 
+        videoUrl: data.videoUrl || '', 
       };
       
       await eventService.create(eventData);
@@ -185,6 +185,20 @@ const EventCreate = () => {
               allowVideo={true}
             />
             <p className="text-sm text-gray-500 mt-2">Upload up to 100 images or videos for the event gallery</p>
+          </div>
+
+          {/* YouTube Video URL */}
+          <div>
+            <label className="block text-sm font-medium text-gray-700 mb-2">
+              YouTube Video URL (Optional)
+            </label>
+            <input
+              type="url"
+              {...register('videoUrl')}
+              className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+              placeholder="https://www.youtube.com/watch?v=..."
+            />
+            <p className="text-sm text-gray-500 mt-1">Add a YouTube video link for larger videos (recommended for videos &gt; 5MB)</p>
           </div>
 
 
