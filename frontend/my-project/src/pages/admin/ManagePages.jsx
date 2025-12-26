@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 import { 
   Upload, Eye, EyeOff, Trash2, FileText, Loader2, 
   ChevronDown, ChevronRight, Folder, FolderOpen, X,
@@ -348,9 +349,6 @@ const ManagePages = () => {
   const handleFileUpload = async (pageKey, title, file) => {
     if (!file) return;
 
-    const formData = new FormData();
-    formData.append('file', file);
-
     setUploading(pageKey);
     setProgress(0);
     setCurrentAction(t('uploading') || 'Uploading...');
@@ -358,24 +356,38 @@ const ManagePages = () => {
     try {
       console.log('Starting upload for:', pageKey);
       
-      // 1. Upload File
-      const uploadResponse = await api.post('/upload', formData, {
-        headers: {
-          'Content-Type': 'multipart/form-data',
-        },
-        onUploadProgress: (progressEvent) => {
-          const percentCompleted = Math.round((progressEvent.loaded * 100) / progressEvent.total);
-          setProgress(percentCompleted);
-        },
-      });
+      // 1. Get Signature from Backend
+      setCurrentAction('Preparing upload...');
+      const { data: signData } = await api.get('/upload/signature');
+      
+      // 2. Upload directly to Cloudinary
+      setCurrentAction('Uploading to Cloud...');
+      const formData = new FormData();
+      formData.append('file', file);
+      formData.append('api_key', signData.apiKey);
+      formData.append('timestamp', signData.timestamp);
+      formData.append('signature', signData.signature);
+      formData.append('folder', 'school-website');
+      
+      const uploadResponse = await axios.post(
+        `https://api.cloudinary.com/v1_1/${signData.cloudName}/auto/upload`, 
+        formData, 
+        {
+          headers: { 'Content-Type': 'multipart/form-data' },
+          onUploadProgress: (progressEvent) => {
+            const percentCompleted = Math.round((progressEvent.loaded * 100) / progressEvent.total);
+            setProgress(percentCompleted);
+          },
+        }
+      );
 
       const uploadData = uploadResponse.data;
       console.log('Upload successful:', uploadData);
-      const pdfUrl = uploadData.fileUrl;
+      const pdfUrl = uploadData.secure_url;
 
       setCurrentAction(t('saving') || 'Saving...');
 
-      // 2. Update Page Content
+      // 3. Update Page Content
       const currentPage = pagesData[pageKey] || {};
       const pageData = {
         pageKey,
@@ -395,7 +407,7 @@ const ManagePages = () => {
       await fetchPages(); // Ensure we wait for fetch to complete
     } catch (error) {
       console.error('Error in handleFileUpload:', error);
-      toast.error(t('uploadFailed'));
+      toast.error(t('uploadFailed') + ': ' + (error.response?.data?.error?.message || error.message));
     } finally {
       setUploading(null);
       setProgress(0);
