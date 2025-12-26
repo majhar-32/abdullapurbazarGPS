@@ -56,9 +56,9 @@ router.post('/sign-url', (req, res) => {
       expires_at: Math.floor(Date.now() / 1000) + 3600 // 1 hour validity
     };
 
-    if (version) {
-      options.version = version;
-    }
+    // if (version) {
+    //   options.version = version;
+    // }
 
     const url = cloudinary.url(public_id, options);
     console.log('Signing URL:', { public_id, options, generatedUrl: url }); // Debug log
