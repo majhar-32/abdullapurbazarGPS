@@ -12,16 +12,16 @@ const StatCard = ({ icon: Icon, label, value, suffix = '' }) => {
   return (
     <div
       ref={ref}
-      className="bg-blue-600 p-8 rounded-2xl text-center text-white shadow-lg hover:shadow-xl transition-shadow duration-300 border border-blue-500"
+      className="bg-[#FBEFEF] p-8 rounded-2xl text-center text-gray-800 shadow-lg hover:shadow-xl transition-shadow duration-300 border border-red-100"
     >
-      <div className="bg-blue-500/50 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-6">
-        <Icon size={32} className="text-white" />
+      <div className="bg-white w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-6 shadow-sm">
+        <Icon size={32} className="text-red-500" />
       </div>
-      <h3 className="text-4xl font-bold mb-2">
+      <h3 className="text-4xl font-bold mb-2 text-gray-800">
         {inView ? <CountUp end={value} duration={2.5} separator="," /> : '0'}
         {suffix}
       </h3>
-      <p className="text-blue-100 font-medium uppercase tracking-wider text-sm">{label}</p>
+      <p className="text-gray-600 font-medium uppercase tracking-wider text-sm">{label}</p>
     </div>
   );
 };

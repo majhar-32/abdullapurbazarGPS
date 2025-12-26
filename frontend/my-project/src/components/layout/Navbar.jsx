@@ -360,7 +360,7 @@ const Navbar = () => {
   };
 
   return (
-    <nav className="bg-blue-700 text-white shadow-lg sticky top-0 z-50">
+    <nav className="bg-[#F9DFDF] text-gray-800 shadow-lg sticky top-0 z-50">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-20">
           {/* Logo and School Name */}
@@ -369,9 +369,9 @@ const Navbar = () => {
               <img src="/logo.png" alt="Logo" className="h-full w-full object-cover scale-110" />
             </div>
             <div className="block">
-              <h1 className="text-xl font-bold leading-tight">Abdullapur Bazar GPS</h1>
-              <p className="text-xs text-blue-200">Austagram, Kishoreganj</p>
-              <p className="text-xs text-blue-200">Est. 1977</p>
+              <h1 className="text-xl font-bold leading-tight text-gray-800">Abdullapur Bazar GPS</h1>
+              <p className="text-xs text-gray-600">Austagram, Kishoreganj</p>
+              <p className="text-xs text-gray-600">Est. 1977</p>
             </div>
           </Link>
 
@@ -381,7 +381,7 @@ const Navbar = () => {
               <div key={index} className="relative group">
                 {item.dropdown ? (
                   <div 
-                    className="flex items-center space-x-1 cursor-pointer hover:text-blue-200 transition-colors py-2 whitespace-nowrap"
+                    className="flex items-center space-x-1 cursor-pointer hover:text-blue-600 transition-colors py-2 whitespace-nowrap"
                   >
                     <span className="font-medium text-lg">{item.name}</span>
                     <ChevronDown size={14} />
@@ -389,7 +389,7 @@ const Navbar = () => {
                 ) : (
                   <Link 
                     to={item.path}
-                    className="flex items-center space-x-1 cursor-pointer hover:text-blue-200 transition-colors py-2 whitespace-nowrap"
+                    className="flex items-center space-x-1 cursor-pointer hover:text-blue-600 transition-colors py-2 whitespace-nowrap"
                     onClick={item.path === '/' ? handleHomeClick : undefined}
                   >
                     <span className="font-medium text-lg">{item.name}</span>
@@ -406,7 +406,7 @@ const Navbar = () => {
             {/* More Button for Sidebar */}
             <button
               onClick={toggleSidebar}
-              className="flex items-center space-x-1 cursor-pointer hover:text-blue-200 transition-colors py-2 whitespace-nowrap"
+              className="flex items-center space-x-1 cursor-pointer hover:text-blue-600 transition-colors py-2 whitespace-nowrap"
             >
               <Menu size={18} />
               <span className="font-medium text-lg">{t('more')}</span>
@@ -415,7 +415,7 @@ const Navbar = () => {
             {/* Language Toggle Button */}
             <button
               onClick={toggleLanguage}
-              className="flex items-center justify-center space-x-1 cursor-pointer hover:text-blue-200 transition-colors py-2 whitespace-nowrap ml-2 border border-blue-400 rounded w-16"
+              className="flex items-center justify-center space-x-1 cursor-pointer hover:text-blue-600 transition-colors py-2 whitespace-nowrap ml-2 border border-gray-400 rounded w-16"
             >
               <Globe size={16} />
               <span className="font-medium text-base">{language === 'bn' ? 'EN' : 'BN'}</span>

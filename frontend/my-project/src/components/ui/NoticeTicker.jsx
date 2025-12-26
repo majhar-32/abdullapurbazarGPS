@@ -47,11 +47,11 @@ const NoticeTicker = () => {
   };
 
   return (
-    <div className="bg-blue-900 text-white py-2 overflow-hidden flex items-center">
+    <div className="bg-[#F9DFDF] text-gray-800 py-2 overflow-hidden flex items-center">
       <div className="container mx-auto flex items-center px-4">
-        <div className="flex items-center bg-red-600 px-2 md:px-3 py-1 rounded mr-2 md:mr-4 z-10 shadow-md whitespace-nowrap">
-          <Bell size={16} className="md:mr-2 animate-pulse" />
-          <span className="font-bold text-sm hidden md:inline">Notice</span>
+        <div className="flex items-center bg-[#F5AFAF] px-2 md:px-3 py-1 rounded mr-2 md:mr-4 z-10 shadow-md whitespace-nowrap">
+          <Bell size={16} className="md:mr-2 animate-pulse text-gray-800" />
+          <span className="font-bold text-sm hidden md:inline text-gray-800">Notice</span>
         </div>
         
         <div className="flex-grow overflow-hidden relative h-6">

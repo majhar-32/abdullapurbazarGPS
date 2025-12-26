@@ -29,7 +29,7 @@ const Achievements = () => {
   return (
     <section className="relative py-20 overflow-hidden">
       {/* Background with Gradient */}
-      <div className="absolute inset-0 bg-gradient-to-br from-blue-900 via-blue-800 to-blue-900 z-0" />
+      <div className="absolute inset-0 bg-[#FCF8F8] z-0" />
       
       {/* Decorative Elements */}
       <div className="absolute top-0 left-0 w-full h-full overflow-hidden z-0 opacity-20">
@@ -52,7 +52,7 @@ const Achievements = () => {
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.1 }}
-            className="text-4xl md:text-5xl font-bold text-white mt-2 mb-4"
+            className="text-4xl md:text-5xl font-bold text-gray-800 mt-2 mb-4"
           >
             School Achievements
           </motion.h2>
