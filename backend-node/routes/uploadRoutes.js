@@ -102,9 +102,17 @@ router.get('/proxy-pdf', async (req, res) => {
       expires_at: Math.floor(Date.now() / 1000) + 60 // 1 minute validity for backend fetch
     };
 
-    // if (version) options.version = version; // Keep version out for now based on previous findings
+    // Use Token-based Authentication for robust access
+    const ver = version ? `v${version}` : '';
+    const urlPath = `/${options.resource_type}/${options.type}/${ver ? ver + '/' : ''}${public_id}`;
 
-    const signedUrl = cloudinary.url(public_id, options);
+    const token = cloudinary.utils.generate_auth_token({
+      key: process.env.CLOUDINARY_API_KEY,
+      acl: urlPath,
+      duration: 60 // 1 minute validity
+    });
+
+    const signedUrl = `https://res.cloudinary.com/${process.env.CLOUDINARY_CLOUD_NAME}${urlPath}?__a=${token}`;
     console.log('Proxying PDF from:', signedUrl);
 
     const response = await axios({

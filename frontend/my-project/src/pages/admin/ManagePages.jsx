@@ -514,7 +514,7 @@ const ManagePages = () => {
           
           console.log('Using Proxy URL:', proxyUrl);
           setPreviewUrl(proxyUrl);
-          setIsViewModalOpen(true);
+          return;
         }
       } catch (error) {
         console.error('Failed to sign URL:', error);
