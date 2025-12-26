@@ -32,7 +32,7 @@ const Teachers = () => {
           {teachers.map((teacher) => (
             <div key={teacher.id} className="bg-white rounded-xl shadow-sm hover:shadow-md transition-shadow overflow-hidden border border-gray-100 group">
               {/* Image Section */}
-              <div className="bg-blue-50 h-64 flex items-center justify-center relative overflow-hidden">
+              <div className="bg-blue-50 h-80 flex items-center justify-center relative overflow-hidden">
                 {teacher.imageUrl ? (
                   <img 
                     src={teacher.imageUrl} 
