@@ -495,7 +495,6 @@ const ManagePages = () => {
     if (!url) return;
     
     // If it's a Cloudinary URL, try to get a signed URL for secure access
-    /* 
     if (url.includes('cloudinary.com')) {
       try {
         // Extract public_id and version from URL
@@ -525,7 +524,6 @@ const ManagePages = () => {
         console.error('Failed to sign URL:', error);
       }
     }
-    */
 
     setPreviewUrl(url);
   };
