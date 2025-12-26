@@ -146,7 +146,7 @@ const NoticeBoard = () => {
             <div className="mt-6 flex justify-center">
                 <Link 
                     to="/notices" 
-                    className="bg-[#F5AFAF] text-gray-800 px-6 py-2 rounded-lg font-semibold hover:bg-[#E09090] transition-colors flex items-center gap-2 shadow-md hover:shadow-lg"
+                    className="bg-[#71C9CE] text-gray-800 px-6 py-2 rounded-lg font-semibold hover:bg-[#5FB8BE] transition-colors flex items-center gap-2 shadow-md hover:shadow-lg"
                 >
                     View All Notice <ArrowRight size={18} />
                 </Link>
@@ -157,7 +157,7 @@ const NoticeBoard = () => {
           <div className="w-full lg:w-1/3 space-y-8">
             {/* Important Links Card */}
             <div className="bg-white rounded-xl shadow-md overflow-hidden border border-gray-100">
-              <div className="bg-gradient-to-r from-[#669900] to-[#558000] p-5">
+              <div className="bg-[#71C9CE] p-5">
                 <h3 className="text-xl font-bold text-white flex items-center gap-2">
                     <Link size={20} className="text-white/80" />
                     Important Links
@@ -188,14 +188,14 @@ const NoticeBoard = () => {
                       rel="noopener noreferrer"
                       className="flex items-center p-4 hover:bg-gray-50 transition-colors group"
                     >
-                      <div className="flex-shrink-0 mr-4 text-[#669900] bg-[#669900]/10 p-2 rounded-full group-hover:bg-[#669900] group-hover:text-white transition-all">
+                      <div className="flex-shrink-0 mr-4 text-[#71C9CE] bg-[#71C9CE]/10 p-2 rounded-full group-hover:bg-[#71C9CE] group-hover:text-white transition-all">
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-5 h-5">
                           <path fillRule="evenodd" d="M2.25 12c0-5.385 4.365-9.75 9.75-9.75s9.75 4.365 9.75 9.75-4.365 9.75-9.75 9.75S2.25 17.385 2.25 12zm13.36-1.814a.75.75 0 10-1.22-.872l-3.236 4.53L9.53 12.22a.75.75 0 00-1.06 1.06l2.25 2.25a.75.75 0 001.14-.094l3.75-5.25z" clipRule="evenodd" />
                         </svg>
                       </div>
                       <div className="flex flex-col">
-                        <span className="text-gray-700 font-medium group-hover:text-[#669900] transition-colors">{link.name}</span>
-                        <span className="text-xs text-gray-500 group-hover:text-[#669900]/80 transition-colors">{link.desc}</span>
+                        <span className="text-gray-700 font-medium group-hover:text-[#71C9CE] transition-colors">{link.name}</span>
+                        <span className="text-xs text-gray-500 group-hover:text-[#71C9CE]/80 transition-colors">{link.desc}</span>
                       </div>
                     </a>
                   </li>

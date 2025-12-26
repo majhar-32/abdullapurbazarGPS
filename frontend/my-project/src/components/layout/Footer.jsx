@@ -4,7 +4,7 @@ import { Phone, Mail, MapPin, Facebook, Youtube, ArrowRight } from 'lucide-react
 
 const Footer = () => {
   return (
-    <footer className="bg-[#1B3C53] text-white pt-16 pb-8">
+    <footer className="bg-[#393E46] text-white pt-16 pb-8">
       <div className="container mx-auto px-4">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12 mb-12">
           
@@ -24,10 +24,10 @@ const Footer = () => {
               Est. 1977. We are dedicated to providing quality primary education to nurture the future leaders of our nation. Our focus is on holistic development and moral values.
             </p>
             <div className="flex space-x-4">
-              <a href="https://www.facebook.com/profile.php?id=100063690812490&mibextid=ZbWKwL" className="bg-[#F5AFAF] p-2 rounded-full hover:bg-[#E09090] text-gray-800 transition-colors">
+              <a href="https://www.facebook.com/profile.php?id=100063690812490&mibextid=ZbWKwL" className="bg-[#71C9CE] p-2 rounded-full hover:bg-[#5FB8BE] text-gray-800 transition-colors">
                 <Facebook size={18} />
               </a>
-              <a href="https://www.youtube.com/channel/UCN9UZVVYZxvgp8iUJ-aAayg" className="bg-[#F5AFAF] p-2 rounded-full hover:bg-[#E09090] text-gray-800 transition-colors">
+              <a href="https://www.youtube.com/channel/UCN9UZVVYZxvgp8iUJ-aAayg" className="bg-[#71C9CE] p-2 rounded-full hover:bg-[#5FB8BE] text-gray-800 transition-colors">
                 <Youtube size={18} />
               </a>
             </div>

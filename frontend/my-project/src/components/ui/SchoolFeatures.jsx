@@ -12,7 +12,7 @@ const StatCard = ({ icon: Icon, label, value, suffix = '' }) => {
   return (
     <div
       ref={ref}
-      className="bg-[#FBEFEF] p-8 rounded-2xl text-center text-gray-800 shadow-lg hover:shadow-xl transition-shadow duration-300 border border-red-100"
+      className="bg-[#CBF1F5] p-8 rounded-2xl text-center text-gray-800 shadow-lg hover:shadow-xl transition-shadow duration-300 border border-gray-200"
     >
       <div className="bg-white w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-6 shadow-sm">
         <Icon size={32} className="text-red-500" />

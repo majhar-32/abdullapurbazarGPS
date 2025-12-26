@@ -360,7 +360,7 @@ const Navbar = () => {
   };
 
   return (
-    <nav className="bg-[#F9DFDF] text-gray-800 shadow-lg sticky top-0 z-50">
+    <nav className="bg-[#EEEEEE] text-gray-800 shadow-lg sticky top-0 z-50">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-20">
           {/* Logo and School Name */}
@@ -435,13 +435,13 @@ const Navbar = () => {
 
 
       {/* Mobile Menu Drawer */}
-      <div className={`fixed top-0 left-0 h-full w-80 bg-[#F9DFDF] bg-opacity-95 backdrop-blur-sm z-50 transform transition-transform duration-300 ease-in-out md:hidden shadow-2xl ${isOpen ? 'translate-x-0' : '-translate-x-full'}`}>
+      <div className={`fixed top-0 left-0 h-full w-80 bg-[#EEEEEE] bg-opacity-95 backdrop-blur-sm z-50 transform transition-transform duration-300 ease-in-out md:hidden shadow-2xl ${isOpen ? 'translate-x-0' : '-translate-x-full'}`}>
         <div className="flex justify-between items-center p-4 border-b border-gray-300">
           <h2 className="text-lg font-bold text-gray-800">{t('menu')}</h2>
           <div className="flex items-center space-x-4">
             <button
               onClick={toggleLanguage}
-              className="flex items-center space-x-1 cursor-pointer text-gray-800 border border-gray-400 rounded px-2 py-1 hover:bg-[#F5AFAF] transition-colors"
+              className="flex items-center space-x-1 cursor-pointer text-gray-800 border border-gray-400 rounded px-2 py-1 hover:bg-[#71C9CE] transition-colors"
             >
               <Globe size={16} />
               <span className="font-medium text-xs">{language === 'bn' ? 'EN' : 'BN'}</span>
@@ -457,7 +457,7 @@ const Navbar = () => {
             <div key={index}>
               {item.dropdown ? (
                 <div 
-                  className="px-4 py-3 border-b border-gray-300 flex justify-between items-center cursor-pointer text-gray-800 hover:bg-[#F5AFAF] transition-colors"
+                  className="px-4 py-3 border-b border-gray-300 flex justify-between items-center cursor-pointer text-gray-800 hover:bg-[#71C9CE] transition-colors"
                   onClick={() => toggleDropdown(item.name)}
                 >
                   <div className="flex items-center space-x-2">
@@ -469,7 +469,7 @@ const Navbar = () => {
               ) : (
                 <Link 
                   to={item.path}
-                  className="px-4 py-3 border-b border-gray-300 flex items-center space-x-2 cursor-pointer text-gray-800 hover:bg-[#F5AFAF] transition-colors"
+                  className="px-4 py-3 border-b border-gray-300 flex items-center space-x-2 cursor-pointer text-gray-800 hover:bg-[#71C9CE] transition-colors"
                   onClick={() => {
                     if (item.name === 'Home') handleHomeClick();
                     setIsOpen(false);
@@ -482,12 +482,12 @@ const Navbar = () => {
               
               {/* Mobile Dropdown */}
               {item.dropdown && dropdownOpen === item.name && (
-                <div className="bg-[#FBEFEF]">
+                <div className="bg-[#E0E0E0]">
                   {item.dropdown.map((subItem, subIndex) => (
                     <div key={subIndex}>
                       {subItem.dropdown ? (
                          <div 
-                           className="px-8 py-2 text-xl text-gray-700 hover:text-gray-900 hover:bg-[#F5AFAF] border-b border-gray-200 flex justify-between items-center cursor-pointer"
+                           className="px-8 py-2 text-xl text-gray-700 hover:text-gray-900 hover:bg-[#71C9CE] border-b border-gray-200 flex justify-between items-center cursor-pointer"
                            onClick={(e) => {
                              e.stopPropagation();
                              toggleNestedDropdown(subItem.name);
@@ -499,7 +499,7 @@ const Navbar = () => {
                       ) : (
                         <Link 
                           to={subItem.path} 
-                          className="block px-8 py-2 text-xl text-gray-700 hover:text-gray-900 hover:bg-[#F5AFAF] border-b border-gray-200"
+                          className="block px-8 py-2 text-xl text-gray-700 hover:text-gray-900 hover:bg-[#71C9CE] border-b border-gray-200"
                           onClick={() => setIsOpen(false)}
                         >
                           {subItem.name}
@@ -518,7 +518,7 @@ const Navbar = () => {
                                           <Link
                                             key={deepIndex}
                                             to={deepItem.path}
-                                            className="block py-2 text-xl text-gray-600 hover:text-gray-900 hover:bg-[#F5AFAF] border-b border-gray-100"
+                                            className="block py-2 text-xl text-gray-600 hover:text-gray-900 hover:bg-[#71C9CE] border-b border-gray-100"
                                             onClick={() => setIsOpen(false)}
                                           >
                                             {deepItem.name}
@@ -528,7 +528,7 @@ const Navbar = () => {
                                   ) : (
                                     <Link
                                       to={nestedItem.path}
-                                      className="block px-12 py-2 text-xl text-gray-600 hover:text-gray-900 hover:bg-[#F5AFAF] border-b border-gray-100"
+                                      className="block px-12 py-2 text-xl text-gray-600 hover:text-gray-900 hover:bg-[#71C9CE] border-b border-gray-100"
                                       onClick={() => setIsOpen(false)}
                                     >
                                       {nestedItem.name}
@@ -554,9 +554,9 @@ const Navbar = () => {
       >
         <div className="flex flex-col h-full">
           {/* Sidebar Header */}
-          <div className="flex justify-between items-center p-4 bg-[#F9DFDF] text-gray-800 border-b border-gray-200">
+          <div className="flex justify-between items-center p-4 bg-[#EEEEEE] text-gray-800 border-b border-gray-200">
             <h2 className="text-lg font-bold">{t('more')}</h2>
-            <button onClick={toggleSidebar} className="p-1 hover:bg-[#F5AFAF] rounded transition-colors">
+            <button onClick={toggleSidebar} className="p-1 hover:bg-[#71C9CE] rounded transition-colors">
               <X size={24} />
             </button>
           </div>
@@ -568,7 +568,7 @@ const Navbar = () => {
                 {item.dropdown ? (
                   <div>
                     <div
-                      className="flex items-center justify-between p-3 bg-white hover:bg-[#F5AFAF] text-gray-800 rounded-lg cursor-pointer transition-colors border border-gray-100 shadow-sm"
+                      className="flex items-center justify-between p-3 bg-white hover:bg-[#71C9CE] text-gray-800 rounded-lg cursor-pointer transition-colors border border-gray-100 shadow-sm"
                       onClick={() => toggleDropdown(item.name)}
                     >
                       <div className="flex items-center space-x-2">
@@ -588,7 +588,7 @@ const Navbar = () => {
                             {subItem.dropdown ? (
                               <div>
                                 <div
-                                  className="flex items-center justify-between p-2.5 text-xl font-medium text-gray-700 hover:bg-[#F5AFAF] hover:text-gray-900 rounded-md transition-colors cursor-pointer"
+                                  className="flex items-center justify-between p-2.5 text-xl font-medium text-gray-700 hover:bg-[#71C9CE] hover:text-gray-900 rounded-md transition-colors cursor-pointer"
                                   onClick={(e) => {
                                     e.stopPropagation();
                                     toggleNestedDropdown(subItem.name);
@@ -608,7 +608,7 @@ const Navbar = () => {
                                       <Link
                                         key={nestedIndex}
                                         to={nestedItem.path}
-                                        className="block p-2 text-lg text-gray-600 hover:text-gray-900 hover:bg-[#F5AFAF] rounded transition-colors"
+                                        className="block p-2 text-lg text-gray-600 hover:text-gray-900 hover:bg-[#71C9CE] rounded transition-colors"
                                         onClick={() => {
                                           setSidebarOpen(false);
                                           setDropdownOpen(null);
@@ -624,7 +624,7 @@ const Navbar = () => {
                             ) : (
                               <Link
                                 to={subItem.path}
-                                className="block p-2.5 text-xl font-medium text-gray-700 hover:bg-[#F5AFAF] hover:text-gray-900 rounded-md transition-colors"
+                                className="block p-2.5 text-xl font-medium text-gray-700 hover:bg-[#71C9CE] hover:text-gray-900 rounded-md transition-colors"
                                 onClick={() => {
                                   setSidebarOpen(false);
                                   setDropdownOpen(null);
@@ -641,7 +641,7 @@ const Navbar = () => {
                 ) : (
                   <Link
                     to={item.path}
-                    className="flex items-center space-x-2 p-3 bg-white hover:bg-[#F5AFAF] text-gray-800 rounded-lg transition-colors border border-gray-100 shadow-sm"
+                    className="flex items-center space-x-2 p-3 bg-white hover:bg-[#71C9CE] text-gray-800 rounded-lg transition-colors border border-gray-100 shadow-sm"
                     onClick={() => setSidebarOpen(false)}
                   >
                     <span className="font-semibold">{item.name}</span>

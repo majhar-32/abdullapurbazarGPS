@@ -7,6 +7,7 @@ import Achievements from '../components/ui/Achievements';
 import FadeInSection from '../components/ui/FadeInSection';
 import SchoolFeatures from '../components/ui/SchoolFeatures';
 import MapSection from '../components/ui/MapSection';
+import TeachersSection from '../components/ui/TeachersSection';
 
 import SEO from '../components/common/SEO';
 
@@ -22,6 +23,9 @@ const Home = () => {
         <NoticeBoard />
       </FadeInSection>
       <EventGallery />
+      <FadeInSection>
+        <TeachersSection />
+      </FadeInSection>
       <FadeInSection delay={0.2}>
         <HeadmasterMessage />
       </FadeInSection>

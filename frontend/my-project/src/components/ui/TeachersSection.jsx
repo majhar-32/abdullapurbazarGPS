@@ -1,9 +1,7 @@
 import React from 'react';
 import { User, Phone } from 'lucide-react';
 
-import SEO from '../../components/common/SEO';
-
-const Teachers = () => {
+const TeachersSection = () => {
   // Hardcoded teacher data as requested
   const teachers = [
     { id: 1, name: "মোহাম্মদ রফিকুল ইসলাম", designation: "Head Teacher", phone: "01716849460", imageUrl: "/teacher1.png" },
@@ -15,14 +13,10 @@ const Teachers = () => {
   ];
 
   return (
-    <div className="bg-gray-50 min-h-screen py-12">
-      <SEO 
-        title="Our Teachers" 
-        description="Meet the dedicated teachers of Abdullapur Bazar Government Primary School."
-      />
+    <section className="py-16 bg-white">
       <div className="container mx-auto px-4">
         <div className="text-center mb-12">
-          <h1 className="text-3xl md:text-4xl font-bold text-gray-800 mb-4">Our Teachers</h1>
+          <h2 className="text-3xl md:text-4xl font-bold text-gray-800 mb-4">Our Teachers</h2>
           <p className="text-gray-600 max-w-2xl mx-auto">
             Meet our dedicated team of educators who are committed to nurturing the next generation.
           </p>
@@ -61,8 +55,8 @@ const Teachers = () => {
           ))}
         </div>
       </div>
-    </div>
+    </section>
   );
 };
 
-export default Teachers;
+export default TeachersSection;
