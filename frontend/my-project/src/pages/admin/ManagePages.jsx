@@ -497,13 +497,19 @@ const ManagePages = () => {
     // If it's a Cloudinary URL, try to get a signed URL for secure access
     if (url.includes('cloudinary.com')) {
       try {
-        const matches = url.match(/\/upload\/(?:v\d+\/)?(.+)$/);
-        if (matches && matches[1]) {
-          let publicId = matches[1];
-          console.log('Extracted publicId:', publicId); // Debug log
+        // Extract public_id and version from URL
+        // Matches: .../upload/(v12345)/folder/filename.pdf OR .../upload/folder/filename.pdf
+        // Group 1: Version (optional), Group 2: Public ID
+        const matches = url.match(/\/upload\/(?:(v\d+)\/)?(.+)$/);
+        if (matches && matches[2]) {
+          let version = matches[1]; // e.g., 'v1766740553'
+          let publicId = matches[2];
+          
+          console.log('Extracted:', { publicId, version }); // Debug log
           
           const { data } = await api.post('/upload/sign-url', { 
             public_id: publicId,
+            version: version,
             resource_type: url.includes('/raw/') ? 'raw' : 'auto'
           });
           
