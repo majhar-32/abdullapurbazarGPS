@@ -367,7 +367,7 @@ const ManagePages = () => {
       formData.append('api_key', signData.apiKey);
       formData.append('timestamp', signData.timestamp);
       formData.append('signature', signData.signature);
-      // Removed folder to match backend signature
+      formData.append('folder', 'school-website');
       
       // Determine resource type: 'raw' for PDF to avoid 401, 'auto' for others
       const isPdf = file.type === 'application/pdf';
@@ -512,7 +512,7 @@ const ManagePages = () => {
               {hasContent && (
                 <button 
                   onClick={() => setPreviewUrl(currentData.pdfUrl)}
-                  className="text-blue-600 hover:text-blue-800 text-xs font-medium"
+                  className="text-[#71C9CE] hover:text-[#5FB8BE] text-xs font-medium"
                 >
                   {t('view')}
                 </button>
@@ -520,7 +520,7 @@ const ManagePages = () => {
 
               {/* Actions */}
               <div className="flex items-center space-x-1">
-                <label className="cursor-pointer text-gray-500 hover:text-blue-600 p-1.5 rounded-md hover:bg-blue-50 transition-colors" title={t('uploadPdf')}>
+                <label className="cursor-pointer text-gray-500 hover:text-[#71C9CE] p-1.5 rounded-md hover:bg-[#E0F7FA] transition-colors" title={t('uploadPdf')}>
                   {uploading === pageKey ? (
                     <Loader2 className="animate-spin" size={16} />
                   ) : (
@@ -572,7 +572,7 @@ const ManagePages = () => {
           onClick={() => toggleExpand(item.name)}
         >
           <div className="flex items-center space-x-2 text-gray-700 group-hover:text-gray-900">
-            {isExpanded ? <FolderOpen size={16} className="text-blue-500" /> : <Folder size={16} className="text-gray-400 group-hover:text-blue-500" />}
+            {isExpanded ? <FolderOpen size={16} className="text-[#71C9CE]" /> : <Folder size={16} className="text-gray-400 group-hover:text-[#71C9CE]" />}
             <span className="font-medium text-sm">{item.name}</span>
           </div>
           <ChevronRight size={14} className={`text-gray-400 transition-transform duration-200 ${isExpanded ? 'rotate-90' : ''}`} />
@@ -590,7 +590,7 @@ const ManagePages = () => {
   if (loading) {
     return (
       <div className="flex justify-center items-center h-64">
-        <Loader2 className="animate-spin text-blue-600" size={32} />
+        <Loader2 className="animate-spin text-[#71C9CE]" size={32} />
       </div>
     );
   }
@@ -679,9 +679,10 @@ const ManagePages = () => {
           <Document
             file={previewUrl.startsWith('http') ? previewUrl : `${getApiUrl()}${previewUrl}`}
             onLoadSuccess={onDocumentLoadSuccess}
+            options={{ withCredentials: false }}
             loading={
               <div className="flex flex-col items-center gap-3 mt-20">
-                <Loader2 className="animate-spin text-blue-600" size={40} />
+                <Loader2 className="animate-spin text-[#71C9CE]" size={40} />
                 <p className="text-gray-500 font-medium">{t('loadingDocument')}</p>
               </div>
             }
@@ -696,7 +697,7 @@ const ManagePages = () => {
                   href={previewUrl ? (previewUrl.startsWith('http') ? previewUrl : `${getApiUrl()}${previewUrl}`) : '#'}  
                   target="_blank" 
                   rel="noopener noreferrer"
-                  className="mt-2 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors text-sm font-medium flex items-center gap-2"
+                  className="mt-2 px-4 py-2 bg-[#71C9CE] text-white rounded-lg hover:bg-[#5FB8BE] transition-colors text-sm font-medium flex items-center gap-2"
                 >
                   <FolderOpen size={16} />
                   {t('openInNewTab') || 'Open in New Tab'}
