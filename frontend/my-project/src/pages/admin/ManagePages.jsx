@@ -491,29 +491,23 @@ const ManagePages = () => {
   };
 
   const handleView = async (url) => {
+    console.log('handleView called with:', url); // Debug log
     if (!url) return;
     
     // If it's a Cloudinary URL, try to get a signed URL for secure access
     if (url.includes('cloudinary.com')) {
       try {
-        // Extract public_id from URL
-        // Matches: .../upload/v12345/folder/filename.pdf OR .../upload/folder/filename.pdf
         const matches = url.match(/\/upload\/(?:v\d+\/)?(.+)$/);
         if (matches && matches[1]) {
           let publicId = matches[1];
-          // Remove extension if present (Cloudinary public_ids usually don't include extension, but URL does)
-          // Actually, for raw files, extension IS part of public_id. For images/auto, it might not be.
-          // Let's try sending the full path after upload/ version.
+          console.log('Extracted publicId:', publicId); // Debug log
           
-          // Clean up publicId: remove extension for auto/image, keep for raw?
-          // Safest is to try signing the exact path we extracted.
-          
-          // However, the backend expects public_id.
-          // Let's try to fetch signed URL.
           const { data } = await api.post('/upload/sign-url', { 
             public_id: publicId,
             resource_type: url.includes('/raw/') ? 'raw' : 'auto'
           });
+          
+          console.log('Signed URL response:', data); // Debug log
           
           if (data.url) {
             setPreviewUrl(data.url);
@@ -522,7 +516,6 @@ const ManagePages = () => {
         }
       } catch (error) {
         console.error('Failed to sign URL:', error);
-        // Fallback to original URL
       }
     }
 
