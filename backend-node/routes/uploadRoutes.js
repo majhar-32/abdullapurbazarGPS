@@ -118,11 +118,12 @@ router.get('/proxy-pdf', async (req, res) => {
     const response = await axios({
       method: 'get',
       url: signedUrl,
-      responseType: 'stream'
+      responseType: 'arraybuffer'
     });
 
     res.setHeader('Content-Type', 'application/pdf');
-    response.data.pipe(res);
+    res.setHeader('Content-Length', response.data.length);
+    res.send(response.data);
 
   } catch (error) {
     console.error('Proxy Error:', error.message);
