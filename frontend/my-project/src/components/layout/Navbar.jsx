@@ -360,7 +360,7 @@ const Navbar = () => {
   };
 
   return (
-    <nav className="bg-[#EEEEEE] text-gray-800 shadow-lg sticky top-0 z-50">
+    <nav className="bg-[#3282B8] text-white shadow-lg sticky top-0 z-50">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-20">
           {/* Logo and School Name */}
@@ -369,9 +369,9 @@ const Navbar = () => {
               <img src="/logo.png" alt="Logo" className="h-full w-full object-cover scale-110" />
             </div>
             <div className="block">
-              <h1 className="text-xl font-bold leading-tight text-gray-800">Abdullapur Bazar GPS</h1>
-              <p className="text-xs text-gray-600">Austagram, Kishoreganj</p>
-              <p className="text-xs text-gray-600">Est. 1977</p>
+              <h1 className="text-xl font-bold leading-tight text-white">Abdullapur Bazar GPS</h1>
+              <p className="text-xs text-gray-200">Austagram, Kishoreganj</p>
+              <p className="text-xs text-gray-200">Est. 1977</p>
             </div>
           </Link>
 
@@ -381,7 +381,7 @@ const Navbar = () => {
               <div key={index} className="relative group">
                 {item.dropdown ? (
                   <div 
-                    className="flex items-center space-x-1 cursor-pointer hover:text-blue-600 transition-colors py-2 whitespace-nowrap"
+                    className="flex items-center space-x-1 cursor-pointer hover:text-[#71C9CE] transition-colors py-2 whitespace-nowrap"
                   >
                     <span className="font-medium text-lg">{item.name}</span>
                     <ChevronDown size={14} />
@@ -389,7 +389,7 @@ const Navbar = () => {
                 ) : (
                   <Link 
                     to={item.path}
-                    className="flex items-center space-x-1 cursor-pointer hover:text-blue-600 transition-colors py-2 whitespace-nowrap"
+                    className="flex items-center space-x-1 cursor-pointer hover:text-[#71C9CE] transition-colors py-2 whitespace-nowrap"
                     onClick={item.path === '/' ? handleHomeClick : undefined}
                   >
                     <span className="font-medium text-lg">{item.name}</span>
@@ -406,7 +406,7 @@ const Navbar = () => {
             {/* More Button for Sidebar */}
             <button
               onClick={toggleSidebar}
-              className="flex items-center space-x-1 cursor-pointer hover:text-blue-600 transition-colors py-2 whitespace-nowrap"
+              className="flex items-center space-x-1 cursor-pointer hover:text-[#71C9CE] transition-colors py-2 whitespace-nowrap"
             >
               <Menu size={18} />
               <span className="font-medium text-lg">{t('more')}</span>
@@ -415,7 +415,7 @@ const Navbar = () => {
             {/* Language Toggle Button */}
             <button
               onClick={toggleLanguage}
-              className="flex items-center justify-center space-x-1 cursor-pointer hover:text-blue-600 transition-colors py-2 whitespace-nowrap ml-2 border border-gray-400 rounded w-16"
+              className="flex items-center justify-center space-x-1 cursor-pointer hover:text-[#71C9CE] transition-colors py-2 whitespace-nowrap ml-2 border border-gray-400 rounded w-16"
             >
               <Globe size={16} />
               <span className="font-medium text-base">{language === 'bn' ? 'EN' : 'BN'}</span>
@@ -435,18 +435,18 @@ const Navbar = () => {
 
 
       {/* Mobile Menu Drawer */}
-      <div className={`fixed top-0 left-0 h-full w-80 bg-[#EEEEEE] bg-opacity-95 backdrop-blur-sm z-50 transform transition-transform duration-300 ease-in-out md:hidden shadow-2xl ${isOpen ? 'translate-x-0' : '-translate-x-full'}`}>
+      <div className={`fixed top-0 left-0 h-full w-80 bg-[#3282B8] bg-opacity-95 backdrop-blur-sm z-50 transform transition-transform duration-300 ease-in-out md:hidden shadow-2xl ${isOpen ? 'translate-x-0' : '-translate-x-full'}`}>
         <div className="flex justify-between items-center p-4 border-b border-gray-300">
-          <h2 className="text-lg font-bold text-gray-800">{t('menu')}</h2>
+          <h2 className="text-lg font-bold text-white">{t('menu')}</h2>
           <div className="flex items-center space-x-4">
             <button
               onClick={toggleLanguage}
-              className="flex items-center space-x-1 cursor-pointer text-gray-800 border border-gray-400 rounded px-2 py-1 hover:bg-[#71C9CE] transition-colors"
+              className="flex items-center space-x-1 cursor-pointer text-white border border-gray-400 rounded px-2 py-1 hover:bg-[#71C9CE] transition-colors"
             >
               <Globe size={16} />
               <span className="font-medium text-xs">{language === 'bn' ? 'EN' : 'BN'}</span>
             </button>
-            <button onClick={() => setIsOpen(false)} className="focus:outline-none text-gray-800 hover:text-red-500">
+            <button onClick={() => setIsOpen(false)} className="focus:outline-none text-white hover:text-red-500">
               <X size={24} />
             </button>
           </div>
@@ -457,7 +457,7 @@ const Navbar = () => {
             <div key={index}>
               {item.dropdown ? (
                 <div 
-                  className="px-4 py-3 border-b border-gray-300 flex justify-between items-center cursor-pointer text-gray-800 hover:bg-[#71C9CE] transition-colors"
+                  className="px-4 py-3 border-b border-gray-300 flex justify-between items-center cursor-pointer text-white hover:bg-[#71C9CE] transition-colors"
                   onClick={() => toggleDropdown(item.name)}
                 >
                   <div className="flex items-center space-x-2">
@@ -469,7 +469,7 @@ const Navbar = () => {
               ) : (
                 <Link 
                   to={item.path}
-                  className="px-4 py-3 border-b border-gray-300 flex items-center space-x-2 cursor-pointer text-gray-800 hover:bg-[#71C9CE] transition-colors"
+                  className="px-4 py-3 border-b border-gray-300 flex items-center space-x-2 cursor-pointer text-white hover:bg-[#71C9CE] transition-colors"
                   onClick={() => {
                     if (item.name === 'Home') handleHomeClick();
                     setIsOpen(false);
@@ -554,7 +554,7 @@ const Navbar = () => {
       >
         <div className="flex flex-col h-full">
           {/* Sidebar Header */}
-          <div className="flex justify-between items-center p-4 bg-[#EEEEEE] text-gray-800 border-b border-gray-200">
+          <div className="flex justify-between items-center p-4 bg-[#3282B8] text-white border-b border-gray-200">
             <h2 className="text-lg font-bold">{t('more')}</h2>
             <button onClick={toggleSidebar} className="p-1 hover:bg-[#71C9CE] rounded transition-colors">
               <X size={24} />
