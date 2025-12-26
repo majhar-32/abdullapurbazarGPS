@@ -375,7 +375,7 @@ const ManagePages = () => {
       formData.append('timestamp', signData.timestamp);
       formData.append('signature', signData.signature);
       // formData.append('folder', 'school-website'); // Removed folder to avoid potential access issues
-      formData.append('type', 'private'); 
+      formData.append('type', 'upload'); 
       
       // Use 'raw' for PDF to avoid image-based processing restrictions
       const isPdf = file.type === 'application/pdf';
@@ -495,6 +495,7 @@ const ManagePages = () => {
     if (!url) return;
     
     // If it's a Cloudinary URL, try to get a signed URL for secure access
+    /* 
     if (url.includes('cloudinary.com')) {
       try {
         // Extract public_id and version from URL
@@ -524,6 +525,7 @@ const ManagePages = () => {
         console.error('Failed to sign URL:', error);
       }
     }
+    */
 
     setPreviewUrl(url);
   };
