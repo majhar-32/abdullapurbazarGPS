@@ -129,7 +129,7 @@ router.get('/proxy-pdf', async (req, res) => {
     if (error.response) {
       console.error('Cloudinary Response:', error.response.status, error.response.statusText);
     }
-    res.status(500).send('Failed to fetch PDF');
+    res.status(500).send(`Failed to fetch PDF: ${error.message} ${error.response ? `(${error.response.status}: ${error.response.statusText})` : ''}`);
   }
 });
 
