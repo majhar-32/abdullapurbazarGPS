@@ -1,5 +1,8 @@
 require('dotenv').config();
 const cloudinary = require('cloudinary').v2;
+const axios = require('axios');
+const fs = require('fs');
+const path = require('path');
 
 cloudinary.config({
   cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
@@ -7,76 +10,74 @@ cloudinary.config({
   api_secret: process.env.CLOUDINARY_API_SECRET
 });
 
-const publicId = 'dwe5fzxut48uc6kxlgog.pdf';
-
-async function checkFile() {
+async function testUploadAndAccess() {
   try {
-    console.log('Checking file:', publicId);
+    console.log('--- Starting Fresh Upload Test ---');
 
-    // List resources to find where it went
-    const result = await cloudinary.api.resources({
+    // 1. Create a dummy file
+    const dummyFilePath = path.join(__dirname, 'test_file.txt');
+    fs.writeFileSync(dummyFilePath, 'Hello Cloudinary Private Access!');
+
+    // 2. Upload it as private raw
+    console.log('Uploading test file...');
+    const uploadResult = await cloudinary.uploader.upload(dummyFilePath, {
       resource_type: 'raw',
-      type: 'private', // Check private first
-      max_results: 10
+      type: 'private',
+      public_id: 'test_access_' + Date.now()
     });
 
-    console.log('Found Resources (Private):', result.resources.map(r => ({ id: r.public_id, type: r.type })));
+    console.log('Upload Success!');
+    console.log('Public ID:', uploadResult.public_id);
+    console.log('Version:', uploadResult.version);
 
-    const resultUpload = await cloudinary.api.resources({
-      resource_type: 'raw',
-      type: 'upload', // Check upload next
-      max_results: 10
-    });
+    const publicId = uploadResult.public_id;
+    const version = uploadResult.version;
 
-    console.log('Found Resources (Upload):', resultUpload.resources.map(r => ({ id: r.public_id, type: r.type })));
-
-    const foundResource = result.resources[0];
-    if (!foundResource) {
-      console.log('No private resource found to test.');
-      return;
-    }
-    console.log('Testing with:', foundResource.public_id);
-
-    // Generate Token-based URL
-    // Construct the path: /raw/private/v{version}/{public_id}
-    // Note: Version is required for the path in token generation usually
-    const version = foundResource.version;
-    const path = `/raw/private/v${version}/${foundResource.public_id}`;
-
-    const token = cloudinary.utils.generate_auth_token({
-      key: process.env.CLOUDINARY_API_KEY,
-      acl: path,
-      duration: 3600 // 1 hour
-    });
-
-    const tokenUrl = `https://res.cloudinary.com/${process.env.CLOUDINARY_CLOUD_NAME}${path}?__a=${token}`;
-
-    console.log('\nGenerated Token URL:', tokenUrl);
-
-    // Generate signed URLs to compare
-    const urlWithExpiry = cloudinary.url(foundResource.public_id, {
+    // 3. Test Standard Signed URL
+    console.log('\n--- Testing Standard Signed URL ---');
+    const signedUrl = cloudinary.url(publicId, {
       resource_type: 'raw',
       type: 'private',
       sign_url: true,
       secure: true,
       expires_at: Math.floor(Date.now() / 1000) + 3600
     });
+    console.log('URL:', signedUrl);
 
-    const urlWithoutExpiry = cloudinary.url(foundResource.public_id, {
-      resource_type: 'raw',
-      type: 'private',
-      sign_url: true,
-      secure: true
+    try {
+      const res1 = await axios.get(signedUrl);
+      console.log('✅ Signed URL Fetch SUCCESS! Data:', res1.data);
+    } catch (err) {
+      console.log('❌ Signed URL Fetch FAILED:', err.message);
+      if (err.response) console.log('Status:', err.response.status);
+    }
+
+    // 4. Test Token Auth URL (Exact Path)
+    console.log('\n--- Testing Token Auth URL (Exact Path) ---');
+    const aclPath = `/raw/private/v${version}/${publicId}`;
+    const token = cloudinary.utils.generate_auth_token({
+      key: process.env.CLOUDINARY_API_KEY,
+      acl: aclPath,
+      duration: 3600
     });
+    const tokenUrl = `https://res.cloudinary.com/${process.env.CLOUDINARY_CLOUD_NAME}${aclPath}?__a=${token}`;
+    console.log('URL:', tokenUrl);
 
+    try {
+      const res2 = await axios.get(tokenUrl);
+      console.log('✅ Token URL Fetch SUCCESS! Data:', res2.data);
+    } catch (err) {
+      console.log('❌ Token URL Fetch FAILED:', err.message);
+      if (err.response) console.log('Status:', err.response.status);
+    }
 
-    console.log('\nGenerated URL (With Expiry):', urlWithExpiry);
-    console.log('Generated URL (No Expiry):', urlWithoutExpiry);
+    // 5. Cleanup
+    fs.unlinkSync(dummyFilePath);
+    // await cloudinary.uploader.destroy(publicId, { resource_type: 'raw', type: 'private' });
 
   } catch (error) {
-    console.error('Error fetching resource:', error.message);
-    if (error.error) console.error('Details:', error.error);
+    console.error('Test Failed:', error);
   }
 }
 
-checkFile();
+testUploadAndAccess();

@@ -94,25 +94,15 @@ router.get('/proxy-pdf', async (req, res) => {
   try {
     // Generate a signed URL for the backend to use
     // We use the standard signing here because the backend is trusted
-    const options = {
+    // Use Standard Signed URL (Verified to work)
+    const signedUrl = cloudinary.url(public_id, {
       resource_type: 'raw',
       type: type || 'private',
       sign_url: true,
       secure: true,
-      expires_at: Math.floor(Date.now() / 1000) + 60 // 1 minute validity for backend fetch
-    };
-
-    // Use Token-based Authentication for robust access
-    const ver = version ? `v${version}` : '';
-    const urlPath = `/${options.resource_type}/${options.type}/${ver ? ver + '/' : ''}${public_id}`;
-
-    const token = cloudinary.utils.generate_auth_token({
-      key: process.env.CLOUDINARY_API_KEY,
-      acl: urlPath,
-      duration: 60 // 1 minute validity
+      expires_at: Math.floor(Date.now() / 1000) + 60 // 1 minute validity
     });
 
-    const signedUrl = `https://res.cloudinary.com/${process.env.CLOUDINARY_CLOUD_NAME}${urlPath}?__a=${token}`;
     console.log('Proxying PDF from:', signedUrl);
 
     const response = await axios({
