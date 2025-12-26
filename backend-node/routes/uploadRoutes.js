@@ -44,13 +44,13 @@ router.get('/signature', (req, res) => {
 
 // Generate Signed URL for viewing private/restricted files
 router.post('/sign-url', (req, res) => {
-  const { public_id, resource_type, version } = req.body;
+  const { public_id, resource_type, version, type } = req.body;
   const { cloudinary } = require('../config/cloudinary');
 
   try {
     const options = {
       resource_type: resource_type || 'auto',
-      type: 'upload',
+      type: type || 'upload',
       sign_url: true,
       secure: true,
       expires_at: Math.floor(Date.now() / 1000) + 3600 // 1 hour validity

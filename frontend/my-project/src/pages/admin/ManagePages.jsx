@@ -497,19 +497,21 @@ const ManagePages = () => {
     // If it's a Cloudinary URL, try to get a signed URL for secure access
     if (url.includes('cloudinary.com')) {
       try {
-        // Extract public_id and version from URL
-        // Matches: .../upload/s--sig--/v123/file.pdf OR .../private/v123/file.pdf
-        // Handles optional signature (s--...--) and version (v...)
-        const matches = url.match(/\/(?:upload|authenticated|private)\/(?:s--[^/]+--\/)?(?:v(\d+)\/)?(.+)$/);
-        if (matches && matches[2]) {
-          let version = matches[1]; // e.g., '1766740553'
-          let publicId = matches[2];
+        // Extract type, public_id and version from URL
+        // Matches: .../(upload|private|authenticated)/s--sig--/v123/file.pdf
+        // Group 1: Type, Group 2: Version digits (optional), Group 3: Public ID
+        const matches = url.match(/\/(upload|authenticated|private)\/(?:s--[^/]+--\/)?(?:v(\d+)\/)?(.+)$/);
+        if (matches && matches[3]) {
+          let type = matches[1]; // 'upload', 'private', or 'authenticated'
+          let version = matches[2]; // e.g., '1766740553'
+          let publicId = matches[3];
           
-          console.log('Extracted:', { publicId, version }); // Debug log
+          console.log('Extracted:', { type, publicId, version }); // Debug log
           
           const { data } = await api.post('/upload/sign-url', { 
             public_id: publicId,
             version: version,
+            type: type,
             resource_type: url.includes('/raw/') ? 'raw' : 'auto'
           });
           
