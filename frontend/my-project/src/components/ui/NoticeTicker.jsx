@@ -63,9 +63,9 @@ const NoticeTicker = () => {
           >
             {notices.map((notice, index) => (
               <span key={notice.id || index} className="mr-8 text-sm md:text-base flex items-center">
-                <span className="mx-2 text-[10px] text-gray-400">●</span>
+                <span className="mx-2 text-[10px] text-white">●</span>
                 {notice.title}
-                <span className="mx-2 text-[10px] text-gray-400">●</span>
+                <span className="mx-2 text-[10px] text-white">●</span>
               </span>
             ))}
           </motion.div>
