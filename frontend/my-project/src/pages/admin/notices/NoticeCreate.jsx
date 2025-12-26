@@ -13,6 +13,10 @@ const NoticeCreate = () => {
   const [description, setDescription] = useState('');
   const [attachment, setAttachment] = useState(null);
   const [loading, setLoading] = useState(false);
+  
+  // Progress State
+  const [progress, setProgress] = useState(0);
+  const [currentAction, setCurrentAction] = useState('');
 
   const uploadFile = async (file) => {
     const formData = new FormData();
@@ -21,6 +25,12 @@ const NoticeCreate = () => {
       const response = await api.post('/upload', formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
+        },
+        onUploadProgress: (progressEvent) => {
+          const percentCompleted = Math.round((progressEvent.loaded * 100) / progressEvent.total);
+          // For single file upload, we can map this directly to a portion of the total progress
+          // e.g., upload is 80% of the work, creation is 20%
+          // But let's keep it consistent with the step-based approach for now
         },
       });
       return response.data.fileUrl;
@@ -32,18 +42,37 @@ const NoticeCreate = () => {
 
   const onSubmit = async (data) => {
     setLoading(true);
+    setProgress(0);
+    setCurrentAction('Starting...');
+
     try {
+      // Calculate total operations (Attachment + Create Request)
+      const hasAttachment = attachment && attachment.file;
+      const totalOperations = (hasAttachment ? 1 : 0) + 1;
+      let completedOperations = 0;
+
+      const updateProgress = () => {
+        completedOperations++;
+        const newProgress = Math.round((completedOperations / totalOperations) * 100);
+        setProgress(newProgress);
+      };
+
       let attachmentUrl = '';
-      if (attachment && attachment.file) {
+      if (hasAttachment) {
+        setCurrentAction('Uploading Attachment...');
         attachmentUrl = await uploadFile(attachment.file);
+        updateProgress();
       }
 
+      setCurrentAction('Finalizing Notice...');
       const noticeData = {
         ...data,
         description,
         attachmentUrl
       };
       await noticeService.create(noticeData);
+      updateProgress(); // 100%
+
       alert('Notice created successfully!');
       navigate('/abgps-admin-portal-20@_25-s@cure-12-31_/notices');
     } catch (error) {
@@ -51,6 +80,7 @@ const NoticeCreate = () => {
       alert('Failed to create notice');
     } finally {
       setLoading(false);
+      setProgress(0);
     }
   };
 
@@ -181,13 +211,22 @@ const NoticeCreate = () => {
             <button
               type="submit"
               disabled={!description || loading}
-              className="flex items-center space-x-2 px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+              className="flex items-center space-x-2 px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed min-w-[160px] justify-center"
             >
               {loading ? (
-                <>
-                  <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-white"></div>
-                  <span>Creating...</span>
-                </>
+                <div className="flex flex-col items-center w-full">
+                  <div className="flex items-center space-x-2">
+                    <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-white"></div>
+                    <span className="text-sm">{progress}%</span>
+                  </div>
+                  <div className="w-full bg-blue-800 rounded-full h-1.5 mt-1 overflow-hidden">
+                    <div 
+                      className="bg-white h-1.5 rounded-full transition-all duration-300" 
+                      style={{ width: `${progress}%` }}
+                    ></div>
+                  </div>
+                  <span className="text-xs mt-0.5 opacity-90">{currentAction}</span>
+                </div>
               ) : (
                 <>
                   <Save size={18} />

@@ -6,6 +6,7 @@ import HeadmasterMessage from '../components/ui/HeadmasterMessage';
 import Achievements from '../components/ui/Achievements';
 import FadeInSection from '../components/ui/FadeInSection';
 import SchoolFeatures from '../components/ui/SchoolFeatures';
+import MapSection from '../components/ui/MapSection';
 
 import SEO from '../components/common/SEO';
 
@@ -28,6 +29,7 @@ const Home = () => {
         <SchoolFeatures />
       </FadeInSection>
       <Achievements />
+      <MapSection />
     </div>
   );
 };
