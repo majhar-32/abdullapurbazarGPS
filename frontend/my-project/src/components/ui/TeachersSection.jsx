@@ -31,7 +31,7 @@ const TeachersSection = () => {
                   <img 
                     src={teacher.imageUrl} 
                     alt={teacher.name} 
-                    className="w-full h-full object-cover object-top transition-transform duration-500 group-hover:scale-105" 
+                    className="w-full h-full object-contain transition-transform duration-500 group-hover:scale-105" 
                   />
                 ) : (
                   <User size={64} className="text-blue-300 group-hover:scale-110 transition-transform duration-300" />

@@ -13,6 +13,7 @@ const storage = new CloudinaryStorage({
     folder: 'school-website',
     allowed_formats: ['jpg', 'png', 'jpeg', 'pdf', 'mp4', 'mov', 'avi', 'mkv', 'wmv'],
     resource_type: 'auto', // Auto-detect image or video
+    access_mode: 'public',
   },
 });
 
