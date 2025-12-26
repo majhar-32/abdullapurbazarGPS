@@ -498,11 +498,11 @@ const ManagePages = () => {
     if (url.includes('cloudinary.com')) {
       try {
         // Extract public_id and version from URL
-        // Matches: .../upload/(v12345)/folder/filename.pdf OR .../authenticated/(v12345)/folder/filename.pdf
-        // Group 1: Version digits (optional), Group 2: Public ID
-        const matches = url.match(/\/(?:upload|authenticated)\/(?:v(\d+)\/)?(.+)$/);
+        // Matches: .../upload/s--sig--/v123/file.pdf OR .../authenticated/v123/file.pdf
+        // Handles optional signature (s--...--) and version (v...)
+        const matches = url.match(/\/(?:upload|authenticated)\/(?:s--[^/]+--\/)?(?:v(\d+)\/)?(.+)$/);
         if (matches && matches[2]) {
-          let version = matches[1]; // e.g., '1766740553' (without 'v')
+          let version = matches[1]; // e.g., '1766740553'
           let publicId = matches[2];
           
           console.log('Extracted:', { publicId, version }); // Debug log
