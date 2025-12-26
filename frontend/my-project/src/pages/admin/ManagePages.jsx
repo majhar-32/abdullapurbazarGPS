@@ -509,19 +509,12 @@ const ManagePages = () => {
           
           console.log('Extracted:', { type, publicId, version }); // Debug log
           
-          const { data } = await api.post('/upload/sign-url', { 
-            public_id: publicId,
-            version: version,
-            type: type,
-            resource_type: url.includes('/raw/') ? 'raw' : 'auto'
-          });
+          // Use Backend Proxy to bypass Cloudinary 401 issues
+          const proxyUrl = `${import.meta.env.VITE_API_URL}/upload/proxy-pdf?public_id=${publicId}&type=${type}&version=${version || ''}`;
           
-          console.log('Signed URL response:', data); // Debug log
-          
-          if (data.url) {
-            setPreviewUrl(data.url);
-            return;
-          }
+          console.log('Using Proxy URL:', proxyUrl);
+          setPreviewUrl(proxyUrl);
+          setIsViewModalOpen(true);
         }
       } catch (error) {
         console.error('Failed to sign URL:', error);

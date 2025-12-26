@@ -85,4 +85,44 @@ router.post('/sign-url', (req, res) => {
   }
 });
 
+// Proxy PDF to bypass Cloudinary 401 issues
+router.get('/proxy-pdf', async (req, res) => {
+  const { public_id, type, version } = req.query;
+  const { cloudinary } = require('../config/cloudinary');
+  const axios = require('axios');
+
+  try {
+    // Generate a signed URL for the backend to use
+    // We use the standard signing here because the backend is trusted
+    const options = {
+      resource_type: 'raw',
+      type: type || 'private',
+      sign_url: true,
+      secure: true,
+      expires_at: Math.floor(Date.now() / 1000) + 60 // 1 minute validity for backend fetch
+    };
+
+    // if (version) options.version = version; // Keep version out for now based on previous findings
+
+    const signedUrl = cloudinary.url(public_id, options);
+    console.log('Proxying PDF from:', signedUrl);
+
+    const response = await axios({
+      method: 'get',
+      url: signedUrl,
+      responseType: 'stream'
+    });
+
+    res.setHeader('Content-Type', 'application/pdf');
+    response.data.pipe(res);
+
+  } catch (error) {
+    console.error('Proxy Error:', error.message);
+    if (error.response) {
+      console.error('Cloudinary Response:', error.response.status, error.response.statusText);
+    }
+    res.status(500).send('Failed to fetch PDF');
+  }
+});
+
 module.exports = router;
