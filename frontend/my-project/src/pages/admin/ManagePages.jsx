@@ -490,6 +490,45 @@ const ManagePages = () => {
     return count;
   };
 
+  const handleView = async (url) => {
+    if (!url) return;
+    
+    // If it's a Cloudinary URL, try to get a signed URL for secure access
+    if (url.includes('cloudinary.com')) {
+      try {
+        // Extract public_id from URL
+        // Matches: .../upload/v12345/folder/filename.pdf OR .../upload/folder/filename.pdf
+        const matches = url.match(/\/upload\/(?:v\d+\/)?(.+)$/);
+        if (matches && matches[1]) {
+          let publicId = matches[1];
+          // Remove extension if present (Cloudinary public_ids usually don't include extension, but URL does)
+          // Actually, for raw files, extension IS part of public_id. For images/auto, it might not be.
+          // Let's try sending the full path after upload/ version.
+          
+          // Clean up publicId: remove extension for auto/image, keep for raw?
+          // Safest is to try signing the exact path we extracted.
+          
+          // However, the backend expects public_id.
+          // Let's try to fetch signed URL.
+          const { data } = await api.post('/upload/sign-url', { 
+            public_id: publicId,
+            resource_type: url.includes('/raw/') ? 'raw' : 'auto'
+          });
+          
+          if (data.url) {
+            setPreviewUrl(data.url);
+            return;
+          }
+        }
+      } catch (error) {
+        console.error('Failed to sign URL:', error);
+        // Fallback to original URL
+      }
+    }
+
+    setPreviewUrl(url);
+  };
+
   const renderItem = (item, depth = 0) => {
     const hasChildren = item.dropdown && item.dropdown.length > 0;
     const paddingLeft = `${depth * 1.5}rem`;
@@ -526,7 +565,7 @@ const ManagePages = () => {
               {/* View Link */}
               {hasContent && (
                 <button 
-                  onClick={() => setPreviewUrl(currentData.pdfUrl)}
+                  onClick={() => handleView(currentData.pdfUrl)}
                   className="text-[#71C9CE] hover:text-[#5FB8BE] text-xs font-medium"
                 >
                   {t('view')}
