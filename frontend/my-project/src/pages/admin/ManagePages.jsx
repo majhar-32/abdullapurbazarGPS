@@ -375,11 +375,11 @@ const ManagePages = () => {
       formData.append('timestamp', signData.timestamp);
       formData.append('signature', signData.signature);
       formData.append('folder', 'school-website');
-      formData.append('access_mode', 'public'); // Force public access
+      formData.append('type', 'upload'); // Explicitly set public upload type
       
-      // Determine resource type: 'raw' for PDF to avoid 401, 'auto' for others
-      const isPdf = file.type === 'application/pdf';
-      const resourceType = isPdf ? 'raw' : 'auto';
+      // Use 'auto' resource type to let Cloudinary handle PDFs correctly (usually as image/multi-page)
+      // This avoids strict raw file access issues
+      const resourceType = 'auto';
       
       // Create a clean axios instance to avoid global interceptors
       const uploadInstance = axios.create();
