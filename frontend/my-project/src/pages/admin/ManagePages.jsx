@@ -375,6 +375,7 @@ const ManagePages = () => {
       formData.append('timestamp', signData.timestamp);
       formData.append('signature', signData.signature);
       formData.append('folder', 'school-website');
+      formData.append('access_mode', 'public'); // Force public access
       
       // Determine resource type: 'raw' for PDF to avoid 401, 'auto' for others
       const isPdf = file.type === 'application/pdf';
