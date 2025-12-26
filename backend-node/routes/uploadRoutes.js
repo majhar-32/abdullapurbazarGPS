@@ -60,9 +60,25 @@ router.post('/sign-url', (req, res) => {
     //   options.version = version;
     // }
 
-    const url = cloudinary.url(public_id, options);
-    console.log('Signing URL:', { public_id, options, generatedUrl: url }); // Debug log
-    res.json({ url });
+    // Standard signed URL failing? Switching to Token-based Authentication (URL Token)
+    // This is more robust for raw/private files.
+
+    const ver = version ? `v${version}` : '';
+    // Construct the path: /resource_type/type/version/public_id
+    // Clean up path to avoid double slashes if version is missing
+    const urlPath = `/${options.resource_type}/${options.type}/${ver ? ver + '/' : ''}${public_id}`;
+
+    // Generate the token
+    const token = cloudinary.utils.generate_auth_token({
+      key: process.env.CLOUDINARY_API_KEY,
+      acl: urlPath,
+      duration: 3600 // 1 hour
+    });
+
+    const signedUrl = `https://res.cloudinary.com/${process.env.CLOUDINARY_CLOUD_NAME}${urlPath}?__a=${token}`;
+
+    console.log('Generated Token URL:', { public_id, urlPath, signedUrl }); // Debug log
+    res.json({ url: signedUrl });
   } catch (error) {
     console.error('Error signing URL:', error);
     res.status(500).json({ error: 'Failed to sign URL' });

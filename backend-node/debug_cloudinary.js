@@ -37,6 +37,22 @@ async function checkFile() {
     }
     console.log('Testing with:', foundResource.public_id);
 
+    // Generate Token-based URL
+    // Construct the path: /raw/private/v{version}/{public_id}
+    // Note: Version is required for the path in token generation usually
+    const version = foundResource.version;
+    const path = `/raw/private/v${version}/${foundResource.public_id}`;
+
+    const token = cloudinary.utils.generate_auth_token({
+      key: process.env.CLOUDINARY_API_KEY,
+      acl: path,
+      duration: 3600 // 1 hour
+    });
+
+    const tokenUrl = `https://res.cloudinary.com/${process.env.CLOUDINARY_CLOUD_NAME}${path}?__a=${token}`;
+
+    console.log('\nGenerated Token URL:', tokenUrl);
+
     // Generate signed URLs to compare
     const urlWithExpiry = cloudinary.url(foundResource.public_id, {
       resource_type: 'raw',
