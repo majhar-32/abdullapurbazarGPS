@@ -31,7 +31,7 @@ router.get('/signature', (req, res) => {
 
   const signature = cloudinary.utils.api_sign_request({
     timestamp: timestamp,
-    type: 'upload',
+    type: 'authenticated',
   }, process.env.CLOUDINARY_API_SECRET);
 
   res.json({
@@ -50,6 +50,7 @@ router.post('/sign-url', (req, res) => {
   try {
     const options = {
       resource_type: resource_type || 'auto',
+      type: 'authenticated',
       sign_url: true,
       secure: true,
       expires_at: Math.floor(Date.now() / 1000) + 3600 // 1 hour validity
