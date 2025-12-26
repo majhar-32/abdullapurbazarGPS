@@ -142,7 +142,21 @@ const UniversalPdfViewer = ({ pageKey }) => {
         <div id="pdf-container" className="p-6 flex flex-col items-center bg-gray-100 min-h-[600px]">
           {pageContent.pdfUrl ? (
             <Document
-              file={pageContent.pdfUrl ? (pageContent.pdfUrl.startsWith('http') ? pageContent.pdfUrl : `${getApiUrl()}${pageContent.pdfUrl}`) : null}
+              file={(() => {
+                const url = pageContent.pdfUrl;
+                if (url && url.includes('cloudinary.com')) {
+                  // Extract type, public_id and version
+                  const matches = url.match(/\/(upload|authenticated|private)\/(?:s--[^/]+--\/)?(?:v(\d+)\/)?(.+)$/);
+                  if (matches && matches[3]) {
+                    const type = matches[1];
+                    const version = matches[2];
+                    const publicId = matches[3];
+                    // Use Backend Proxy
+                    return `${getApiUrl()}/api/upload/proxy-pdf?public_id=${publicId}&type=${type}&version=${version || ''}`;
+                  }
+                }
+                return url.startsWith('http') ? url : `${getApiUrl()}${url}`;
+              })()}
               onLoadSuccess={onDocumentLoadSuccess}
               loading={<div className="h-[600px] w-full max-w-[800px] bg-gray-200 animate-pulse rounded"></div>}
               error={
