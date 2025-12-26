@@ -33,13 +33,13 @@ const HeadmasterMessage = () => {
             <div className="relative">
               <Quote className="absolute -top-4 -left-2 text-blue-100 w-16 h-16 -z-10" />
               <p className="text-gray-600 leading-relaxed mb-6 text-lg">
-                "Education is the most powerful weapon which you can use to change the world. 
+                Education is the most powerful weapon which you can use to change the world. 
                 At Abdullapur Bazar Government Primary School, we are committed to providing a nurturing 
                 and inclusive environment where every child can thrive. Our dedicated teachers 
                 work tirelessly to ensure that our students not only excel academically but also 
                 grow into responsible and compassionate citizens. We believe in the holistic 
                 development of our students, fostering their creativity, critical thinking, 
-                and moral values."
+                and moral values.
               </p>
             </div>
 
