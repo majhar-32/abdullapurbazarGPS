@@ -360,6 +360,13 @@ const ManagePages = () => {
       setCurrentAction('Preparing upload...');
       const { data: signData } = await api.get('/upload/signature');
       
+      if (!signData.apiKey || !signData.cloudName) {
+        console.error('Missing Cloudinary config:', signData);
+        throw new Error('Cloudinary configuration is missing. Please check backend environment variables.');
+      }
+
+      console.log('Uploading with signature data:', { ...signData, signature: '***' });
+
       // 2. Upload directly to Cloudinary
       setCurrentAction('Uploading to Cloud...');
       const formData = new FormData();
@@ -373,11 +380,18 @@ const ManagePages = () => {
       const isPdf = file.type === 'application/pdf';
       const resourceType = isPdf ? 'raw' : 'auto';
       
-      const uploadResponse = await axios.post(
+      // Create a clean axios instance to avoid global interceptors
+      const uploadInstance = axios.create();
+      delete uploadInstance.defaults.headers.common['Authorization'];
+
+      const uploadResponse = await uploadInstance.post(
         `https://api.cloudinary.com/v1_1/${signData.cloudName}/${resourceType}/upload`, 
         formData, 
         {
-          headers: { 'Content-Type': 'multipart/form-data' },
+          transformRequest: [(data, headers) => {
+            delete headers['Authorization'];
+            return data;
+          }],
           onUploadProgress: (progressEvent) => {
             const percentCompleted = Math.round((progressEvent.loaded * 100) / progressEvent.total);
             setProgress(percentCompleted);
