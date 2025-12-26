@@ -42,6 +42,8 @@ const ManagePages = () => {
   const [previewUrl, setPreviewUrl] = useState(null);
   const [numPages, setNumPages] = useState(null);
   const [containerWidth, setContainerWidth] = useState(null);
+  const [progress, setProgress] = useState(0);
+  const [currentAction, setCurrentAction] = useState('');
 
   // Resize observer to make PDF responsive
   useEffect(() => {
@@ -350,6 +352,8 @@ const ManagePages = () => {
     formData.append('file', file);
 
     setUploading(pageKey);
+    setProgress(0);
+    setCurrentAction(t('uploading') || 'Uploading...');
 
     try {
       console.log('Starting upload for:', pageKey);
@@ -359,11 +363,17 @@ const ManagePages = () => {
         headers: {
           'Content-Type': 'multipart/form-data',
         },
+        onUploadProgress: (progressEvent) => {
+          const percentCompleted = Math.round((progressEvent.loaded * 100) / progressEvent.total);
+          setProgress(percentCompleted);
+        },
       });
 
       const uploadData = uploadResponse.data;
       console.log('Upload successful:', uploadData);
       const pdfUrl = uploadData.fileUrl;
+
+      setCurrentAction(t('saving') || 'Saving...');
 
       // 2. Update Page Content
       const currentPage = pagesData[pageKey] || {};
@@ -388,6 +398,8 @@ const ManagePages = () => {
       toast.error(t('uploadFailed'));
     } finally {
       setUploading(null);
+      setProgress(0);
+      setCurrentAction('');
     }
   };
 
@@ -687,6 +699,34 @@ const ManagePages = () => {
               />
             ))}
           </Document>
+        </div>
+      </div>
+    </div>
+  )}
+  
+  {/* Loading Overlay */}
+  {uploading && (
+    <div className="fixed inset-0 bg-black/60 backdrop-blur-sm z-[60] flex items-center justify-center p-4 animate-in fade-in duration-200">
+      <div className="bg-white rounded-2xl shadow-2xl p-8 max-w-sm w-full flex flex-col items-center text-center">
+        <div className="relative mb-6">
+          <div className="absolute inset-0 bg-blue-100 rounded-full animate-ping opacity-25"></div>
+          <div className="bg-blue-50 p-4 rounded-full relative">
+            <Loader2 className="animate-spin text-blue-600" size={40} />
+          </div>
+        </div>
+        
+        <h3 className="text-xl font-bold text-gray-800 mb-2">{currentAction}</h3>
+        <p className="text-gray-500 text-sm mb-6">Please wait while we process your file.</p>
+        
+        <div className="w-full bg-gray-100 rounded-full h-2 mb-2 overflow-hidden">
+          <div 
+            className="bg-blue-600 h-full rounded-full transition-all duration-300 ease-out"
+            style={{ width: `${progress}%` }}
+          ></div>
+        </div>
+        <div className="flex justify-between w-full text-xs text-gray-500 font-medium">
+          <span>{progress}%</span>
+          <span>100%</span>
         </div>
       </div>
     </div>
