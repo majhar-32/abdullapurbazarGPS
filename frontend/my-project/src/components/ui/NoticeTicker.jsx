@@ -47,7 +47,7 @@ const NoticeTicker = () => {
   };
 
   return (
-    <div className="bg-[#71C9CE] text-gray-800 py-2 overflow-hidden flex items-center">
+    <div className="bg-[#FF9494] text-gray-800 py-2 overflow-hidden flex items-center">
       <div className="container mx-auto flex items-center px-4">
         <div className="flex items-center bg-[#3282B8] px-2 md:px-3 py-1 rounded mr-2 md:mr-4 z-10 shadow-md whitespace-nowrap">
           <Bell size={16} className="md:mr-2 animate-pulse text-white" />
