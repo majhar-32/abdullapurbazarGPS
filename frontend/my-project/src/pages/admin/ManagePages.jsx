@@ -375,7 +375,7 @@ const ManagePages = () => {
       formData.append('timestamp', signData.timestamp);
       formData.append('signature', signData.signature);
       // formData.append('folder', 'school-website'); // Removed folder to avoid potential access issues
-      formData.append('type', 'authenticated'); 
+      formData.append('type', 'private'); 
       
       // Use 'raw' for PDF to avoid image-based processing restrictions
       const isPdf = file.type === 'application/pdf';
@@ -498,9 +498,9 @@ const ManagePages = () => {
     if (url.includes('cloudinary.com')) {
       try {
         // Extract public_id and version from URL
-        // Matches: .../upload/s--sig--/v123/file.pdf OR .../authenticated/v123/file.pdf
+        // Matches: .../upload/s--sig--/v123/file.pdf OR .../private/v123/file.pdf
         // Handles optional signature (s--...--) and version (v...)
-        const matches = url.match(/\/(?:upload|authenticated)\/(?:s--[^/]+--\/)?(?:v(\d+)\/)?(.+)$/);
+        const matches = url.match(/\/(?:upload|authenticated|private)\/(?:s--[^/]+--\/)?(?:v(\d+)\/)?(.+)$/);
         if (matches && matches[2]) {
           let version = matches[1]; // e.g., '1766740553'
           let publicId = matches[2];
