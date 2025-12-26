@@ -59,11 +59,6 @@ router.post('/sign-url', (req, res) => {
       options.version = version;
     }
 
-    // Force 'authenticated' type for raw files (PDFs) as they are likely restricted
-    if (resource_type === 'raw') {
-      options.type = 'authenticated';
-    }
-
     const url = cloudinary.url(public_id, options);
     console.log('Signing URL:', { public_id, options, generatedUrl: url }); // Debug log
     res.json({ url });
