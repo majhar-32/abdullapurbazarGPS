@@ -361,9 +361,7 @@ const ManagePages = () => {
       const timestamp = Math.round(new Date().getTime() / 1000);
       const paramsToSign = {
         timestamp: timestamp,
-        folder: 'school-website',
-        type: 'private',
-        access_mode: 'authenticated' // Enforce authenticated access
+        folder: 'school-website'
       };
 
       // Get signature from backend
@@ -379,10 +377,7 @@ const ManagePages = () => {
       formData.append('api_key', apiKey);
       formData.append('timestamp', timestamp);
       formData.append('signature', signature);
-      // formData.append('upload_preset', 'school_website'); // Removed to avoid conflict
       formData.append('folder', 'school-website');
-      formData.append('type', 'private');
-      formData.append('access_mode', 'authenticated'); // Enforce authenticated access
       
       // Use 'raw' for PDF to avoid image-based processing restrictions
       const isPdf = file.type === 'application/pdf';
@@ -502,34 +497,9 @@ const ManagePages = () => {
     if (!url) return;
     
     // If it's a Cloudinary URL, try to get a signed URL for secure access
-    if (url.includes('cloudinary.com')) {
-      try {
-        // Extract type, public_id and version from URL
-        // Matches: .../(upload|private|authenticated)/s--sig--/v123/file.pdf
-        // Group 1: Type, Group 2: Version digits (optional), Group 3: Public ID
-        const matches = url.match(/\/(upload|authenticated|private)\/(?:s--[^/]+--\/)?(?:v(\d+)\/)?(.+)$/);
-        if (matches && matches[3]) {
-          let type = matches[1]; // 'upload', 'private', or 'authenticated'
-          let version = matches[2]; // e.g., '1766740553'
-          let publicId = matches[3];
-          
-          console.log('Extracted:', { type, publicId, version }); // Debug log
-          
-          // Use Backend Proxy to bypass Cloudinary 401 issues
-          // Ensure /api prefix is present if VITE_API_URL doesn't have it
-          const apiUrl = import.meta.env.VITE_API_URL || '';
-          const baseUrl = apiUrl.endsWith('/api') ? apiUrl : `${apiUrl}/api`;
-         // Construct Proxy URL with version
-      const proxyUrl = `${baseUrl}/upload/proxy-pdf?public_id=${publicId}&type=${type}&version=${version || ''}`;
-      
-      console.log('Using Proxy URL:', proxyUrl);
-      setPreviewUrl(proxyUrl);
-          return;
-        }
-      } catch (error) {
-        console.error('Failed to sign URL:', error);
-      }
-    }
+    // Use the direct Cloudinary URL (Public Access)
+    // This avoids complex authentication issues with 'private'/'authenticated' files
+    setPreviewUrl(url);
 
     setPreviewUrl(url);
   };

@@ -144,23 +144,7 @@ const UniversalPdfViewer = ({ pageKey }) => {
             <Document
               file={(() => {
                 const url = pageContent.pdfUrl;
-                if (url && url.includes('cloudinary.com')) {
-                  // Extract type, public_id and version
-                  const matches = url.match(/\/(upload|authenticated|private)\/(?:s--[^/]+--\/)?(?:v(\d+)\/)?(.+)$/);
-                  if (matches && matches[3]) {
-                    const type = matches[1];
-                    const version = matches[2];
-                    const publicId = matches[3];
-                    // Use Backend Proxy
-                    const apiUrl = getApiUrl();
-                    const baseUrl = apiUrl.endsWith('/api') ? apiUrl : `${apiUrl}/api`;
-                    // Construct Proxy URL with version
-                    const proxyUrl = `${baseUrl}/upload/proxy-pdf?public_id=${publicId}&type=${type}&version=${version || ''}`;
-                    
-                    console.log('Using Proxy URL:', proxyUrl);
-                    return proxyUrl;
-                  }
-                }
+                // Use direct URL for public files
                 return url.startsWith('http') ? url : `${getApiUrl()}${url}`;
               })()}
               onLoadSuccess={onDocumentLoadSuccess}
