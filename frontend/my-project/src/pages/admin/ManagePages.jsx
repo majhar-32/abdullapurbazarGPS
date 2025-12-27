@@ -705,7 +705,7 @@ const ManagePages = () => {
           <Document
             file={previewUrl.startsWith('http') ? previewUrl : `${getApiUrl()}${previewUrl}`}
             onLoadSuccess={onDocumentLoadSuccess}
-            options={{ withCredentials: false }}
+            onLoadError={(error) => console.error('PDF Load Error:', error)}
             loading={
               <div className="flex flex-col items-center gap-3 mt-20">
                 <Loader2 className="animate-spin text-[#71C9CE]" size={40} />
