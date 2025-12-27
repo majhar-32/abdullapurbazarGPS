@@ -361,7 +361,6 @@ const ManagePages = () => {
       const timestamp = Math.round(new Date().getTime() / 1000);
       const paramsToSign = {
         timestamp: timestamp,
-        upload_preset: 'school_website',
         folder: 'school-website',
         type: 'private',
         access_mode: 'authenticated' // Enforce authenticated access
@@ -380,7 +379,7 @@ const ManagePages = () => {
       formData.append('api_key', apiKey);
       formData.append('timestamp', timestamp);
       formData.append('signature', signature);
-      formData.append('upload_preset', 'school_website');
+      // formData.append('upload_preset', 'school_website'); // Removed to avoid conflict
       formData.append('folder', 'school-website');
       formData.append('type', 'private');
       formData.append('access_mode', 'authenticated'); // Enforce authenticated access
