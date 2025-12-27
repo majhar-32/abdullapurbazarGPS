@@ -513,10 +513,11 @@ const ManagePages = () => {
           // Ensure /api prefix is present if VITE_API_URL doesn't have it
           const apiUrl = import.meta.env.VITE_API_URL || '';
           const baseUrl = apiUrl.endsWith('/api') ? apiUrl : `${apiUrl}/api`;
-          const proxyUrl = `${baseUrl}/upload/proxy-pdf?public_id=${publicId}&type=${type}&version=${version || ''}`;
-          
-          console.log('Using Proxy URL:', proxyUrl);
-          setPreviewUrl(proxyUrl);
+         // Construct Proxy URL with version
+      const proxyUrl = `${baseUrl}/upload/proxy-pdf?public_id=${publicId}&type=${type}&version=${version || ''}`;
+      
+      console.log('Using Proxy URL:', proxyUrl);
+      setPreviewUrl(proxyUrl);
           return;
         }
       } catch (error) {

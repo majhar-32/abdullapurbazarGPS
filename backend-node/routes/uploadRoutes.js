@@ -100,6 +100,7 @@ router.get('/proxy-pdf', async (req, res) => {
       type: type || 'private',
       sign_url: true,
       secure: true,
+      version: version, // Explicitly use version from query
       expires_at: Math.floor(Date.now() / 1000) + 60 // 1 minute validity
     });
 

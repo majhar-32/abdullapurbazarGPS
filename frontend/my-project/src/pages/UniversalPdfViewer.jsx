@@ -154,7 +154,11 @@ const UniversalPdfViewer = ({ pageKey }) => {
                     // Use Backend Proxy
                     const apiUrl = getApiUrl();
                     const baseUrl = apiUrl.endsWith('/api') ? apiUrl : `${apiUrl}/api`;
-                    return `${baseUrl}/upload/proxy-pdf?public_id=${publicId}&type=${type}&version=${version || ''}`;
+                    // Construct Proxy URL with version
+                    const proxyUrl = `${baseUrl}/upload/proxy-pdf?public_id=${publicId}&type=${type}&version=${version || ''}`;
+                    
+                    console.log('Using Proxy URL:', proxyUrl);
+                    return proxyUrl;
                   }
                 }
                 return url.startsWith('http') ? url : `${getApiUrl()}${url}`;
