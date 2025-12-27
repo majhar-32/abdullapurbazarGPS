@@ -25,14 +25,15 @@ router.post('/', (req, res) => {
 });
 
 // Get Cloudinary Signature for Direct Upload
-router.get('/signature', (req, res) => {
-  const timestamp = Math.round((new Date()).getTime() / 1000);
+router.post('/signature', (req, res) => {
+  const { timestamp, folder, type, access_mode } = req.body;
   const { cloudinary } = require('../config/cloudinary');
 
   const signature = cloudinary.utils.api_sign_request({
     timestamp: timestamp,
-    type: 'private',
-    access_mode: 'authenticated'
+    folder: folder,
+    type: type,
+    access_mode: access_mode
   }, process.env.CLOUDINARY_API_SECRET);
 
   res.json({
