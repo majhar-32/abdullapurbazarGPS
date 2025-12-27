@@ -97,12 +97,11 @@ router.get('/proxy-pdf', async (req, res) => {
     // Generate a signed URL for the backend to use
     // We use the standard signing here because the backend is trusted
     // Use Standard Signed URL (Verified to work)
-    // Force type to 'authenticated' for raw files as we are enforcing access_mode: authenticated
-    const resourceType = 'authenticated';
+    // Even with access_mode: authenticated, raw files are accessed via type: private
 
     const signedUrl = cloudinary.url(public_id, {
       resource_type: 'raw',
-      type: resourceType,
+      type: type || 'private',
       sign_url: true,
       secure: true,
       version: version, // Explicitly use version from query
