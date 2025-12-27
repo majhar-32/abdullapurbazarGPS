@@ -32,6 +32,7 @@ router.get('/signature', (req, res) => {
   const signature = cloudinary.utils.api_sign_request({
     timestamp: timestamp,
     type: 'private',
+    access_mode: 'authenticated'
   }, process.env.CLOUDINARY_API_SECRET);
 
   res.json({
@@ -51,6 +52,7 @@ router.post('/sign-url', (req, res) => {
     const options = {
       resource_type: resource_type || 'auto',
       type: type || 'private',
+      access_mode: 'authenticated', // Enforce authenticated access
       sign_url: true,
       secure: true,
       expires_at: Math.floor(Date.now() / 1000) + 3600 // 1 hour validity
@@ -95,9 +97,12 @@ router.get('/proxy-pdf', async (req, res) => {
     // Generate a signed URL for the backend to use
     // We use the standard signing here because the backend is trusted
     // Use Standard Signed URL (Verified to work)
+    // Force type to 'authenticated' for raw files as we are enforcing access_mode: authenticated
+    const resourceType = 'authenticated';
+
     const signedUrl = cloudinary.url(public_id, {
       resource_type: 'raw',
-      type: type || 'private',
+      type: resourceType,
       sign_url: true,
       secure: true,
       version: version, // Explicitly use version from query

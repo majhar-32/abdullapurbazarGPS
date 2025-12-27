@@ -358,25 +358,32 @@ const ManagePages = () => {
       
       // 1. Get Signature from Backend
       setCurrentAction('Preparing upload...');
-      const { data: signData } = await api.get('/upload/signature');
-      
-      if (!signData.apiKey || !signData.cloudName) {
-        console.error('Missing Cloudinary config:', signData);
-        throw new Error('Cloudinary configuration is missing. Please check backend environment variables.');
-      }
+      const timestamp = Math.round(new Date().getTime() / 1000);
+      const paramsToSign = {
+        timestamp: timestamp,
+        upload_preset: 'school_website',
+        folder: 'school-website',
+        type: 'private',
+        access_mode: 'authenticated' // Enforce authenticated access
+      };
 
-      console.log('Uploading with signature data:', { ...signData, signature: '***' });
+      // Get signature from backend
+      const signatureResponse = await axios.post(`${import.meta.env.VITE_API_URL}/api/upload/signature`, paramsToSign);
+      const { signature, apiKey, cloudName } = signatureResponse.data;
+
+      console.log('Uploading with signature data:', { signature: '***', timestamp, cloudName, apiKey });
 
       // 2. Upload directly to Cloudinary
       setCurrentAction('Uploading to Cloud...');
       const formData = new FormData();
       formData.append('file', file);
-      formData.append('api_key', signData.apiKey);
-      formData.append('timestamp', signData.timestamp);
-      formData.append('signature', signData.signature);
-      // formData.append('folder', 'school-website'); // Removed folder to avoid potential access issues
-      // formData.append('access_mode', 'public'); // Removed to avoid conflict with private type
-      formData.append('type', 'private'); 
+      formData.append('api_key', apiKey);
+      formData.append('timestamp', timestamp);
+      formData.append('signature', signature);
+      formData.append('upload_preset', 'school_website');
+      formData.append('folder', 'school-website');
+      formData.append('type', 'private');
+      formData.append('access_mode', 'authenticated'); // Enforce authenticated access
       
       // Use 'raw' for PDF to avoid image-based processing restrictions
       const isPdf = file.type === 'application/pdf';
