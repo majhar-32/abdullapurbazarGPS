@@ -394,7 +394,7 @@ const ManagePages = () => {
       delete uploadInstance.defaults.headers.common['Authorization'];
 
       const uploadResponse = await uploadInstance.post(
-        `https://api.cloudinary.com/v1_1/${signData.cloudName}/${resourceType}/upload`, 
+        `https://api.cloudinary.com/v1_1/${cloudName}/${resourceType}/upload`, 
         formData, 
         {
           transformRequest: [(data, headers) => {
