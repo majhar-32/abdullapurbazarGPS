@@ -370,11 +370,11 @@ const ManagePages = () => {
       // 2. Upload directly to Cloudinary
       setCurrentAction('Uploading to Cloud...');
       const formData = new FormData();
-      formData.append('file', file);
       formData.append('api_key', apiKey);
       formData.append('timestamp', timestamp);
       formData.append('signature', signature);
       formData.append('folder', 'school-website');
+      formData.append('file', file); // Append file last for better processing
       
       // Use 'raw' for PDF to avoid image-based processing restrictions
       const isPdf = file.type === 'application/pdf';
