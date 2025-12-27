@@ -737,8 +737,8 @@ const ManagePages = () => {
                 pageNumber={index + 1} 
                 width={containerWidth ? Math.min(containerWidth - 48, 800) : undefined}
                 className="mb-4 shadow-md"
-                renderAnnotationLayer={true}
-                renderTextLayer={true}
+                renderAnnotationLayer={false}
+                renderTextLayer={false}
               />
             ))}
           </Document>
